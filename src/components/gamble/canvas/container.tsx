@@ -1,20 +1,31 @@
-import React,{ useState } from 'react';
+import React from 'react';
 import { connect, ConnectedProps } from 'react-redux'
 
 import styled from 'styled-components'
 
-import data from "../../../data.json"
+import { StyledContainer} from './style'
 
 import { IAppState } from 'store'
+
+//import ReactPixi from '@inlet/react-pixi'
+
+import data from "../../../data.json"
 
 const mapStateToProps = (state: IAppState) => ({
   fetching: state.common.fetching
 })
 const mapActionsToProps = (dispatch) => ({
 })
-import { StyledContainer} from './style'
 
 const connector = connect(mapStateToProps, mapActionsToProps)
+
+
+
+
+const { useState, useEffect, useMemo, useCallback, useRef, forwardRef } = React;
+// const { Stage, Container, Sprite, PixiComponent, useApp, useTick } = ReactPixi;
+// const { Texture } = PIXI;
+
 
 const Button = styled.button`
   display: inline-block;

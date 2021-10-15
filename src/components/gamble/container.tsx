@@ -4,8 +4,6 @@ import { connect, ConnectedProps } from 'react-redux'
 import Bet from "./bet"
 import Canvas from "./canvas"
 
-import { Sprite } from '@inlet/react-pixi'
-
 import { IAppState } from 'store'
 
 const mapStateToProps = (state: IAppState) => ({
