@@ -32,36 +32,16 @@ const Button = styled.button`
     }
   `
 
-const Bet: React.FC = () => {
+const Canvas: React.FC = () => {
 
   const [bet, setBet] = useState(5);
   const filteredBet = data.bet.filter((el, i) => (+el >= bet || +el >= 10) ? bet : null).slice(0, 4);
 
   return (
-    <StyledContainer>
-      <form onSubmit={()=>alert(bet)}>
-        <div>
-        <button type="button" onClick={()=>setBet(bet > 1  ? bet - 1 : 1)}>
-        -
-        </button>
-        <input type="text" name="current_bet" value={bet} onChange={(e) => setBet(e.target.value) }/>
-        <button type="button" onClick={()=>setBet(bet < 100 ? +bet + 1 : 100)}>
-        +
-        </button>
-        </div>
-
-        <div>
-        {
-          filteredBet.map((el, index) => <Button type="button" key={index} onClick={()=>setBet(el)}>{el}$</Button>)
-        }
-
-        </div>
-        <Button primary type="submit" >
-          bet
-        </Button>
-      </form>
-    </StyledContainer>
+      <canvas>
+      h
+      </canvas>
   )
 };
 
-export default connector(Bet)
+export default connector(Canvas)

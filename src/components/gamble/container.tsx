@@ -2,6 +2,7 @@ import React from 'react';
 import { connect, ConnectedProps } from 'react-redux'
 
 import Bet from "./bet"
+import Canvas from "./canvas"
 
 import { IAppState } from 'store'
 
@@ -20,6 +21,7 @@ export type TComponentProps = {
 const Container: React.FC<TComponentProps> = (props) => {
   return (
       <React.Fragment>
+          <Canvas />
           <Bet />
       </React.Fragment>
   )
