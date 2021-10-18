@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux'
 
+import { StyledContainer } from './style'
+
+import Client from "./client"
 import Bet from "./bet"
 import Canvas from "./canvas"
+import Counter from "./counter"
 
 import { IAppState } from 'store'
-
-import { useTick } from '@inlet/react-pixi';
 
 const mapStateToProps = (state: IAppState) => ({
   fetching: state.common.fetching
@@ -23,24 +25,15 @@ export type TComponentProps = {
 const Container: React.FC<TComponentProps> = (props) => {
 
   const [rate, setRate] = useState<boolean>(false);
-
-  let i = 0;
-    const [x, setX] = useState(100);
-    const [y, setY] = useState(340);
-    
-    const tick = () => rate? useTick(delta => {
-      i += 2 * delta;
-      console.log(i);
-      
-      setX(Math.sin(i) * 10);
-      setY(Math.sin(i / 1.5) * 10);
-  }) : null;
+  const [count, setCount] = useState(0);
 
   return (
-    <React.Fragment>
-      <Canvas rate={rate} x={x} y={y}/>
-      <Bet rate={rate} setRate={setRate}/>
-    </React.Fragment>
+      <StyledContainer>
+        <Client />
+        <Canvas rate={rate} setCount={setCount}/>
+        <Bet rate={rate} setRate={setRate} />
+        <Counter count={count}/>
+      </StyledContainer>
   )
 }
 

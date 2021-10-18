@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
 export const StyledContainer = styled.div`
-  background: #ff5c87;
+  background: #090f1f;
   border-radius:6px;
-  width:800px;
+  width: 300px;
+  height: 660px;
   margin: 10px;
-  padding: 5px;
-  grid-row: 2 / 1;
+  grid-row: 1 / 3;
 `

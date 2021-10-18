@@ -32,33 +32,26 @@ const Button = styled.button`
     }
   `
 
-const Bet: React.FC = ({rate, setRate, setX, setY}:boolean | any) => {
+const Bet: React.FC = ({ rate, setRate, setX, setY }: boolean | any) => {
 
   const [bet, setBet] = useState(5);
   const filteredBet = data.bet.filter((el, i) => (el >= bet || el >= 10) ? bet : null).slice(0, 4);
-  console.log(rate);
-  
 
   return (
     <StyledContainer>
       <form onSubmit={() => alert(bet)}>
         <div>
-          <button type="button" onClick={() => setBet(bet > 1 ? bet - 1 : 1)}>
-            -
-          </button>
+          <button type="button" onClick={() => setBet(bet > 1 ? bet - 1 : 1)}> - </button>
           <input type="text" name="current_bet" value={bet} onChange={(e) => setBet(+e.target.value)} />
-          <button type="button" onClick={() => setBet(bet < 100 ? bet + 1 : 100)}>
-            +
-          </button>
+          <button type="button" onClick={() => setBet(bet < 100 ? bet + 1 : 100)}> + </button>
         </div>
 
         <div>
           {
             filteredBet.map((el, index) => <Button type="button" key={index} onClick={() => setBet(el)}>{el}$</Button>)
           }
-
         </div>
-        <Button type="button" primary onClick={()=>setRate(rate ? false: true)}>
+        <Button type="button" primary onClick={() => setRate(rate ? false : true)}>
           bet
         </Button>
       </form>

@@ -5,11 +5,13 @@ import { connect, ConnectedProps } from 'react-redux'
 import * as PIXI from 'pixi.js';
 import { Stage, Container, AnimatedSprite, useApp, useTick, Sprite } from '@inlet/react-pixi';
 
-import KingHuman from "./img/animations1.png"
-import KingHumanJson from "./img/animations1.json";
+// import KingHuman from "./img/animations1.png"
+// import KingHumanJson from "./img/animations1.json";
 import avia from "./img/plane.png"
 
 import { IAppState } from 'store'
+
+import { StyledContainer } from './style';
 
 const mapStateToProps = (state: IAppState) => ({
     fetching: state.common.fetching
@@ -21,19 +23,20 @@ const connector = connect(mapStateToProps, mapActionsToProps)
 
 const { useState, useEffect, useMemo, useCallback, useRef, forwardRef } = React;
 
-let i = 0;
 
-const Avia = () => {
-
-    const [x, setX] = useState(100);
-    const [y, setY] = useState(360);
+const Avia = ({setCount}: any) => {
+    let i = 0;
+    const [x, setX] = useState(10);
+    const [y, setY] = useState(340);
 
     useTick(delta => {
-        i += 0.05 * delta;
+        i += 0.001 * delta;
 
-        setX((i * 0.5) + x);
-        setY(i / -0.2);
+        setX((i * 100) + x);
+        setY((y - i) - 1);
+        setCount(x);
     });
+
 
     return (
         <Container position={[x, y]}>
@@ -48,29 +51,31 @@ const Avia = () => {
 };
 
 
-const Canvas = ({ rate, x, y }: boolean | any) => {
-    const willMount = useRef(true);
-    const [textures, setTextures] = useState<any[]>([]);
+const Canvas = ({ rate, setCount }: boolean | any) => {
+    // const willMount = useRef(true);
+    // const [textures, setTextures] = useState<any[]>([]);
 
-    const loadSpritesheet = () => {
-        const baseTexture = PIXI.BaseTexture.from(KingHuman);
-        const spritesheet = new PIXI.Spritesheet(baseTexture, KingHumanJson);
-        spritesheet.parse(() => {
-            setTextures(Object.keys(spritesheet.textures).map((t) => spritesheet.textures[t]));
-        });
-    }
+    // const loadSpritesheet = () => {
+    //     const baseTexture = PIXI.BaseTexture.from(KingHuman);
+    //     const spritesheet = new PIXI.Spritesheet(baseTexture, KingHumanJson);
+    //     spritesheet.parse(() => {
+    //         setTextures(Object.keys(spritesheet.textures).map((t) => spritesheet.textures[t]));
+    //     });
+    // }
 
-    // Hooks way to do ComponentWillMount
-    if (willMount.current) {
-        loadSpritesheet();
-        willMount.current = false;
-    }
+    // if (willMount.current) {
+    //     loadSpritesheet();
+    //     willMount.current = false;
+    // }
 
     return (
-        <Stage width={800} height={400} options={{ autoDensity: true, backgroundColor: 0xeef1f5 }}>
-            <Avia />
-
-        </Stage>
+        <StyledContainer>
+            <Stage width={800} height={400} options={{ autoDensity: true, backgroundColor: 0xff5c87 }}>
+                {
+                    rate && <Avia setCount={setCount}/>
+                }
+            </Stage>
+        </StyledContainer>
     );
 }
 

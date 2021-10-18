@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const StyledContainer = styled.div`
-  display:flex;
-  justify-content:center;
+export const StyledContainer = styled.main`
+  display:grid;
+  grid-template-columns: auto auto;
 `
