@@ -6,7 +6,6 @@ import { StyledContainer } from './style'
 import Client from "./client"
 import Bet from "./bet"
 import Canvas from "./canvas"
-import Counter from "./counter"
 
 import { IAppState } from 'store'
 
@@ -31,8 +30,7 @@ const Container: React.FC<TComponentProps> = (props) => {
       <StyledContainer>
         <Client />
         <Canvas rate={rate} setCount={setCount}/>
-        <Bet rate={rate} setRate={setRate} />
-        <Counter count={count}/>
+        <Bet rate={rate} setRate={setRate} count={count} />
       </StyledContainer>
   )
 }

@@ -30,10 +30,10 @@ const Avia = ({setCount}: any) => {
     const [y, setY] = useState(340);
 
     useTick(delta => {
-        i += 0.001 * delta;
+        i += 0.0025 * delta;
 
         setX((i * 100) + x);
-        setY((y - i) - 1);
+        setY((y - i) - 0.2);
         setCount(x);
     });
 
