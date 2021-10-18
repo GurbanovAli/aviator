@@ -14,7 +14,7 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "typeRoots": [
-      "./node_modules/@types",
+      "src/node_modules/@types",
       "./dts/**"
     ],
     "esModuleInterop": true,

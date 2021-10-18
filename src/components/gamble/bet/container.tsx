@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React, { useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux'
 
 import styled from 'styled-components'
@@ -12,7 +12,7 @@ const mapStateToProps = (state: IAppState) => ({
 })
 const mapActionsToProps = (dispatch) => ({
 })
-import { StyledContainer} from './style'
+import { StyledContainer } from './style'
 
 const connector = connect(mapStateToProps, mapActionsToProps)
 
@@ -32,31 +32,33 @@ const Button = styled.button`
     }
   `
 
-const Bet: React.FC = () => {
+const Bet: React.FC = ({rate, setRate, setX, setY}:boolean | any) => {
 
   const [bet, setBet] = useState(5);
-  const filteredBet = data.bet.filter((el, i) => (+el >= bet || +el >= 10) ? bet : null).slice(0, 4);
+  const filteredBet = data.bet.filter((el, i) => (el >= bet || el >= 10) ? bet : null).slice(0, 4);
+  console.log(rate);
+  
 
   return (
     <StyledContainer>
-      <form onSubmit={()=>alert(bet)}>
+      <form onSubmit={() => alert(bet)}>
         <div>
-        <button type="button" onClick={()=>setBet(bet > 1  ? bet - 1 : 1)}>
-        -
-        </button>
-        <input type="text" name="current_bet" value={bet} onChange={(e) => setBet(e.target.value) }/>
-        <button type="button" onClick={()=>setBet(bet < 100 ? +bet + 1 : 100)}>
-        +
-        </button>
+          <button type="button" onClick={() => setBet(bet > 1 ? bet - 1 : 1)}>
+            -
+          </button>
+          <input type="text" name="current_bet" value={bet} onChange={(e) => setBet(+e.target.value)} />
+          <button type="button" onClick={() => setBet(bet < 100 ? bet + 1 : 100)}>
+            +
+          </button>
         </div>
 
         <div>
-        {
-          filteredBet.map((el, index) => <Button type="button" key={index} onClick={()=>setBet(el)}>{el}$</Button>)
-        }
+          {
+            filteredBet.map((el, index) => <Button type="button" key={index} onClick={() => setBet(el)}>{el}$</Button>)
+          }
 
         </div>
-        <Button primary type="submit" >
+        <Button type="button" primary onClick={()=>setRate(rate ? false: true)}>
           bet
         </Button>
       </form>
