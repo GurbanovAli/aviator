@@ -25,12 +25,13 @@ const Container: React.FC<TComponentProps> = (props) => {
 
   const [rate, setRate] = useState<boolean>(false);
   const [count, setCount] = useState(0);
+  const [check, setCheck] = useState(400);
 
   return (
       <StyledContainer>
         <Client />
         <Canvas rate={rate} setCount={setCount}/>
-        <Bet rate={rate} setRate={setRate} count={count} />
+        <Bet rate={rate} setRate={setRate} count={count} setCount={setCount} check={check} setCheck={setCheck}/>
       </StyledContainer>
   )
 }

@@ -17,22 +17,26 @@ const mapActionsToProps = (dispatch) => ({
 const connector = connect(mapStateToProps, mapActionsToProps)
 
 
-const Bet: React.FC = ({ rate, setRate, count }: boolean | any) => {
+const Bet: React.FC = ({ rate, setRate, count, setCount check, setCheck }: boolean | any) => {
 
   const [bet, setBet] = useState(5);
-  console.log(rate);
-
-  let counter = Math.round(count, 2) / 100;
-  let exe = counter === rate ?  setBet(bet * count) : false;
-  let result = counter === rate ?  setRate(0) : counter;
+  let counter = Math.round(count) / 100;
+  
+  if(rate === false){
+    setCount(0);
+  }
+  if(counter === rate){
+    setRate(false);
+    setCheck((bet * counter) + check);
+  }
 
 
   return (
     <StyledContainer>
       <BetPanel rate={rate} setRate={setRate} bet={bet} setBet={setBet} />
       <StyledBlock>
-        <Account bet={bet} />
-        <Counter count={counter} />
+        <Account bet={bet} check={check} />
+        <Counter rate={rate} setRate={setRate} count={counter} />
       </StyledBlock>
     </StyledContainer>
   )

@@ -9,7 +9,7 @@ const P = styled.p`
   color: white;
   `
 
-const Counter: React.FC = ({ count }: number | any) => {
+const Counter: React.FC = ({ rate, setRate, count }:  any) => {
   return (
     <StyledTextBlock>
       <P> {count}x </P>

@@ -9,10 +9,10 @@ const P = styled.p`
   color: white;
   `
 
-const Account: React.FC = ({bet}: any) => {
+const Account: React.FC = ({bet, check}: any) => {
   return(
     <StyledTextBlock>
-      <P> {bet}$ </P>
+      <P> {check}$ </P>
     </StyledTextBlock>
   )
 }
