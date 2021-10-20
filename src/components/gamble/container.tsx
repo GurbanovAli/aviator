@@ -23,15 +23,15 @@ export type TComponentProps = {
 
 const Container: React.FC<TComponentProps> = (props) => {
 
-  const [rate, setRate] = useState<boolean>(false);
-  const [count, setCount] = useState(0);
+  const [rate, setRate] = useState(false);
+  // const [res, setRes] = useState(0);
   const [check, setCheck] = useState(400);
 
   return (
       <StyledContainer>
         <Client />
-        <Canvas rate={rate} setCount={setCount}/>
-        <Bet rate={rate} setRate={setRate} count={count} setCount={setCount} check={check} setCheck={setCheck}/>
+        <Canvas rate={rate} />
+        <Bet rate={rate} setRate={setRate} check={check} setCheck={setCheck} />
       </StyledContainer>
   )
 }

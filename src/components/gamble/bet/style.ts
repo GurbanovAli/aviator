@@ -6,7 +6,7 @@ export const StyledContainer = styled.div`
   margin: 10px;
   grid-row: 2 / 2;
   display:flex;
-  justify-content:center;
+  justify-content: space-around;
 `
 
 export const StyledForm = styled.form`
@@ -25,15 +25,25 @@ export const StyledBlock = styled.div`
   height: 200px;
   padding: 10px;
   display:flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
   background: #090f1f;
   border-radius:6px;
 `
 
 export const StyledTextBlock = styled.div`
   width: 150px;
-  height: 120px;
+  height: 100px;
   margin: 0 auto;
   text-align: center;
 `
+
+export const StyledInfoPanel = styled.div`
+  width: 400px;
+  height: 100px;
+  margin: 0 auto;
+  text-align: center;
+`
+
 
 

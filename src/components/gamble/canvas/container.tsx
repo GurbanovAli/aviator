@@ -24,7 +24,7 @@ const connector = connect(mapStateToProps, mapActionsToProps)
 const { useState, useEffect, useMemo, useCallback, useRef, forwardRef } = React;
 
 
-const Avia = ({setCount}: any) => {
+const Avia = () => {
     let i = 0;
     const [x, setX] = useState(10);
     const [y, setY] = useState(340);
@@ -34,7 +34,6 @@ const Avia = ({setCount}: any) => {
 
         setX((i * 100) + x);
         setY((y - i) - 0.2);
-        setCount(x);
     });
 
 
@@ -51,9 +50,10 @@ const Avia = ({setCount}: any) => {
 };
 
 
-const Canvas = ({ rate, setCount }: boolean | any) => {
+const Canvas = ({ rate }: boolean | any) => {
     // const willMount = useRef(true);
     // const [textures, setTextures] = useState<any[]>([]);
+    
 
     // const loadSpritesheet = () => {
     //     const baseTexture = PIXI.BaseTexture.from(KingHuman);
@@ -72,7 +72,7 @@ const Canvas = ({ rate, setCount }: boolean | any) => {
         <StyledContainer>
             <Stage width={800} height={400} options={{ autoDensity: true, backgroundColor: 0xff5c87 }}>
                 {
-                    rate && <Avia setCount={setCount}/>
+                    rate && <Avia/>
                 }
             </Stage>
         </StyledContainer>

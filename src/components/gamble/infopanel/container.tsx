@@ -21,13 +21,13 @@ const P = styled.p`
   color: white;
   `
 
-const Counter: React.FC = () => {
+const Counter: React.FC = ({ count }: number | any) => {
 
-  // let result = Math.round(count, 2) / 100;
+  let result = Math.round(count, 2) / 100;
 
   return (
     <StyledContainer>
-      <P> x </P>
+      <P> {result}x </P>
     </StyledContainer>
   )
 };

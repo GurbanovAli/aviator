@@ -7,9 +7,10 @@ import { StyledTextBlock } from './style'
 const P = styled.p`
   font-size:70px;
   color: white;
+  margin:0;
   `
 
-const Account: React.FC = ({bet, check}: any) => {
+const Account: React.FC = ({check}: any) => {
   return(
     <StyledTextBlock>
       <P> {check}$ </P>
