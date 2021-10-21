@@ -24,7 +24,6 @@ export type TComponentProps = {
 const Container: React.FC<TComponentProps> = (props) => {
 
   const [rate, setRate] = useState(false);
-  // const [res, setRes] = useState(0);
   const [check, setCheck] = useState(400);
 
   return (

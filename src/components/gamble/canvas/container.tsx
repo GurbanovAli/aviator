@@ -53,7 +53,7 @@ const Avia = () => {
 const Canvas = ({ rate }: boolean | any) => {
     // const willMount = useRef(true);
     // const [textures, setTextures] = useState<any[]>([]);
-    
+
 
     // const loadSpritesheet = () => {
     //     const baseTexture = PIXI.BaseTexture.from(KingHuman);
@@ -72,7 +72,7 @@ const Canvas = ({ rate }: boolean | any) => {
         <StyledContainer>
             <Stage width={800} height={400} options={{ autoDensity: true, backgroundColor: 0xff5c87 }}>
                 {
-                    rate && <Avia/>
+                    rate && <Avia />
                 }
             </Stage>
         </StyledContainer>

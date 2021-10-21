@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components'
 
@@ -8,41 +8,27 @@ const P = styled.p`
   font-size:60px;
   color: white;
   margin:0;
+  
   `
 
-const InfoPanel: React.FC = ({ rate }: any) => {
- // let exe = () => <P> you win {bet * counter}</P>;
- let [ ex, setEx ] = useState<boolean>(false);
+const InfoPanel: React.FC = ({ rate, bet, textWin, setTextWin }: any) => {
 
-    // result = true;
-    //console.log(0);
-    
-    // for (let i = 0; i <= 1000; i++) {
-    //   console.log(1);
-      
-    //   result();
-    //   if(i === 1000){
-    //     finished = false;
-    //     // result = finished ? (<P> you win {bet * counter}</P>) : (<P>your bet {bet}</P>);
-    //   }
-    // }
-   // return result;
+  let text = "please bet";
 
-  // let ex = bet * counter;
+  if (textWin) {
+    text = "you win " + (bet * textWin);
+    //setTextWin(0);
+  }
 
-  // let exe = rate ? (<P> you win </P>) : (<P>your bet {bet}</P>)
-  // if(finished){
-  //   setEx( ex ? true : false);
-    
-  // }
+  let color = rate ? "rate" : ""
 
   return (
     <StyledInfoPanel>
-          <P>
-           {
-            rate ? "your bet" : ( ex ? "you win" : "rr") 
-           }
-          </P>
+      <P style={{background:(rate ? "yellow" : textWin ? "green" : "red")}}>
+        {
+          rate ? ("your bet " + bet) : text
+        }
+      </P>
     </StyledInfoPanel>
   )
 };

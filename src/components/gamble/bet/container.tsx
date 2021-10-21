@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux'
 
-import { StyledContainer, StyledBlock } from './style'
+import { StyledContainer, StyledBlock, StyledTextBlock } from './style'
+
+import styled from 'styled-components'
 
 import { IAppState } from 'store'
 
@@ -17,37 +19,31 @@ const mapActionsToProps = (dispatch) => ({
 })
 const connector = connect(mapStateToProps, mapActionsToProps)
 
+const P = styled.p`
+  font-size:70px;
+  color: white;
+  margin:0;
+  background: red;
+  `
+
 
 const Bet: React.FC = ({ rate, setRate, check, setCheck }: boolean | any) => {
 
-  console.log(0);
-
   const [bet, setBet] = useState(5);
   const [res, setRes] = useState<boolean>(false);
-  // let counter = Math.round(count) / 100;
-  // let finished = false; 
-  
-  // if(rate === false){
-  //   setCount(0);
-  // }
-
-  if(res){
-    setRate(false);
-    setCheck((bet * 2) + check);
-
-    // finished = true;
-  }
+  const [textWin, setTextWin] = useState(0);
 
   return (
     <StyledContainer>
       <BetPanel rate={rate} setRate={setRate} bet={bet} setBet={setBet} />
       <StyledBlock>
-        <InfoPanel rate={rate} />
+        <InfoPanel rate={rate} bet={bet} textWin={textWin} setTextWin={setTextWin}/>
         <Account check={check} />
         {
-          rate && <Counter rate={rate} setRes={setRes}  />
+          rate ? 
+          <Counter rate={rate} setRate={setRate} bet={bet} check={check} setCheck={setCheck} setTextWin={setTextWin} /> 
+          : <StyledTextBlock> <P>0</P></StyledTextBlock>
         }
-        
       </StyledBlock>
     </StyledContainer>
   )
