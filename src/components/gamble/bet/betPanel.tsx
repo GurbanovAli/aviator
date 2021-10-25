@@ -23,8 +23,9 @@ const Button = styled.button`
 
 const BetPanel: React.FC = ({ rate, setRate, bet, setBet }: boolean | any) => {
 
-  const randomNumber = 2;//Math.floor(Math.random() * 10);
+  const randomNumber = 16;//Math.floor(Math.random() * 10);
   const filteredBet = data.bet.filter((el, i) => (el >= bet || el >= 10) ? bet : null).slice(0, 4);
+  console.log(0)
 
   return (
     <StyledForm>
@@ -40,7 +41,7 @@ const BetPanel: React.FC = ({ rate, setRate, bet, setBet }: boolean | any) => {
             filteredBet.map((el, index) => <Button type="button" key={index} onClick={() => setBet(el)}>{el}$</Button>)
           }
         </div>
-        <Button type="button" primary onClick={() => setRate(rate ? false : randomNumber)}>
+        <Button type="button" primary onClick={() => setRate(rate ? true : randomNumber)}>
           bet
         </Button>
       </form>

@@ -30,12 +30,22 @@ const Avia = () => {
     const [y, setY] = useState(340);
 
     useTick(delta => {
-        i += 0.0025 * delta;
+        i += 0.005 * delta;
 
-        setX((i * 100) + x);
-        setY((y - i) - 0.2);
+        if(x > 650){
+          setX(x - 30)
+        } else {
+          setX((i * 100) + x);
+        }
+
+        if( y < 50){
+          setY(y + 10);
+        } else {
+          setY((y - i) - 0.2);
+        }
     });
 
+    console.log(x, y);
 
     return (
         <Container position={[x, y]}>

@@ -28,10 +28,13 @@ const Counter: React.FC = ({ rate, setRate, bet, check, setCheck, setTextWin }: 
     setCount(roundedCount);
   });
 
-  if (rate === count) {
+  if (rate !== count && rate === true) {
     setRate(false);
-    setCheck((bet * rate) + check);
-    setTextWin(rate);
+    setCheck((bet * count) + check);
+    setTextWin(count);
+  } else if (rate === count) {
+    setRate(false);
+    setTextWin(false);
   }
 
   return (

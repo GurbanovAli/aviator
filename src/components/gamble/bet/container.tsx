@@ -26,7 +26,6 @@ const P = styled.p`
   background: red;
   `
 
-
 const Bet: React.FC = ({ rate, setRate, check, setCheck }: boolean | any) => {
 
   const [bet, setBet] = useState(5);
@@ -37,11 +36,11 @@ const Bet: React.FC = ({ rate, setRate, check, setCheck }: boolean | any) => {
     <StyledContainer>
       <BetPanel rate={rate} setRate={setRate} bet={bet} setBet={setBet} />
       <StyledBlock>
-        <InfoPanel rate={rate} bet={bet} textWin={textWin} setTextWin={setTextWin}/>
+        <InfoPanel rate={rate} bet={bet} textWin={textWin}/>
         <Account check={check} />
         {
-          rate ? 
-          <Counter rate={rate} setRate={setRate} bet={bet} check={check} setCheck={setCheck} setTextWin={setTextWin} /> 
+          rate ?
+          <Counter rate={rate} setRate={setRate} bet={bet} check={check} setCheck={setCheck} setTextWin={setTextWin} />
           : <StyledTextBlock> <P>0</P></StyledTextBlock>
         }
       </StyledBlock>
