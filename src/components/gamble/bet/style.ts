@@ -14,8 +14,6 @@ export const StyledForm = styled.form`
   height: 200px;
   margin-right: 20px;
   padding: 10px;
-  display:flex;
-  justify-content:center;
   background: #090f1f;
   border-radius:6px;
 `
@@ -39,11 +37,10 @@ export const StyledTextBlock = styled.div`
 `
 
 export const StyledInfoPanel = styled.div`
-  width: 400px;
-  height: 100px;
-  margin: 0 auto;
+  width: 360px;
+  height: 60px;
+  margin: 5px auto;
+  padding: auto;
   text-align: center;
+  border-radius: 5px;
 `
-
-
-

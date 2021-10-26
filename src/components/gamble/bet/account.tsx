@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { StyledTextBlock } from './style'
 
 const P = styled.p`
-  font-size:70px;
+  font-size:50px;
   color: white;
   margin:0;
   `

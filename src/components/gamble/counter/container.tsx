@@ -22,9 +22,6 @@ const P = styled.p`
   `
 
 const Counter: React.FC = () => {
-
-  // let result = Math.round(count, 2) / 100;
-
   return (
     <StyledContainer>
       <P> x </P>

@@ -8,10 +8,14 @@ import { StyledTextBlock } from './style'
 import { setTextRange } from 'typescript';
 
 const P = styled.p`
-  font-size:70px;
+  font-size:50px;
+  font-weight: 600;
   color: white;
-  margin:0;
   background: red;
+  border-radius: 3px;
+  margin: 0;
+  padding: 0 0 0 1rem;
+  text-align: left;
   `
 
 const Counter: React.FC = ({ rate, setRate, bet, check, setCheck, setTextWin }: any) => {
@@ -30,16 +34,20 @@ const Counter: React.FC = ({ rate, setRate, bet, check, setCheck, setTextWin }: 
 
   if (rate !== count && rate === true) {
     setRate(false);
-    setCheck((bet * count) + check);
-    setTextWin(count);
+
+    let getCheck = +String((bet * count) + check).slice(0, 6);
+    let getText = +String(bet * count).slice(0, 4);
+    setCheck(getCheck);
+    setTextWin(getText);
   } else if (rate === count) {
+    setCheck(check - bet);
     setRate(false);
     setTextWin(false);
   }
 
   return (
     <StyledTextBlock>
-      <P> {count}x </P>
+      <P>{count + "x"}</P>
     </StyledTextBlock>
   )
 };

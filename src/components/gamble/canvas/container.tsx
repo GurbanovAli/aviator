@@ -5,8 +5,8 @@ import { connect, ConnectedProps } from 'react-redux'
 import * as PIXI from 'pixi.js';
 import { Stage, Container, AnimatedSprite, useApp, useTick, Sprite } from '@inlet/react-pixi';
 
-// import KingHuman from "./img/animations1.png"
-// import KingHumanJson from "./img/animations1.json";
+import Load from "./img/animations1.png"
+import LoadJson from "./img/animations1.json";
 import avia from "./img/plane.png"
 
 import { IAppState } from 'store'
@@ -24,12 +24,13 @@ const connector = connect(mapStateToProps, mapActionsToProps)
 const { useState, useEffect, useMemo, useCallback, useRef, forwardRef } = React;
 
 
-const Avia = () => {
+const Avia = ({rate}: any) => {
     let i = 0;
     const [x, setX] = useState(10);
     const [y, setY] = useState(340);
 
     useTick(delta => {
+      if(rate){
         i += 0.005 * delta;
 
         if(x > 650){
@@ -43,9 +44,11 @@ const Avia = () => {
         } else {
           setY((y - i) - 0.2);
         }
+      }else {
+        setX(10)
+        setY(340);
+      }
     });
-
-    console.log(x, y);
 
     return (
         <Container position={[x, y]}>
@@ -61,29 +64,45 @@ const Avia = () => {
 
 
 const Canvas = ({ rate }: boolean | any) => {
-    // const willMount = useRef(true);
-    // const [textures, setTextures] = useState<any[]>([]);
+  // const [isLoading, setIsLoading ] = useState(false);
+    const willMount = useRef(true);
+    const [textures, setTextures] = useState<any[]>([]);
+    let isFinishAnim = false;
 
 
-    // const loadSpritesheet = () => {
-    //     const baseTexture = PIXI.BaseTexture.from(KingHuman);
-    //     const spritesheet = new PIXI.Spritesheet(baseTexture, KingHumanJson);
-    //     spritesheet.parse(() => {
-    //         setTextures(Object.keys(spritesheet.textures).map((t) => spritesheet.textures[t]));
-    //     });
-    // }
+    const loadSpritesheet = () => {
+        const baseTexture = PIXI.BaseTexture.from(Load);
+        const spritesheet = new PIXI.Spritesheet(baseTexture, LoadJson);
+        spritesheet.parse(() => {
+            setTextures(Object.keys(spritesheet.textures).map((t, i) => spritesheet.textures[t]));
+        })
 
-    // if (willMount.current) {
-    //     loadSpritesheet();
-    //     willMount.current = false;
+    }
+
+    if (willMount.current) {
+        loadSpritesheet();
+        willMount.current = false;
+    }
+
+    // if(!rate){
+    //   setTimeout(() => , 3000);
     // }
 
     return (
         <StyledContainer>
             <Stage width={800} height={400} options={{ autoDensity: true, backgroundColor: 0xff5c87 }}>
                 {
-                    rate && <Avia />
+                    !rate &&
+                    <AnimatedSprite
+                        anchor={0}
+                        position={[260, 100]}
+                        textures={textures}
+                        isPlaying={true}
+                        initialFrame={0}
+                        animationSpeed={0.4}
+                    />
                 }
+                <Avia rate={rate}/>
             </Stage>
         </StyledContainer>
     );

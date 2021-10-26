@@ -20,28 +20,39 @@ const mapActionsToProps = (dispatch) => ({
 const connector = connect(mapStateToProps, mapActionsToProps)
 
 const P = styled.p`
-  font-size:70px;
+  font-size:50px;
+  font-weight: 600;
   color: white;
   margin:0;
   background: red;
+  border-radius: 5px;
   `
 
-const Bet: React.FC = ({ rate, setRate, check, setCheck }: boolean | any) => {
+type BetProps = {
+  rate: boolean | any;
+  setRate: (item: boolean | any) => void;
+  check: number;
+  setCheck: (item: number) => void;
+}
 
-  const [bet, setBet] = useState(5);
+const Bet: React.FC<BetProps> = ({ rate, setRate, check, setCheck }: BetProps) => {
+
+  const [bet, setBet] = useState<number>(5);
   const [res, setRes] = useState<boolean>(false);
   const [textWin, setTextWin] = useState(0);
 
   return (
     <StyledContainer>
-      <BetPanel rate={rate} setRate={setRate} bet={bet} setBet={setBet} />
+      <BetPanel rate={rate} setRate={setRate} bet={bet} setBet={setBet} textWin={textWin} />
       <StyledBlock>
-        <InfoPanel rate={rate} bet={bet} textWin={textWin}/>
+        <InfoPanel rate={rate} bet={bet} textWin={textWin} />
         <Account check={check} />
         {
           rate ?
-          <Counter rate={rate} setRate={setRate} bet={bet} check={check} setCheck={setCheck} setTextWin={setTextWin} />
-          : <StyledTextBlock> <P>0</P></StyledTextBlock>
+            <Counter rate={rate} setRate={setRate} bet={bet} check={check} setCheck={setCheck} setTextWin={setTextWin} />
+            : <StyledTextBlock>
+                <P>0</P>
+              </StyledTextBlock>
         }
       </StyledBlock>
     </StyledContainer>

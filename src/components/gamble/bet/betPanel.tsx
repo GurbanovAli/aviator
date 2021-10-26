@@ -2,49 +2,84 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components'
 import { StyledForm } from './style'
+import BetButton from "./betButton"
 
 import data from "../../../data.json"
 
 const Button = styled.button`
-  display: inline-block;
-  border-radius: 3px;
-  padding: 0.5rem 0;
-  margin: ${props => props.primary ? "0.5rem 1rem" : "0.5rem"};
-  width: ${props => props.primary ? "6rem" : "4rem"};
-  height: ${props => props.primary ? "3rem" : "2rem"};
-  background: transparent;
+  border-radius: 5px;
+  margin: ${props => props.primary ? "0" : "0.5rem 0.2rem"};
+  width: ${props => props.primary ? "3rem" : "4rem"};
+  height: ${props => props.primary ? "1.7rem" : "1.8rem"};
+  background: ${props => props.primary ? "#090f1f" : "#363636"};
   color: white;
-  border: 2px solid white;
+  border: 0.5px solid white;
+  text-align: center;
+  align-items: center;
+  font-family: sans-serif;
+  font-size: ${props => props.primary ? "18px" : "16px"};
   cursor: pointer;
     :active{
       background: gray;
     }
   `
+const Div = styled.div`
+  width: 10rem;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+`
+const Input = styled.input`
+  width: 4rem;
+  height: 1.6rem;
+  margin: 0;
+  text-align: center;
+  box-shadow: none;
+  outline: none;
+  border: none;
+  position: relative;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: sans-serif;
+  line-height: 100px;
+  -webkit-transition: opacity 100ms ease-in;
+  transition: opacity 100ms ease-in;
+  `
 
-const BetPanel: React.FC = ({ rate, setRate, bet, setBet }: boolean | any) => {
+type BetPanelProps = {
+  rate: boolean | any;
+  setRate: (item: boolean | any) => void;
+  bet: number;
+  setBet: (item: number) => void;
+  textWin: number | any;
+}
 
-  const randomNumber = 16;//Math.floor(Math.random() * 10);
+const BetPanel: React.FC<BetPanelProps> = ({ rate, setRate, bet, setBet, textWin }: BetPanelProps) => {
+
   const filteredBet = data.bet.filter((el, i) => (el >= bet || el >= 10) ? bet : null).slice(0, 4);
-  console.log(0)
 
   return (
-    <StyledForm>
-      <form onSubmit={() => console.log(bet)}>
-        <div>
-          <button type="button" onClick={() => setBet(bet > 1 ? bet - 1 : 1)}> - </button>
-          <input type="text" name="current_bet" value={bet} onChange={(e) => setBet(+e.target.value)} />
-          <button type="button" onClick={() => setBet(bet < 100 ? bet + 1 : 100)}> + </button>
-        </div>
+    <StyledForm onSubmit={() => console.log(bet)}>
+      <Div>
+        <Button type="button" primary onClick={() => setBet(bet > 1 ? bet - 1 : 1)}> - </Button >
+        <Input type="text" name="current_bet" value={bet} onChange={(e) => setBet(+e.target.value)} />
+        <Button type="button" primary onClick={() => setBet(bet < 100 ? bet + 1 : 100)}> + </Button >
+      </Div>
 
-        <div>
-          {
-            filteredBet.map((el, index) => <Button type="button" key={index} onClick={() => setBet(el)}>{el}$</Button>)
-          }
-        </div>
-        <Button type="button" primary onClick={() => setRate(rate ? true : randomNumber)}>
-          bet
-        </Button>
-      </form>
+      <div>
+        {
+          filteredBet.map((el, index) => <Button type="button" key={index} onClick={() => setBet(el)}>{el}$</Button>)
+        }
+      </div>
+
+      <BetButton
+        rate={rate}
+        setRate={setRate}
+        bet={bet}
+        setBet={setBet}
+        textWin={textWin}
+      />
     </StyledForm>
   )
 };
