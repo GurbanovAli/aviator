@@ -28,11 +28,12 @@ const P = styled.p`
     text-align: left;
     `
 
-const BetButton: React.FC = ({ rate, setRate, bet, setBet, textWin }: boolean | any) => {
+const BetButton: React.FC = ({ rate, setRate, bet, setBet, setIsBet, textWin }: boolean | any) => {
 
   const random = Math.floor(Math.random() * 10);
-  const randomNumber = random ===  1 ? 1.2 : random;
+  const randomNumber = 15 //random ===  1 ? 1.2 : random;
 
+  const []
   const [count, setCount] = useState(0);
   const [x, setX] = useState(1);
   let i = 0;
@@ -50,11 +51,15 @@ const BetButton: React.FC = ({ rate, setRate, bet, setBet, textWin }: boolean | 
     }
   });
 
+  if(!rate){
+    setTimeout(() => setRate(rate ? true : randomNumber), 6000);
+  }
+
   return (
     <React.Fragment>
       <Button
         type="button"
-        onClick={() => setRate(rate ? true : randomNumber)}
+        onClick={()=> {setRate(rate && true); setIsBet(true)}}
         style={{ background: (rate ? "#f2b200" : "green") }}
       >
         {

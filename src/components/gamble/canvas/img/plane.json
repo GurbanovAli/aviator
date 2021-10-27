@@ -1,0 +1,32 @@
+{"frames": { 
+
+"gsym_0": 
+{
+    "frame": { "x":544,"y":2,"w":512,"h":188}, 
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":59,"y":48,"w":512,"h":188},
+	"sourceSize": {"w":692,"h":361}
+}, 
+"gsym_1": 
+{
+    "frame": { "x":1058,"y":2,"w":556,"h":180}, 
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":43,"y":56,"w":556,"h":180},
+	"sourceSize": {"w":692,"h":361}
+}, 
+"gsym_2": 
+{
+    "frame": { "x":2,"y":2,"w":540,"h":191}, 
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":40,"y":45,"w":540,"h":191},
+	"sourceSize": {"w":692,"h":361}
+}},
+"meta": {
+    "image": "plane.png",
+	"size": {"w":1616,"h":195},
+    "scale": "1"
+}
+}

@@ -7,7 +7,7 @@ import styled from 'styled-components'
 
 import { IAppState } from 'store'
 
-import BetPanel from "./betPanel"
+import BetPanel from "./betPanel/betPanel"
 import InfoPanel from "./infoPanel"
 import Account from "./account"
 import Counter from "./counter"
@@ -37,7 +37,7 @@ type BetProps = {
 
 const Bet: React.FC<BetProps> = ({ rate, setRate, check, setCheck }: BetProps) => {
 
-  const [bet, setBet] = useState<number>(5);
+  const [bet, setBet] = useState<number>(0);
   const [res, setRes] = useState<boolean>(false);
   const [textWin, setTextWin] = useState(0);
 

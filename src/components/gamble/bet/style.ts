@@ -9,15 +9,6 @@ export const StyledContainer = styled.div`
   justify-content: space-around;
 `
 
-export const StyledForm = styled.form`
-  width: 400px;
-  height: 200px;
-  margin-right: 20px;
-  padding: 10px;
-  background: #090f1f;
-  border-radius:6px;
-`
-
 export const StyledBlock = styled.div`
   width: 400px;
   height: 200px;

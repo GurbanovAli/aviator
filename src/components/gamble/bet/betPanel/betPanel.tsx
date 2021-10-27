@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { StyledForm } from './style'
 import BetButton from "./betButton"
 
-import data from "../../../data.json"
+import data from "../../../../data.json"
 
 const Button = styled.button`
   border-radius: 5px;
@@ -57,14 +57,15 @@ type BetPanelProps = {
 
 const BetPanel: React.FC<BetPanelProps> = ({ rate, setRate, bet, setBet, textWin }: BetPanelProps) => {
 
-  const filteredBet = data.bet.filter((el, i) => (el >= bet || el >= 10) ? bet : null).slice(0, 4);
+  const filteredBet = data.bet.filter((el, i) => (bet >= 5 || el >= 10) ? el : null).slice(0, 4);
+  const [isBet, setIsBet] = useState<boolean>(false);
 
   return (
     <StyledForm onSubmit={() => console.log(bet)}>
       <Div>
         <Button type="button" primary onClick={() => setBet(bet > 1 ? bet - 1 : 1)}> - </Button >
-        <Input type="text" name="current_bet" value={bet} onChange={(e) => setBet(+e.target.value)} />
-        <Button type="button" primary onClick={() => setBet(bet < 100 ? bet + 1 : 100)}> + </Button >
+        <Input type="text" name="current_bet" value={bet ? bet : 5} onChange={(e) => setBet(+e.target.value)} />
+        <Button type="button" primary onClick={() => setBet(bet < 100 ? (bet === 0 ? 5 + 1 : bet + 1): 100)}> + </Button >
       </Div>
 
       <div>
@@ -78,6 +79,7 @@ const BetPanel: React.FC<BetPanelProps> = ({ rate, setRate, bet, setBet, textWin
         setRate={setRate}
         bet={bet}
         setBet={setBet}
+        setIsBet={setIsBet}
         textWin={textWin}
       />
     </StyledForm>

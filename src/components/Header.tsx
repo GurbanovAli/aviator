@@ -9,6 +9,8 @@ const StyledHeader = styled(Header)`
   display:flex;
   align-items:center;
   color:#FFF;
-  padding:0 15px;
+  padding:0 55px;
+  font-size: 44px;
+  font-family: cursive;
 `
 export default StyledHeader
