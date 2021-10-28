@@ -20,36 +20,36 @@ const P = styled.p`
 
 const Counter: React.FC = ({ rate, setRate, bet, check, setCheck, setTextWin }: any) => {
 
-  const [count, setCount] = useState(0);
-  const [x, setX] = useState(1);
-  let i = 0;
+    const [count, setCount] = useState(0);
+    const [x, setX] = useState(1);
+    let i = 0;
 
-  useEffect(() => {
-    i += 0.000025;
+    useEffect(() => {
+        i += 0.000025;
 
-    setX((i * 2) + x);
-    let roundedCount = +String(x).slice(0, 4);
-    setCount(roundedCount);
-  });
+        setX((i * 2) + x);
+        let roundedCount = +String(x).slice(0, 4);
+        setCount(roundedCount);
+    });
 
-  if (rate !== count && rate === true) {
-    setRate(false);
+    if (rate !== count && rate === true) {
+        setRate(false);
 
-    let getCheck = +String((bet * count) + check).slice(0, 6);
-    let getText = +String(bet * count).slice(0, 4);
-    setCheck(getCheck);
-    setTextWin(getText);
-  } else if (rate === count) {
-    setCheck(check - bet);
-    setRate(false);
-    setTextWin(false);
-  }
+        let getCheck = +String((bet * count) + check).slice(0, 6);
+        let getText = +String(bet * count).slice(0, 4);
+        setCheck(getCheck);
+        setTextWin(getText);
+    } else if (rate === count) {
+        setCheck(check - bet);
+        setRate(false);
+        setTextWin(false);
+    }
 
-  return (
-    <StyledTextBlock>
-      <P>{count + "x"}</P>
-    </StyledTextBlock>
-  )
+    return (
+        <StyledTextBlock>
+            <P>{count + "x"}</P>
+        </StyledTextBlock>
+    )
 };
 
 export default Counter

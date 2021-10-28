@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { ConnectedRouter } from 'connected-react-router'
 import routeHistory from 'route-history'
 import { Switch, Route } from 'react-router-dom'
@@ -12,21 +12,21 @@ import Header from './Header'
 const { Content } = Layout
 
 function App() {
-  return (
-    <ConnectedRouter history={routeHistory}>
-      <Layout style={{ minHeight: '100%' }}>
-        <Header>Aviator</Header>
-        <Layout>
-          <Content>
-            <Switch>
-              <Route exact path="/" component={Gamble} />
-              <Route component={NotFound} />
-            </Switch>
-          </Content>
-        </Layout>
-      </Layout>
-    </ConnectedRouter>
-  )
+    return (
+        <ConnectedRouter history={routeHistory}>
+            <Layout style={{ minHeight: '100%' }}>
+                <Header>Aviator</Header>
+                <Layout>
+                    <Content>
+                        <Switch>
+                            <Route exact path="/" component={Gamble} />
+                            <Route component={NotFound} />
+                        </Switch>
+                    </Content>
+                </Layout>
+            </Layout>
+        </ConnectedRouter>
+    )
 }
 
 export default styled(App)`

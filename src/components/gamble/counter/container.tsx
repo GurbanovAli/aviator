@@ -8,7 +8,7 @@ import data from "../../../data.json"
 import { IAppState } from 'store'
 
 const mapStateToProps = (state: IAppState) => ({
-  fetching: state.common.fetching
+    fetching: state.common.fetching
 })
 const mapActionsToProps = (dispatch) => ({
 })
@@ -22,11 +22,11 @@ const P = styled.p`
   `
 
 const Counter: React.FC = () => {
-  return (
-    <StyledContainer>
-      <P> x </P>
-    </StyledContainer>
-  )
+    return (
+        <StyledContainer>
+            <P> x </P>
+        </StyledContainer>
+    )
 };
 
 export default connector(Counter)

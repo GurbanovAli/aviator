@@ -30,44 +30,42 @@ const P = styled.p`
 
 const BetButton: React.FC = ({ rate, setRate, bet, setBet, setIsBet, textWin }: boolean | any) => {
 
-  const random = Math.floor(Math.random() * 10);
-  const randomNumber = 15 //random ===  1 ? 1.2 : random;
+    const random = Math.floor(Math.random() * 10);
+    const randomNumber = random === 1 ? 1.2 : random;
+    const [count, setCount] = useState(0);
+    const [x, setX] = useState(1);
+    let i = 0;
 
-  const []
-  const [count, setCount] = useState(0);
-  const [x, setX] = useState(1);
-  let i = 0;
+    useEffect(() => {
+        if (rate) {
+            i += 0.000025;
 
-  useEffect(() => {
-    if (rate) {
-      i += 0.000025;
-
-      setX((i * 2) + x);
-      let roundedCount = +String(bet * x).slice(0, 4);
-      setCount(roundedCount);
-    } else {
-      setX(1);
-      setCount(0);
-    }
-  });
-
-  if(!rate){
-    setTimeout(() => setRate(rate ? true : randomNumber), 6000);
-  }
-
-  return (
-    <React.Fragment>
-      <Button
-        type="button"
-        onClick={()=> {setRate(rate && true); setIsBet(true)}}
-        style={{ background: (rate ? "#f2b200" : "green") }}
-      >
-        {
-          rate ? <P>{"cash out " + count}</P> : "bet"
+            setX((i * 2) + x);
+            let roundedCount = +String(bet * x).slice(0, 4);
+            setCount(roundedCount);
+        } else {
+            setX(1);
+            setCount(0);
         }
-      </Button>
-    </React.Fragment>
-  )
+    });
+
+    if (!rate) {
+        setTimeout(() => setRate(rate ? true : randomNumber), 6000);
+    }
+
+    return (
+        <React.Fragment>
+            <Button
+                type="button"
+                onClick={() => { setRate(rate && true); setIsBet(true) }}
+                style={{ background: (rate ? "#f2b200" : "green") }}
+            >
+                {
+                    rate ? <P>{"cash out " + count}</P> : "bet"
+                }
+            </Button>
+        </React.Fragment>
+    )
 };
 
 export default BetButton

@@ -10,12 +10,12 @@ const P = styled.p`
   margin:0;
   `
 
-const Account: React.FC = ({check}: any) => {
-  return(
-    <StyledTextBlock>
-      <P> {check}$ </P>
-    </StyledTextBlock>
-  )
+const Account: React.FC = ({ check }: any) => {
+    return (
+        <StyledTextBlock>
+            <P> {check}$ </P>
+        </StyledTextBlock>
+    )
 }
 
 export default Account

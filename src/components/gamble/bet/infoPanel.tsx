@@ -11,22 +11,22 @@ const P = styled.p`
   `
 
 const InfoPanel: React.FC = ({ rate, bet, textWin }: any) => {
-  let text;
-  if (textWin) {
-    text = "you win " + textWin;
-  } else {
-    text = "flew away, ЛОХ";
-  }
+    let text;
+    if (textWin) {
+        text = "you win " + textWin;
+    } else {
+        text = "flew away, ЛОХ";
+    }
 
-  return (
-    <StyledInfoPanel style={{ background: (rate ? "green" : textWin ? "#19a83f" : "red") }}>
-      <P>
-        {
-          rate ? "you're playing" : text
-        }
-      </P>
-    </StyledInfoPanel>
-  )
+    return (
+        <StyledInfoPanel style={{ background: (rate ? "green" : textWin ? "#19a83f" : "red") }}>
+            <P>
+                {
+                    rate ? "you're playing" : text
+                }
+            </P>
+        </StyledInfoPanel>
+    )
 };
 
 export default InfoPanel

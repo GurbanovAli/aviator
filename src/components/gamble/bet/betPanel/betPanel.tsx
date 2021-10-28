@@ -48,42 +48,42 @@ const Input = styled.input`
   `
 
 type BetPanelProps = {
-  rate: boolean | any;
-  setRate: (item: boolean | any) => void;
-  bet: number;
-  setBet: (item: number) => void;
-  textWin: number | any;
+    rate: boolean | any;
+    setRate: (item: boolean | any) => void;
+    bet: number;
+    setBet: (item: number) => void;
+    textWin: number | any;
 }
 
 const BetPanel: React.FC<BetPanelProps> = ({ rate, setRate, bet, setBet, textWin }: BetPanelProps) => {
 
-  const filteredBet = data.bet.filter((el, i) => (bet >= 5 || el >= 10) ? el : null).slice(0, 4);
-  const [isBet, setIsBet] = useState<boolean>(false);
+    const filteredBet = data.bet.filter((el, i) => (bet >= 5 || el >= 10) ? el : null).slice(0, 4);
+    const [isBet, setIsBet] = useState<boolean>(false);
 
-  return (
-    <StyledForm onSubmit={() => console.log(bet)}>
-      <Div>
-        <Button type="button" primary onClick={() => setBet(bet > 1 ? bet - 1 : 1)}> - </Button >
-        <Input type="text" name="current_bet" value={bet ? bet : 5} onChange={(e) => setBet(+e.target.value)} />
-        <Button type="button" primary onClick={() => setBet(bet < 100 ? (bet === 0 ? 5 + 1 : bet + 1): 100)}> + </Button >
-      </Div>
+    return (
+        <StyledForm onSubmit={() => console.log(bet)}>
+            <Div>
+                <Button type="button" primary onClick={() => setBet(bet > 1 ? bet - 1 : 1)}> - </Button >
+                <Input type="text" name="current_bet" value={bet ? bet : 5} onChange={(e) => setBet(+e.target.value)} />
+                <Button type="button" primary onClick={() => setBet(bet < 100 ? (bet === 0 ? 5 + 1 : bet + 1) : 100)}> + </Button >
+            </Div>
 
-      <div>
-        {
-          filteredBet.map((el, index) => <Button type="button" key={index} onClick={() => setBet(el)}>{el}$</Button>)
-        }
-      </div>
+            <div>
+                {
+                    filteredBet.map((el, index) => <Button type="button" key={index} onClick={() => setBet(el)}>{el}$</Button>)
+                }
+            </div>
 
-      <BetButton
-        rate={rate}
-        setRate={setRate}
-        bet={bet}
-        setBet={setBet}
-        setIsBet={setIsBet}
-        textWin={textWin}
-      />
-    </StyledForm>
-  )
+            <BetButton
+                rate={rate}
+                setRate={setRate}
+                bet={bet}
+                setBet={setBet}
+                setIsBet={setIsBet}
+                textWin={textWin}
+            />
+        </StyledForm>
+    )
 };
 
 export default BetPanel
