@@ -3,11 +3,11 @@ import React, { useState, useRef } from 'react';
 import * as PIXI from 'pixi.js';
 import { AnimatedSprite, useTick } from '@inlet/react-pixi';
 
-import Plane from "../img/plane.png"
-import PlaneJson from "../img/plane.json";
+import Plane from "./images/plane.png"
+import PlaneJson from "./images/plane.json";
 
 
-const Airplane = ({ rate, isFlying, setIsFlying }: any) => {
+const Airplane = ({ isStart, isFlying, setIsFlying }: any) => {
     const willMount = useRef(true);
     const [textures, setTextures] = useState<any[]>([]);
 
@@ -28,7 +28,7 @@ const Airplane = ({ rate, isFlying, setIsFlying }: any) => {
     const [y, setY] = useState(900);
 
     useTick(delta => {
-        if (rate) {
+        if (isStart) {
             i += 0.005 * delta;
 
             if (x > 1300) {
@@ -49,7 +49,7 @@ const Airplane = ({ rate, isFlying, setIsFlying }: any) => {
             setX((i + x) + 9);
             setY((y - i) - 4.6);
 
-            if (x > 750 && y < 0) {
+            if (x > 950 && y < 0) {
                 setX(10)
                 setY(900);
                 setIsFlying(false);
@@ -65,7 +65,7 @@ const Airplane = ({ rate, isFlying, setIsFlying }: any) => {
             height={180}
             position={[x, y]}
             textures={textures}
-            isPlaying={rate || isFlying}
+            isPlaying={isStart || isFlying}
             animationSpeed={0.6}
         />
     );

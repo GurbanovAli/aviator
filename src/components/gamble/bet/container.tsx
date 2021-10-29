@@ -8,9 +8,9 @@ import styled from 'styled-components'
 import { IAppState } from 'store'
 
 import BetPanel from "./betPanel/betPanel"
-import InfoPanel from "./infoPanel"
-import Account from "./account"
-import Counter from "./counter"
+import InfoPanel from "./infoPanel/infoPanel"
+import Account from "./accountPanel/account"
+import Counter from "./counterPanel/counter"
 
 const mapStateToProps = (state: IAppState) => ({
     fetching: state.common.fetching
@@ -29,31 +29,47 @@ const P = styled.p`
   `
 
 type BetProps = {
-    rate: boolean | any;
-    setRate: (item: boolean | any) => void;
+    rate: boolean;
+    setRate: (item: boolean) => void;
+    isStart: number;
+    setIsStart: (item: number) => void;
     check: number;
     setCheck: (item: number) => void;
 }
 
-const Bet: React.FC<BetProps> = ({ rate, setRate, check, setCheck }: BetProps) => {
+const Bet: React.FC<BetProps> = ({ rate, setRate, isStart, setIsStart, check, setCheck }: BetProps) => {
 
-    const [bet, setBet] = useState<number>(0);
-    const [res, setRes] = useState<boolean>(false);
-    const [textWin, setTextWin] = useState(0);
+    const [getCash, setGetCash] = useState(false);
+    const [bet, setBet] = useState<number>(5);
 
     return (
         <StyledContainer>
-            <BetPanel rate={rate} setRate={setRate} bet={bet} setBet={setBet} textWin={textWin} />
+            <BetPanel
+                rate={rate}
+                setRate={setRate}
+                getCash={getCash}
+                setGetCash={setGetCash}
+                isStart={isStart}
+                setIsStart={setIsStart}
+                check={check}
+                setCheck={setCheck}
+                bet={bet}
+                setBet={setBet}
+            />
             <StyledBlock>
-                <InfoPanel rate={rate} bet={bet} textWin={textWin} />
+                <InfoPanel rate={rate} />
                 <Account check={check} />
-                {
-                    rate ?
-                        <Counter rate={rate} setRate={setRate} bet={bet} check={check} setCheck={setCheck} setTextWin={setTextWin} />
-                        : <StyledTextBlock>
-                            <P>0</P>
-                        </StyledTextBlock>
-                }
+                <Counter
+                    rate={rate}
+                    setRate={setRate}
+                    getCash={getCash}
+                    setGetCash={setGetCash}
+                    isStart={isStart}
+                    setIsStart={setIsStart}
+                    check={check}
+                    setCheck={setCheck}
+                    bet={bet}
+                />
             </StyledBlock>
         </StyledContainer>
     )

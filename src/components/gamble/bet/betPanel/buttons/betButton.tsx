@@ -28,16 +28,27 @@ const P = styled.p`
     text-align: left;
     `
 
-const BetButton: React.FC = ({ rate, setRate, bet, setBet, setIsBet, textWin }: boolean | any) => {
+type BetButtonProps = {
+    rate: boolean | any;
+    setRate: (item: boolean | any) => void;
+    getCash: boolean;
+    setGetCash: (item: boolean) => void;
+    isStart: number;
+    setIsStart: (item: number) => void;
+    check?: number;
+    setCheck?: (item: number) => void;
+    bet: number;
+}
 
-    const random = Math.floor(Math.random() * 10);
-    const randomNumber = random === 1 ? 1.2 : random;
+
+const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, getCash, setGetCash, isStart, setIsStart, check, setCheck, bet }: BetButtonProps) => {
+
+    let i = 0;
     const [count, setCount] = useState(0);
     const [x, setX] = useState(1);
-    let i = 0;
 
     useEffect(() => {
-        if (rate) {
+        if (rate && isStart) {
             i += 0.000025;
 
             setX((i * 2) + x);
@@ -49,19 +60,24 @@ const BetButton: React.FC = ({ rate, setRate, bet, setBet, setIsBet, textWin }: 
         }
     });
 
-    if (!rate) {
-        setTimeout(() => setRate(rate ? true : randomNumber), 6000);
+    const clickOnBet = () => {
+        if (!isStart) {
+            setRate(!rate ? true : false);
+        } else if (isStart) {
+            setGetCash(rate && true);
+            setCheck(check + count)
+        }
     }
 
     return (
         <React.Fragment>
             <Button
                 type="button"
-                onClick={() => { setRate(rate && true); setIsBet(true) }}
-                style={{ background: (rate ? "#f2b200" : "green") }}
+                onClick={() => clickOnBet()}
+                style={{ background: (rate ? isStart ? "#f2b200" : "red" : "green") }}
             >
                 {
-                    rate ? <P>{"cash out " + count}</P> : "bet"
+                    rate ? (isStart ? <P>{"cash out " + count}</P> : "cancel") : "bet"
                 }
             </Button>
         </React.Fragment>

@@ -20,18 +20,20 @@ const mapActionsToProps = (dispatch) => ({
 const connector = connect(mapStateToProps, mapActionsToProps)
 
 
-const Canvas = ({ rate }: boolean | any) => {
+const Canvas = ({ isStart }: number) => {
 
     const [isFlying, setIsFlying] = useState<boolean>(false);
-    const isStart = rate || isFlying;
+    const getStart = isStart || isFlying;
+
+    console.log("canvas")
 
     return (
         <StyledContainer>
             <Stage width={800} height={400} options={{ autoDensity: true, backgroundColor: 0x4D6BC8 }}>
                 <BackgroundAnim
-                    isStart={isStart}
+                    getStart={getStart}
                     load={<LoadAnim />}
-                    airplane={<Airplane rate={rate} isFlying={isFlying} setIsFlying={setIsFlying} />}
+                    airplane={<Airplane isStart={isStart} isFlying={isFlying} setIsFlying={setIsFlying} />}
                 />
             </Stage>
         </StyledContainer>

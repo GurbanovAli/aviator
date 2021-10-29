@@ -3,11 +3,11 @@ import React, { useState, useRef } from 'react';
 import * as PIXI from 'pixi.js';
 import { AnimatedSprite } from '@inlet/react-pixi';
 
-import Bg from "../img/bd1.png"
-import BgJson from "../img/bd1.json";
+import Bg from "./images/bd1.png"
+import BgJson from "./images/bd1.json";
 
 
-const BackgroundAnim: React.FC = ({ isStart, load, airplane }: boolean) => {
+const BackgroundAnim: React.FC = ({ getStart, load, airplane }: boolean | any) => {
     const willMount = useRef(true);
     const [textures, setTextures] = useState<any[]>([]);
 
@@ -31,11 +31,11 @@ const BackgroundAnim: React.FC = ({ isStart, load, airplane }: boolean) => {
             width={800}
             height={400}
             textures={textures}
-            isPlaying={isStart}
+            isPlaying={getStart}
             animationSpeed={0.3}
         >
             {
-                !isStart && load
+                !getStart && load
             }
             {airplane}
         </AnimatedSprite>

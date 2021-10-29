@@ -3,8 +3,8 @@ import React, { useState, useRef } from 'react';
 import * as PIXI from 'pixi.js';
 import { AnimatedSprite } from '@inlet/react-pixi';
 
-import Load from "../img/load2.png"
-import LoadJson from "../img/load2.json";
+import Load from "./images/load2.png"
+import LoadJson from "./images/load2.json";
 
 
 const LoadAnim: React.FC = () => {

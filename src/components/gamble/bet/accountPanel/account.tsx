@@ -2,7 +2,7 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import { StyledTextBlock } from './style'
+import { StyledTextBlock } from '../style'
 
 const P = styled.p`
   font-size:50px;
@@ -10,7 +10,7 @@ const P = styled.p`
   margin:0;
   `
 
-const Account: React.FC = ({ check }: any) => {
+const Account: React.FC = ({ check }: number) => {
     return (
         <StyledTextBlock>
             <P> {check}$ </P>

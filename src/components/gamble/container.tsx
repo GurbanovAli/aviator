@@ -21,16 +21,20 @@ export type TReduxProps = ConnectedProps<typeof connector>
 export type TComponentProps = {
 } & TReduxProps
 
-const Container: React.FC<TComponentProps> = (props) => {
 
-    const [rate, setRate] = useState<any>(false);
-    const [check, setCheck] = useState<number>(400);
+const Container: React.FC<TComponentProps> = () => {
+
+    const [isStart, setIsStart] = useState(0);
+    const [rate, setRate] = useState(false);
+    const [check, setCheck] = useState(400);
+
+    console.log("main")
 
     return (
         <StyledContainer>
             <Client />
-            <Canvas rate={rate} />
-            <Bet rate={rate} setRate={setRate} check={check} setCheck={setCheck} />
+            <Canvas isStart={isStart} />
+            <Bet rate={rate} setRate={setRate} isStart={isStart} setIsStart={setIsStart} check={check} setCheck={setCheck} />
         </StyledContainer>
     )
 }
