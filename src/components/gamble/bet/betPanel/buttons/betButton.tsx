@@ -6,7 +6,7 @@ const Button = styled.button`
   display: inline-block;
   border-radius: 5px;
   padding: 0.5rem 0;
-  margin: 0.5rem 0;
+  margin: 1rem;
   width: 13rem;
   height: 4rem;
   color: white;
@@ -18,6 +18,9 @@ const Button = styled.button`
   cursor: pointer;
     :active{
       background: gray;
+    }
+    :hover {
+      opacity: 0.8;
     }
   `
 
@@ -74,7 +77,7 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, getCash, setGetCas
             <Button
                 type="button"
                 onClick={() => clickOnBet()}
-                style={{ background: (rate ? isStart ? "#f2b200" : "red" : "green") }}
+                style={{ background: (rate ? isStart ? "#F0E68C" : "#8B0000" : "#006400") }}
             >
                 {
                     rate ? (isStart ? <P>{"cash out " + count}</P> : "cancel") : "bet"

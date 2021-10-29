@@ -4,10 +4,10 @@ import styled from 'styled-components'
 
 const Button = styled.button`
   border-radius: 5px;
-  margin: "0";
-  width: "3rem";
-  height: "1.7rem";
-  background: "#090f1f";
+  margin: 0;
+  width: 2.5rem;
+  height: 1.8rem;
+  background: #090f1f;
   color: white;
   border: 0.5px solid white;
   text-align: center;
@@ -15,19 +15,22 @@ const Button = styled.button`
   font-family: sans-serif;
   font-size: "18px";
   cursor: pointer;
-    :active{
+    :active {
       background: gray;
     }
   `
+
 const Div = styled.div`
-  width: 10rem;
+  width: 8rem;
+  margin: 1rem;
   display: flex;
   align-items: center;
   background-color: white;
   border-radius: 5px;
 `
+
 const Input = styled.input`
-  width: 4rem;
+  width: 3rem;
   height: 1.6rem;
   margin: 0;
   text-align: center;
