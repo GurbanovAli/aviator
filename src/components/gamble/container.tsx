@@ -22,21 +22,19 @@ export type TComponentProps = {
 } & TReduxProps
 
 
-const Container: React.FC<TComponentProps> = () => {
+const Gamble: React.FC<TComponentProps> = ({check, setCheck}: any) => {
 
     const [isStart, setIsStart] = useState(0);
     const [rate, setRate] = useState(false);
-    const [check, setCheck] = useState(400);
-
-    console.log("main")
+    console.clear();
 
     return (
         <StyledContainer>
             <Client />
-            <Canvas isStart={isStart} />
+            <Canvas isStart={isStart} setIsStart={setIsStart} />
             <Bet rate={rate} setRate={setRate} isStart={isStart} setIsStart={setIsStart} check={check} setCheck={setCheck} />
         </StyledContainer>
     )
 }
 
-export default connector(Container)
+export default connector(Gamble)

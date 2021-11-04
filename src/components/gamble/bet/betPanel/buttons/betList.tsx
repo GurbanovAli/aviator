@@ -23,13 +23,10 @@ const Button = styled.button`
   text-transform: uppercase;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  :hover {
-    color: #fff;
-  }
   transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
   :hover {
+    color: #fff;
     box-shadow: 0 0 40px 40px #696A66 inset;
-    border-color:  #696A66;
   }
   `
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components'
+// import useDebounce from "./debounce"
 
 const P = styled.p`
   font-size:50px;
@@ -9,8 +10,8 @@ const P = styled.p`
   background: red;
   border-radius: 3px;
   margin: 0;
-  padding: 0 0 0 1rem;
-  text-align: left;
+  padding: 0;
+  text-align: center;
   `
 
 

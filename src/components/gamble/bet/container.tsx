@@ -41,6 +41,7 @@ const Bet: React.FC<BetProps> = ({ rate, setRate, isStart, setIsStart, check, se
 
     const [getCash, setGetCash] = useState(false);
     const [bet, setBet] = useState<number>(5);
+    console.log(check)
 
     return (
         <StyledContainer>
@@ -57,22 +58,23 @@ const Bet: React.FC<BetProps> = ({ rate, setRate, isStart, setIsStart, check, se
                 setBet={setBet}
             />
             <StyledBlock>
-                <InfoPanel rate={rate} />
-                <Account check={check} />
-                <Counter
-                    rate={rate}
-                    setRate={setRate}
-                    getCash={getCash}
-                    setGetCash={setGetCash}
-                    isStart={isStart}
-                    setIsStart={setIsStart}
-                    check={check}
-                    setCheck={setCheck}
-                    bet={bet}
-                />
+
             </StyledBlock>
         </StyledContainer>
     )
 };
+
+// <InfoPanel rate={rate} />
+// <Counter
+//     rate={rate}
+//     setRate={setRate}
+//     getCash={getCash}
+//     setGetCash={setGetCash}
+//     isStart={isStart}
+//     setIsStart={setIsStart}
+//     check={check}
+//     setCheck={setCheck}
+//     bet={bet}
+// />
 
 export default connector(Bet)

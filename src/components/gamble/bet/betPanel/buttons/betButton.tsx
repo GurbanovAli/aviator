@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components'
 
+import IsCounter from "../../isCounter/isCounter"
+
 const Button = styled.button`
   display: inline-block;
   border-radius: 5px;
@@ -46,32 +48,18 @@ type BetButtonProps = {
 
 const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, getCash, setGetCash, isStart, setIsStart, check, setCheck, bet }: BetButtonProps) => {
 
-    let i = 0;
-    const [count, setCount] = useState(0);
-    const [x, setX] = useState(1);
-
-    useEffect(() => {
-        if (rate && isStart) {
-            i += 0.000025;
-
-            setX((i * 2) + x);
-            let roundedCount = +String(bet * x).slice(0, 4);
-            setCount(roundedCount);
-        } else {
-            setX(1);
-            setCount(0);
-        }
-    });
+    const [count, setCount] = useState(1);
+    const getIsStart = rate && isStart;
 
     const clickOnBet = () => {
         if (!isStart) {
             setRate(!rate ? true : false);
-        } else if (isStart) {
-            setGetCash(rate && true);
-            setCheck(check + count)
+        } else if (getIsStart) {
+            setGetCash(rate);
+            setCheck(check + count + bet)
         }
     }
-
+    
     return (
         <React.Fragment>
             <Button
@@ -80,7 +68,15 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, getCash, setGetCas
                 style={{ background: (rate ? isStart ? "#F0E68C" : "#8B0000" : "#006400") }}
             >
                 {
-                    rate ? (isStart ? <P>{"cash out " + count}</P> : "cancel") : "bet"
+                    rate ? (isStart ?
+                        <P>
+                            <IsCounter
+                                isStart={getIsStart}
+                                count={count + bet}
+                                setCount={setCount}
+                                text="cash out "
+                            />
+                        </P> : "cancel") : "bet"
                 }
             </Button>
         </React.Fragment>

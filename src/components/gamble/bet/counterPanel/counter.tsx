@@ -4,7 +4,9 @@ import styled from 'styled-components'
 
 import { StyledTextBlock } from '../style'
 
-import Loader from "./loader"
+import IsCounter from "../isCounter/isCounter"
+import loader from "./loader"
+import useDebounce from "./debounce"
 
 const P = styled.p`
   font-size:50px;
@@ -22,20 +24,12 @@ const Counter: React.FC = ({ rate, setRate, getCash, setGetCash, isStart, setIsS
 
     let i = 0;
     const [x, setX] = useState(1);
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(1);
 
-    useEffect(() => {
-        if (isStart) {
-            i += 0.000025;
-
-            setX((i * 2) + x);
-            let roundedCount = +String(x).slice(0, 4);
-            setCount(roundedCount);
-        } else {
-            setX(1);
-            setCount(1);
-        }
-    });
+    // if(!isStart){
+    //   setTimeout(() => setIsStart(3), 3000);
+    //   clearTimeout();
+    // }
 
     if (getCash) {
         setGetCash(false);
@@ -53,10 +47,21 @@ const Counter: React.FC = ({ rate, setRate, getCash, setGetCash, isStart, setIsS
     return (
         <StyledTextBlock>
             {
-                isStart ? <P>{count + "x"}</P> : <Loader isStart={isStart} setIsStart={setIsStart} />
+                isStart ?
+                    <P>
+                      0
+                    </P>
+                    : <P> 0 </P>
             }
         </StyledTextBlock>
     )
 };
+
+// <IsCounter
+//     isStart={isStart}
+//     count={count}
+//     setCount={setCount}
+//     text="x"
+// />
 
 export default Counter

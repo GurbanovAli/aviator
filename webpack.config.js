@@ -66,9 +66,6 @@ const config = {
         test: /\.(png|jpg|jpe?g|svg)$/,
         use: [{
           loader: 'file-loader',
-          options: {
-            esModule: false,
-          },
         }]
       },
       {
