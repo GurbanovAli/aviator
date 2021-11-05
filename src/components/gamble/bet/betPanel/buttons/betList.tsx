@@ -32,11 +32,11 @@ const Button = styled.button`
 
 const BetList: React.FC = ({ setBet }: any) => {
     return (
-        <>
+        <div>
             {
                 data.bet.map((el, index) => <Button type="button" key={index} onClick={() => setBet(el)}>{el}$</Button>)
             }
-        </>
+        </div>
     )
 }
 

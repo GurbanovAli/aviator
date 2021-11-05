@@ -6,21 +6,27 @@ import { Layout } from 'antd'
 import styled from 'styled-components'
 
 import NotFound from './NotFound'
-import Gamble from './gamble'
 import Header from './Header'
+import Gamble from './gamble'
+import GrPanel from './gamerules'
+
+import Logo from './logo/logo'
 import Account from './accountPanel/account'
+import GrButton from './gamerules/button/button'
 
 const { Content } = Layout
 
 function App() {
 
     const [check, setCheck] = useState<number>(400);
+    console.clear();
 
     return (
         <ConnectedRouter history={routeHistory}>
             <Layout style={{ minHeight: '100%' }}>
                 <Header>
-                    Aviator
+                    <Logo />
+                    <GrButton />
                     <Account check={check} />
                 </Header>
                 <Layout>
@@ -29,6 +35,7 @@ function App() {
                             <Route exact path="/">
                                 <Gamble check={check} setCheck={setCheck} />
                             </Route>
+                            <Route path="/gamerules" component={GrPanel} />
                             <Route component={NotFound} />
                         </Switch>
                     </Content>

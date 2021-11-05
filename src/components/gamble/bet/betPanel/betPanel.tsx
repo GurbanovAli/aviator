@@ -24,7 +24,6 @@ const BetPanel: React.FC<BetPanelProps> = ({ rate, setRate, getCash, setGetCash,
     return (
         <StyledForm onSubmit={() => console.log("SUBMIT")}>
             <BetInput bet={bet} setBet={setBet} />
-            <BetList setBet={setBet} />
             <BetButton
                 rate={rate}
                 setRate={setRate}
@@ -36,6 +35,7 @@ const BetPanel: React.FC<BetPanelProps> = ({ rate, setRate, getCash, setGetCash,
                 setCheck={setCheck}
                 bet={bet}
             />
+            <BetList setBet={setBet} />
         </StyledForm>
     )
 };

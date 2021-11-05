@@ -9,8 +9,8 @@ const Button = styled.button`
   border-radius: 5px;
   padding: 0.5rem 0;
   margin: 1rem;
-  width: 13rem;
-  height: 4rem;
+  width: 10rem;
+  height: 8rem;
   color: white;
   border: none;
   font-size: 26px;
@@ -18,6 +18,10 @@ const Button = styled.button`
   font-family: monospace;
   text-transform: uppercase;
   cursor: pointer;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+    grid-row-end: 2;
     :active{
       background: gray;
     }
@@ -59,7 +63,7 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, getCash, setGetCas
             setCheck(check + count + bet)
         }
     }
-    
+
     return (
         <React.Fragment>
             <Button

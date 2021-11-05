@@ -4,19 +4,19 @@ import styled from 'styled-components'
 
 const StyledTextBlock = styled.div`
   width: 7rem;
-  background: #696A66;
-  border: 3px solid #555;
+  background: #444;
+  border: 1.5px solid #696A66;
   border-radius: 0.4rem;
   margin: auto;
+  margin-left: 0.2rem;
   font-family: 'Montserrat', sans-serif;
-  margin-left: 70%;
   text-align: center;
 `
 
 const P = styled.p`
   font-weight: 700;
   font-size: 1.5rem;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1;
   color: white;
   margin: 0.2rem auto;

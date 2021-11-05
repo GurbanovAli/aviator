@@ -41,7 +41,6 @@ const Bet: React.FC<BetProps> = ({ rate, setRate, isStart, setIsStart, check, se
 
     const [getCash, setGetCash] = useState(false);
     const [bet, setBet] = useState<number>(5);
-    console.log(check)
 
     return (
         <StyledContainer>
@@ -57,9 +56,18 @@ const Bet: React.FC<BetProps> = ({ rate, setRate, isStart, setIsStart, check, se
                 bet={bet}
                 setBet={setBet}
             />
-            <StyledBlock>
-
-            </StyledBlock>
+            <BetPanel
+                rate={rate}
+                setRate={setRate}
+                getCash={getCash}
+                setGetCash={setGetCash}
+                isStart={isStart}
+                setIsStart={setIsStart}
+                check={check}
+                setCheck={setCheck}
+                bet={bet}
+                setBet={setBet}
+            />
         </StyledContainer>
     )
 };

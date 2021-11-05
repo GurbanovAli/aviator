@@ -29,6 +29,7 @@ const Airplane: React.FC = ({ isStart, setIsStart, isFlying, setIsFlying }: any)
     let i = 0;
     const [x, setX] = useState<number>(10);
     const [y, setY] = useState<number>(940);
+    // const [height, setHeight] = useState<number>(4)
     const [xs, setXs] = useState<number>(1)
     const [count, setCount] = useState<number>(1)
     const lost = x > 10 && isFlying && !isStart;
@@ -79,6 +80,7 @@ const Airplane: React.FC = ({ isStart, setIsStart, isFlying, setIsFlying }: any)
 
             setX((i + x) + speedX);
             setY((y - i) - speedY);
+            // setHeight((i + height) + speedY)
             setCount(i + count)
             setIsFlying(true);
 
@@ -114,6 +116,8 @@ const Airplane: React.FC = ({ isStart, setIsStart, isFlying, setIsFlying }: any)
                 g.lineStyle(10, 0xff0000, 1).moveTo(x + 10, y + 125).lineTo(x, y + 125);
                 g.lineStyle(10, 0xff0000, 0.1).moveTo(x + 10, y + 125).lineTo(x, y + 1000);
             }
+            // console.log(height)
+          //  g.height = height + 30;
             g.width = x + 30;
         } else {
             g.clear()
