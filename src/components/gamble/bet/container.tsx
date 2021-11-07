@@ -9,7 +9,6 @@ import { IAppState } from 'store'
 
 import BetPanel from "./betPanel/betPanel"
 import InfoPanel from "./infoPanel/infoPanel"
-import Account from "./accountPanel/account"
 import Counter from "./counterPanel/counter"
 
 const mapStateToProps = (state: IAppState) => ({
@@ -40,7 +39,11 @@ type BetProps = {
 const Bet: React.FC<BetProps> = ({ rate, setRate, isStart, setIsStart, check, setCheck }: BetProps) => {
 
     const [getCash, setGetCash] = useState(false);
-    const [bet, setBet] = useState<number>(5);
+    // const [bet, setBet] = useState<any>({
+    //     "firstBet": 0,
+    //     "secondBet":0
+    // });
+    const [bet, setBet] = useState<number>(5)
 
     return (
         <StyledContainer>

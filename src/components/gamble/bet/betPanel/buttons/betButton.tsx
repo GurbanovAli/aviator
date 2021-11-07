@@ -64,6 +64,23 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, getCash, setGetCas
         }
     }
 
+    // let roundedCount = count.toFixed(2);
+
+    // if (getCash) {
+    //     setGetCash(false);
+    //     setRate(false);
+    //     setIsStart(0);
+
+    // } else if (isStart === +roundedCount) {
+    //     console.log(true);
+    //     // setIsStart(0);
+    //     if (rate) {
+    //         // console.log(true);
+    //         setRate(false);
+    //         setCheck(check - bet)
+    //     }
+    // }
+
     return (
         <React.Fragment>
             <Button
@@ -75,10 +92,18 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, getCash, setGetCas
                     rate ? (isStart ?
                         <P>
                             <IsCounter
+                                rate={rate}
+                                setRate={setRate}
                                 isStart={getIsStart}
-                                count={count + bet}
+                                setIsStart={setIsStart}
+                                getCash={getCash}
+                                setGetCash={setGetCash}
+                                count={count}
                                 setCount={setCount}
                                 text="cash out "
+                                check={check}
+                                setCheck={setCheck}
+                                bet={bet}
                             />
                         </P> : "cancel") : "bet"
                 }

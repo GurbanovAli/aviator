@@ -110,6 +110,8 @@ const Airplane: React.FC = ({ isStart, setIsStart, isFlying, setIsFlying }: any)
         }
     }
 
+    // setRate(false);
+
     const draw = useCallback(g => {
         if (isStart) {
             if (x < 1300) {
