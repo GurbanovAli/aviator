@@ -8,7 +8,7 @@ const IsCounter: React.FC = ({ rate, setRate, isStart, setIsStart, getCash, setG
 
     useEffect(() => {
         if (isStart) {
-            i += 0.00028;
+            i += 0.000011;
 
             setX((i * 2) + x);
             setCount(+x.toFixed(2));
@@ -21,7 +21,7 @@ const IsCounter: React.FC = ({ rate, setRate, isStart, setIsStart, getCash, setG
     let roundedCount = count.toFixed(2);
 
     console.log(count, roundedCount)
-    
+
     if (getCash) {
         setGetCash(false);
         setRate(false);

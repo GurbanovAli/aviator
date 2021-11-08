@@ -6,8 +6,10 @@ import { AnimatedSprite, PixiComponent, BitmapText, Text, Graphics, useTick } fr
 import Plane from "./images/plane.png"
 import PlaneJson from "./images/plane.json";
 
+import CountTicker from "./countTicker"
 
-const Airplane: React.FC = ({ isStart, setIsStart, isFlying, setIsFlying }: any) => {
+
+const Airplane: React.FC = ({ rate, rate2, isStart, setIsStart, isFlying, setIsFlying }: any) => {
 
     const willMount = useRef(true);
     const graphics = useRef(null);
@@ -33,24 +35,6 @@ const Airplane: React.FC = ({ isStart, setIsStart, isFlying, setIsFlying }: any)
     const [xs, setXs] = useState<number>(1)
     const [count, setCount] = useState<number>(1)
     const lost = x > 10 && isFlying && !isStart;
-
-    const textStyle = new PIXI.TextStyle({
-        align: 'center',
-        fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
-        fontSize: 240,
-        fontWeight: 500,
-        fill: lost ? ['#ff675c', '#ff4133'] : ['#ffffff', '#bad5ff'], // gradient
-        stroke: '#63a0ff',
-        strokeThickness: 5,
-        letterSpacing: 8,
-        dropShadow: true,
-        dropShadowColor: lost ? '#eb6c63' : '#ccced2',
-        dropShadowBlur: 2,
-        dropShadowAngle: Math.PI / 6,
-        dropShadowDistance: 6,
-        wordWrap: true,
-        wordWrapWidth: 440,
-    })
 
     const isFlyTextStyle = new PIXI.TextStyle({
         align: 'center',
@@ -81,7 +65,6 @@ const Airplane: React.FC = ({ isStart, setIsStart, isFlying, setIsFlying }: any)
             setX((i + x) + speedX);
             setY((y - i) - speedY);
             // setHeight((i + height) + speedY)
-            setCount(i + count)
             setIsFlying(true);
 
         } else if (isFlying) {
@@ -92,8 +75,8 @@ const Airplane: React.FC = ({ isStart, setIsStart, isFlying, setIsFlying }: any)
             if (x > 950 && y < 0) {
                 setX(10)
                 setY(940);
-                setXs(1)
-                setCount(1)
+                setXs(1);
+                setCount(1);
                 setIsFlying(false);
             }
         }
@@ -101,16 +84,14 @@ const Airplane: React.FC = ({ isStart, setIsStart, isFlying, setIsFlying }: any)
 
     let roundedCount = count.toFixed(2);
 
-    if (isStart === +roundedCount) {
+    if ((!rate && !rate2) && isStart === +roundedCount) {
         setIsStart(0);
     } else {
-        if (!isStart) {
+        if (!isStart && !isFlying) {
             setTimeout(() => { setIsStart(3) }, 5000);
             clearTimeout();
         }
     }
-
-    // setRate(false);
 
     const draw = useCallback(g => {
         if (isStart) {
@@ -118,13 +99,13 @@ const Airplane: React.FC = ({ isStart, setIsStart, isFlying, setIsFlying }: any)
                 g.lineStyle(10, 0xff0000, 1).moveTo(x + 10, y + 125).lineTo(x, y + 125);
                 g.lineStyle(10, 0xff0000, 0.1).moveTo(x + 10, y + 125).lineTo(x, y + 1000);
             }
-            // console.log(height)
-          //  g.height = height + 30;
+            //  g.height = height + 30;
             g.width = x + 30;
         } else {
             g.clear()
         }
     }, [x, y]);
+
 
     return (
         <>
@@ -139,10 +120,10 @@ const Airplane: React.FC = ({ isStart, setIsStart, isFlying, setIsFlying }: any)
             />
             <Graphics draw={draw} ref={graphics.current} />
             {
-                x > 10 && <Text text={roundedCount + "x"} anchor={0.5} x={940} y={600} style={textStyle} />
+                x > 10 && <CountTicker isStart={isStart} lost={lost} count={count} setCount={setCount} />
             }
             {
-                lost && <Text text={"лох улетел"} anchor={0.5} x={950} y={400} style={isFlyTextStyle} />
+                lost && <Text text={"лох, улетел"} anchor={0.5} x={950} y={400} style={isFlyTextStyle} />
             }
         </>
     );

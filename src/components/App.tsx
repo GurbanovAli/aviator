@@ -14,12 +14,13 @@ import Logo from './logo/logo'
 import Account from './accountPanel/account'
 import GrButton from './gamerules/button/button'
 
+import 'antd/dist/antd.css';
+
 const { Content } = Layout
 
 function App() {
 
     const [check, setCheck] = useState<number>(400);
-    console.clear();
 
     return (
         <ConnectedRouter history={routeHistory}>

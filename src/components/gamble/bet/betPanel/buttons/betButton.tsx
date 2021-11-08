@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components'
 
-import IsCounter from "../../isCounter/isCounter"
+import { Stage } from '@inlet/react-pixi';
+import CountTicker from "../../../canvas/animComponets/countTicker"
 
 const Button = styled.button`
   display: inline-block;
   border-radius: 5px;
   padding: 0.5rem 0;
-  margin: 1rem;
+  margin: auto;
   width: 10rem;
-  height: 8rem;
+  height: 6rem;
   color: white;
   border: none;
   font-size: 26px;
@@ -20,8 +21,7 @@ const Button = styled.button`
   cursor: pointer;
   grid-column-start: 2;
   grid-column-end: 3;
-  grid-row-start: 1;
-    grid-row-end: 2;
+  grid-row: 1 / 3;
     :active{
       background: gray;
     }
@@ -50,7 +50,7 @@ type BetButtonProps = {
 }
 
 
-const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, getCash, setGetCash, isStart, setIsStart, check, setCheck, bet }: BetButtonProps) => {
+const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, setGetCash, isStart, setIsStart, check, setCheck, bet, state, setState }: BetButtonProps) => {
 
     const [count, setCount] = useState(1);
     const getIsStart = rate && isStart;
@@ -61,25 +61,33 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, getCash, setGetCas
         } else if (getIsStart) {
             setGetCash(rate);
             setCheck(check + count + bet)
+            setCount(1)
         }
     }
 
-    // let roundedCount = count.toFixed(2);
 
-    // if (getCash) {
-    //     setGetCash(false);
-    //     setRate(false);
-    //     setIsStart(0);
+    let roundedCount = count.toFixed(2);
 
-    // } else if (isStart === +roundedCount) {
-    //     console.log(true);
-    //     // setIsStart(0);
-    //     if (rate) {
-    //         // console.log(true);
-    //         setRate(false);
-    //         setCheck(check - bet)
-    //     }
-    // }
+    if (getCash) {
+        setGetCash(false);
+        setRate(false);
+        if (!rate2) {
+            setIsStart(0);
+        }
+
+    } else if (isStart === +roundedCount) {
+        setIsStart(0);
+        if (rate) {
+            setRate(false);
+            setCheck(check - bet)
+            setCount(1)
+        }
+    } else if (!isStart && !rate2 && state) {
+        setGetCash(false);
+        setRate(false);
+    } else if (isStart) {
+        setState(true)
+    }
 
     return (
         <React.Fragment>
@@ -90,22 +98,13 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, getCash, setGetCas
             >
                 {
                     rate ? (isStart ?
-                        <P>
-                            <IsCounter
-                                rate={rate}
-                                setRate={setRate}
-                                isStart={getIsStart}
-                                setIsStart={setIsStart}
-                                getCash={getCash}
-                                setGetCash={setGetCash}
-                                count={count}
-                                setCount={setCount}
-                                text="cash out "
-                                check={check}
-                                setCheck={setCheck}
-                                bet={bet}
-                            />
-                        </P> : "cancel") : "bet"
+                        <>
+                            <Stage width={1} height={1}>
+                                <CountTicker isStart={isStart} lost={true} count={count} setCount={setCount} ex={true} />
+                            </Stage>
+                            <P>{"cash out " + (+roundedCount + bet)}</P>
+                        </>
+                        : "cancel") : "bet"
                 }
             </Button>
         </React.Fragment>

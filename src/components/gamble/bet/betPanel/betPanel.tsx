@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { StyledForm } from './style'
+import { StyledForm, StyledPanel } from './style'
+import { Switch } from 'antd';
 
 import BetInput from "./buttons/betInput"
 import BetList from "./buttons/betList"
@@ -20,23 +21,29 @@ type BetPanelProps = {
 }
 
 
-const BetPanel: React.FC<BetPanelProps> = ({ rate, setRate, getCash, setGetCash, isStart, setIsStart, check, setCheck, bet, setBet }: BetPanelProps) => {
+const BetPanel: React.FC<BetPanelProps> = ({ rate, setRate, rate2, getCash, setGetCash, isStart, setIsStart, check, setCheck, bet, setBet, state, setState }: BetPanelProps) => {
     return (
-        <StyledForm onSubmit={() => console.log("SUBMIT")}>
-            <BetInput bet={bet} setBet={setBet} />
-            <BetButton
-                rate={rate}
-                setRate={setRate}
-                getCash={getCash}
-                setGetCash={setGetCash}
-                isStart={isStart}
-                setIsStart={setIsStart}
-                check={check}
-                setCheck={setCheck}
-                bet={bet}
-            />
-            <BetList setBet={setBet} />
-        </StyledForm>
+        <StyledPanel>
+            <Switch checkedChildren="auto" unCheckedChildren="not auto" defaultChecked />
+            <StyledForm onSubmit={() => console.log("SUBMIT")}>
+                <BetInput bet={bet} setBet={setBet} />
+                <BetButton
+                    rate={rate}
+                    setRate={setRate}
+                    rate2={rate2}
+                    getCash={getCash}
+                    setGetCash={setGetCash}
+                    isStart={isStart}
+                    setIsStart={setIsStart}
+                    check={check}
+                    setCheck={setCheck}
+                    bet={bet}
+                    state={state}
+                    setState={setState}
+                />
+                <BetList setBet={setBet} />
+            </StyledForm>
+        </StyledPanel>
     )
 };
 

@@ -22,7 +22,8 @@ const Button = styled.button`
 
 const Div = styled.div`
   width: 8rem;
-  margin: 1rem;
+  height: 1.8rem;
+  margin: auto;
   display: flex;
   align-items: center;
   background-color: white;

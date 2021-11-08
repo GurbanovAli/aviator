@@ -36,20 +36,24 @@ type BetProps = {
     setCheck: (item: number) => void;
 }
 
-const Bet: React.FC<BetProps> = ({ rate, setRate, isStart, setIsStart, check, setCheck }: BetProps) => {
+const Bet: React.FC<BetProps> = ({ rate, setRate, rate2, setRate2, isStart, setIsStart, check, setCheck }: BetProps) => {
 
     const [getCash, setGetCash] = useState(false);
+    const [getCash2, setGetCash2] = useState(false);
+    const [state, setState] = useState(false);
     // const [bet, setBet] = useState<any>({
     //     "firstBet": 0,
     //     "secondBet":0
     // });
-    const [bet, setBet] = useState<number>(5)
+    const [bet, setBet] = useState<number>(5);
+    const [bet2, setBet2] = useState<number>(5)
 
     return (
         <StyledContainer>
             <BetPanel
                 rate={rate}
                 setRate={setRate}
+                rate2={rate2}
                 getCash={getCash}
                 setGetCash={setGetCash}
                 isStart={isStart}
@@ -58,34 +62,26 @@ const Bet: React.FC<BetProps> = ({ rate, setRate, isStart, setIsStart, check, se
                 setCheck={setCheck}
                 bet={bet}
                 setBet={setBet}
+                state={state}
+                setState={setState}
             />
             <BetPanel
-                rate={rate}
-                setRate={setRate}
-                getCash={getCash}
-                setGetCash={setGetCash}
+                rate={rate2}
+                setRate={setRate2}
+                rate2={rate}
+                getCash={getCash2}
+                setGetCash={setGetCash2}
                 isStart={isStart}
                 setIsStart={setIsStart}
                 check={check}
                 setCheck={setCheck}
-                bet={bet}
-                setBet={setBet}
+                bet={bet2}
+                setBet={setBet2}
+                state={state}
+                setState={setState}
             />
         </StyledContainer>
     )
 };
-
-// <InfoPanel rate={rate} />
-// <Counter
-//     rate={rate}
-//     setRate={setRate}
-//     getCash={getCash}
-//     setGetCash={setGetCash}
-//     isStart={isStart}
-//     setIsStart={setIsStart}
-//     check={check}
-//     setCheck={setCheck}
-//     bet={bet}
-// />
 
 export default connector(Bet)

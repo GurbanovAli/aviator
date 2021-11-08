@@ -4,8 +4,17 @@ import data from "../../../../../data.json"
 
 import styled from 'styled-components'
 
+const Div = styled.div`
+  width: 8rem;
+  height: 4rem;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+`
 
 const Button = styled.button`
+  width: 3.4rem;
+  height: 1.6rem;
   box-sizing: border-box;
   background-color: transparent;
   border: 2px solid #696A66;
@@ -16,8 +25,8 @@ const Button = styled.button`
   font-size: 1rem;
   font-weight: 400;
   line-height: 1;
-  margin: 4px;
-  padding: 3px 12px;
+  margin: auto;
+  padding: 2px auto;
   text-decoration: none;
   text-align: center;
   text-transform: uppercase;
@@ -32,11 +41,11 @@ const Button = styled.button`
 
 const BetList: React.FC = ({ setBet }: any) => {
     return (
-        <div>
+        <Div>
             {
                 data.bet.map((el, index) => <Button type="button" key={index} onClick={() => setBet(el)}>{el}$</Button>)
             }
-        </div>
+        </Div>
     )
 }
 
