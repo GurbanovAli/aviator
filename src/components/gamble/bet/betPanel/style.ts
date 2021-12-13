@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 
 export const StyledPanel = styled.div`
-  width: 400px;
+  width: 25rem;
   height: 12rem;
   align-content: center;
-  margin-right: 20px;
+  text-align: -webkit-center;
+  justify-content: space-between;
   padding: 10px;
   background: #090f1f;
   border-radius:6px;

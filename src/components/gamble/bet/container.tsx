@@ -8,8 +8,6 @@ import styled from 'styled-components'
 import { IAppState } from 'store'
 
 import BetPanel from "./betPanel/betPanel"
-import InfoPanel from "./infoPanel/infoPanel"
-import Counter from "./counterPanel/counter"
 
 const mapStateToProps = (state: IAppState) => ({
     fetching: state.common.fetching
@@ -30,6 +28,8 @@ const P = styled.p`
 type BetProps = {
     rate: boolean;
     setRate: (item: boolean) => void;
+    rate2: boolean;
+    setRate2: (item: boolean) => void;
     isStart: number;
     setIsStart: (item: number) => void;
     check: number;
@@ -41,10 +41,6 @@ const Bet: React.FC<BetProps> = ({ rate, setRate, rate2, setRate2, isStart, setI
     const [getCash, setGetCash] = useState(false);
     const [getCash2, setGetCash2] = useState(false);
     const [state, setState] = useState(false);
-    // const [bet, setBet] = useState<any>({
-    //     "firstBet": 0,
-    //     "secondBet":0
-    // });
     const [bet, setBet] = useState<number>(5);
     const [bet2, setBet2] = useState<number>(5)
 

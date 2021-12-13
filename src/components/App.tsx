@@ -8,11 +8,10 @@ import styled from 'styled-components'
 import NotFound from './NotFound'
 import Header from './Header'
 import Gamble from './gamble'
-import GrPanel from './gamerules'
 
 import Logo from './logo/logo'
 import Account from './accountPanel/account'
-import GrButton from './gamerules/button/button'
+import GrButton from './grButton/button'
 
 import 'antd/dist/antd.css';
 
@@ -21,22 +20,24 @@ const { Content } = Layout
 function App() {
 
     const [check, setCheck] = useState<number>(400);
+    const [isGr, setIsGr] = useState<boolean>(false);
+
+    console.clear();
 
     return (
         <ConnectedRouter history={routeHistory}>
             <Layout style={{ minHeight: '100%' }}>
                 <Header>
                     <Logo />
-                    <GrButton />
+                    <GrButton isGr={isGr} setIsGr={setIsGr} />
                     <Account check={check} />
                 </Header>
                 <Layout>
                     <Content>
                         <Switch>
                             <Route exact path="/">
-                                <Gamble check={check} setCheck={setCheck} />
+                                <Gamble check={check} setCheck={setCheck} isGr={isGr} setIsGr={setIsGr} />
                             </Route>
-                            <Route path="/gamerules" component={GrPanel} />
                             <Route component={NotFound} />
                         </Switch>
                     </Content>

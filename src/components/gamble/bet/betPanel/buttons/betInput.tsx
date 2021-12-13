@@ -38,7 +38,6 @@ const Input = styled.input`
   box-shadow: none;
   outline: none;
   border: none;
-  position: relative;
   font-size: 20px;
   font-weight: 700;
   font-family: sans-serif;

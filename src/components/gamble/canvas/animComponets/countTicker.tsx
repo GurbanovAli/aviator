@@ -9,7 +9,7 @@ const CountTicker: React.FC = ({ isStart, lost, count, setCount }: any) => {
         align: 'center',
         fontFamily: ' Helvetica, sans-serif',
         fontSize: 240,
-        fontWeight: 500,
+        fontWeight: "500",
         fill: lost ? ['#ff675c', '#ff4133'] : ['#ffffff', '#bad5ff'], // gradient
         stroke: '#63a0ff',
         strokeThickness: 5,

@@ -31,10 +31,10 @@ const Button = styled.button`
   `
 
 const P = styled.p`
-    width: 12rem;
-    margin: 0 0 0 0.5rem;
+    width: 10rem;
+    margin: -3rem 0 0;
     padding: 0;
-    text-align: left;
+    text-align: center;
     `
 
 type BetButtonProps = {
@@ -50,7 +50,7 @@ type BetButtonProps = {
 }
 
 
-const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, setGetCash, isStart, setIsStart, check, setCheck, bet, state, setState }: BetButtonProps) => {
+const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, setGetCash, isStart, setIsStart, check, setCheck, bet, state, setState } : BetButtonProps) => {
 
     const [count, setCount] = useState(1);
     const getIsStart = rate && isStart;
@@ -69,15 +69,20 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, se
     let roundedCount = count.toFixed(2);
 
     if (getCash) {
+
         setGetCash(false);
         setRate(false);
+        setState(false);
         if (!rate2) {
             setIsStart(0);
         }
 
     } else if (isStart === +roundedCount) {
         setIsStart(0);
+        setState(false);
         if (rate) {
+          // const getBet = rate2 ? bet + bet : bet
+
             setRate(false);
             setCheck(check - bet)
             setCount(1)
@@ -85,6 +90,7 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, se
     } else if (!isStart && !rate2 && state) {
         setGetCash(false);
         setRate(false);
+        setState(false)
     } else if (isStart) {
         setState(true)
     }
@@ -99,8 +105,8 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, se
                 {
                     rate ? (isStart ?
                         <>
-                            <Stage width={1} height={1}>
-                                <CountTicker isStart={isStart} lost={true} count={count} setCount={setCount} ex={true} />
+                            <Stage width={0} height={0}>
+                                <CountTicker isStart={isStart} lost={true} count={count} setCount={setCount}/>
                             </Stage>
                             <P>{"cash out " + (+roundedCount + bet)}</P>
                         </>

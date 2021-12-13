@@ -31,7 +31,7 @@ const Canvas = ({ rate, rate2 isStart, setIsStart }: number | any) => {
                 <BackgroundAnim
                     getStart={getStart}
                     load={<LoadAnim />}
-                    airplane={<Airplane rate={rate} rate2={rate2} isStart={isStart} setIsStart={setIsStart} isFlying={isFlying} setIsFlying={setIsFlying} />}
+                    airplane={<Airplane rate={rate} rate2={rate2} isStart={isStart} setIsStart={setIsStart} isFlying={isFlying} setIsFlying={setIsFlying}/>}
                 />
             </Stage>
         </StyledContainer>

@@ -25,10 +25,10 @@ const P = styled.p`
   margin: 0.3rem auto;
   `
 
-const GrButton: React.FC = () => {
+const GrButton: React.FC = ({isGr, setIsGr}: any) => {
 
     return (
-        <StyledTextBlock onClick = { useCallback(() => goTo('/gamerules'), [])}>
+        <StyledTextBlock onClick={ () => setIsGr(isGr ? false: true)}>
             <P> How to play ? </P>
         </StyledTextBlock>
     )

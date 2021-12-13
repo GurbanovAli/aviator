@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux'
 
-import { StyledContainer, P } from './style'
+import { StyledContainer, P, Button } from './style'
 
 import { IAppState } from 'store'
 
@@ -18,13 +18,14 @@ export type TComponentProps = {
 } & TReduxProps
 
 
-const GrPanel: React.FC<TComponentProps> = () => {
+const GrPanel: React.FC<TComponentProps> = ({ setIsGr }: any) => {
 
     return (
         <StyledContainer>
             <P>
                 I'ts game rules panel, you stupid shit !!!
-          </P>
+                <Button onClick={() => setIsGr(false)}>cancel</Button>
+            </P>
         </StyledContainer>
     )
 }
