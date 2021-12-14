@@ -2,6 +2,16 @@ import React from 'react';
 
 import styled from 'styled-components'
 
+const Div = styled.div`
+  width: 8rem;
+  height: 1.8rem;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+`
+
 const Button = styled.button`
   border-radius: 5px;
   margin: 0;
@@ -20,16 +30,6 @@ const Button = styled.button`
     }
   `
 
-const Div = styled.div`
-  width: 8rem;
-  height: 1.8rem;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  background-color: white;
-  border-radius: 5px;
-`
-
 const Input = styled.input`
   width: 3rem;
   height: 1.6rem;
@@ -46,12 +46,12 @@ const Input = styled.input`
   transition: opacity 100ms ease-in;
   `
 
-const BetInput: React.FC = ({ bet, setBet }: any) => {
+const BetInput: React.FC = ({rate, bet, setBet}: any) => {
     return (
         <Div>
-            <Button type="button" onClick={() => setBet(bet > 0.5 ? bet - 0.5 : 0.5)}> - </Button >
+            <Button type="button" onClick={() => !rate && setBet(bet > 0.5 ? bet - 0.5 : 0.5)}> - </Button >
             <Input type="text" name="current_bet" value={bet} onChange={(e) => setBet(+e.target.value)} />
-            <Button type="button" onClick={() => setBet(bet <= 10 ? bet + 0.5 : 10)}> + </Button >
+            <Button type="button" onClick={() => !rate && setBet(bet <= 10 ? bet + 0.5 : 10)}> + </Button >
         </Div>
     )
 }

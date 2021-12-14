@@ -42,7 +42,9 @@ const Bet: React.FC<BetProps> = ({ rate, setRate, rate2, setRate2, isStart, setI
     const [getCash2, setGetCash2] = useState(false);
     const [state, setState] = useState(false);
     const [bet, setBet] = useState<number>(5);
-    const [bet2, setBet2] = useState<number>(5)
+    const [bet2, setBet2] = useState<number>(5);
+    const [toggle, setToggle] = useState(false);
+    const [toggle2, setToggle2] = useState(false);
 
     return (
         <StyledContainer>
@@ -60,6 +62,8 @@ const Bet: React.FC<BetProps> = ({ rate, setRate, rate2, setRate2, isStart, setI
                 setBet={setBet}
                 state={state}
                 setState={setState}
+                toggle={toggle}
+                setToggle={setToggle}
             />
             <BetPanel
                 rate={rate2}
@@ -75,6 +79,8 @@ const Bet: React.FC<BetProps> = ({ rate, setRate, rate2, setRate2, isStart, setI
                 setBet={setBet2}
                 state={state}
                 setState={setState}
+                toggle={toggle2}
+                setToggle={setToggle2}
             />
         </StyledContainer>
     )

@@ -6,19 +6,19 @@ import styled from 'styled-components'
 
 const Div = styled.div`
   width: 8rem;
-  height: 4rem;
+  height: 3.7rem;
   margin: auto;
   display: flex;
   flex-wrap: wrap;
 `
 
 const Button = styled.button`
-  width: 3.4rem;
-  height: 1.6rem;
+  width: 3.6rem;
+  height: 1.4rem;
   box-sizing: border-box;
   background-color: transparent;
   border: 2px solid #696A66;
-  border-radius: 0.6em;
+  border-radius: 0.3em;
   color: #8B8C89;
   cursor: pointer;
   align-self: center;
@@ -32,18 +32,18 @@ const Button = styled.button`
   text-transform: uppercase;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+  transition: box-shadow 200ms ease-in-out, color 200ms ease-in-out;
   :hover {
     color: #fff;
     box-shadow: 0 0 40px 40px #696A66 inset;
   }
   `
 
-const BetList: React.FC = ({ setBet }: any) => {
+const BetList: React.FC = ({ rate, setBet }: any) => {
     return (
         <Div>
             {
-                data.bet.map((el, index) => <Button type="button" key={index} onClick={() => setBet(el)}>{el}$</Button>)
+                data.bet.map((el, index) => <Button type="button" key={index} onClick={() => !rate && setBet(el)}>{el}$</Button>)
             }
         </Div>
     )

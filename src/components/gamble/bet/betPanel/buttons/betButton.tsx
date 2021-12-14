@@ -9,7 +9,7 @@ const Button = styled.button`
   display: inline-block;
   border-radius: 5px;
   padding: 0.5rem 0;
-  margin: auto;
+  margin: 0.5rem 0.5rem -0.5rem;
   width: 10rem;
   height: 6rem;
   color: white;
@@ -50,13 +50,15 @@ type BetButtonProps = {
 }
 
 
-const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, setGetCash, isStart, setIsStart, check, setCheck, bet, state, setState } : BetButtonProps) => {
+const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, setGetCash, isStart, setIsStart, check, setCheck, bet, state, setState, toggle } : BetButtonProps) => {
 
     const [count, setCount] = useState(1);
     const getIsStart = rate && isStart;
 
     const clickOnBet = () => {
-        if (!isStart) {
+      console.log(getIsStart);
+
+        if (!isStart && !toggle) {
             setRate(!rate ? true : false);
         } else if (getIsStart) {
             setGetCash(rate);
@@ -65,11 +67,13 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, se
         }
     }
 
+    if(toggle && !isStart){
+      setRate(true);
+    }
 
-    let roundedCount = count.toFixed(2);
+    let roundedCount = bet + +count.toFixed(2);
 
     if (getCash) {
-
         setGetCash(false);
         setRate(false);
         setState(false);
@@ -77,12 +81,10 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, se
             setIsStart(0);
         }
 
-    } else if (isStart === +roundedCount) {
+    } else if (isStart === +count.toFixed(2)) {
         setIsStart(0);
         setState(false);
         if (rate) {
-          // const getBet = rate2 ? bet + bet : bet
-
             setRate(false);
             setCheck(check - bet)
             setCount(1)
@@ -100,7 +102,7 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, se
             <Button
                 type="button"
                 onClick={() => clickOnBet()}
-                style={{ background: (rate ? isStart ? "#F0E68C" : "#8B0000" : "#006400") }}
+                style={{ background: (rate ? (isStart ? "#F0E68C" : "#8B0000") : (toggle ? "#8B0000" : "#006400")) }}
             >
                 {
                     rate ? (isStart ?
@@ -108,9 +110,9 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, se
                             <Stage width={0} height={0}>
                                 <CountTicker isStart={isStart} lost={true} count={count} setCount={setCount}/>
                             </Stage>
-                            <P>{"cash out " + (+roundedCount + bet)}</P>
+                            <P>{"cash out " + roundedCount.toFixed(2)}</P>
                         </>
-                        : "cancel") : "bet"
+                        : (toggle? "autoplay" : "cancel") : (toggle ? "autoplay" : "bet")
                 }
             </Button>
         </React.Fragment>
