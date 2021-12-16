@@ -1,9 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import styled from 'styled-components'
 
 import { Stage } from '@inlet/react-pixi';
 import CountTicker from "../../../canvas/animComponets/countTicker"
+
+import { connect, ConnectedProps, useDispatch, useSelector } from 'react-redux'
+
+import { IAppState } from 'store'
+
+
+const mapStateToProps = (state: IAppState) => ({
+    fetching: state.common.fetching,
+    check: state.common.check
+})
+
+const exe = (count, bet) => {
+    return async dispatch => {
+        dispatch({
+            type: "SET_CHECK",
+            count: count,
+            bet: bet
+        });
+    };
+};
+
+const mapActionsToProps = (dispatch) => ({
+  exe
+})
+const connector = connect(mapStateToProps, mapActionsToProps)(BetButton)
 
 const Button = styled.button`
   display: inline-block;
@@ -47,28 +72,35 @@ type BetButtonProps = {
     check?: number;
     setCheck?: (item: number) => void;
     bet: number;
+    state: any;
+    setState: any;
+    toggle: boolean;
 }
 
 
-const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, setGetCash, isStart, setIsStart, check, setCheck, bet, state, setState, toggle } : BetButtonProps) => {
+const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, setGetCash, isStart, setIsStart, check, setCheck, bet, state, setState, toggle }: BetButtonProps) => {
 
     const [count, setCount] = useState(1);
     const getIsStart = rate && isStart;
+    const dispatch = useDispatch();
 
     const clickOnBet = () => {
-      console.log(getIsStart);
-
         if (!isStart && !toggle) {
             setRate(!rate ? true : false);
         } else if (getIsStart) {
+
+                dispatch(exe(count, bet));
+
+
             setGetCash(rate);
-            setCheck(check + count + bet)
+            // setCheck(check + count + bet)
             setCount(1)
+            console.log(counter);
         }
     }
 
-    if(toggle && !isStart){
-      setRate(true);
+    if (toggle && !isStart) {
+        setRate(true);
     }
 
     let roundedCount = bet + +count.toFixed(2);
@@ -108,11 +140,11 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, se
                     rate ? (isStart ?
                         <>
                             <Stage width={0} height={0}>
-                                <CountTicker isStart={isStart} lost={true} count={count} setCount={setCount}/>
+                                <CountTicker isStart={isStart} lost={true} count={count} setCount={setCount} />
                             </Stage>
                             <P>{"cash out " + roundedCount.toFixed(2)}</P>
                         </>
-                        : (toggle? "autoplay" : "cancel") : (toggle ? "autoplay" : "bet")
+                        : (toggle ? "autoplay" : "cancel")) : (toggle ? "autoplay" : "bet")
                 }
             </Button>
         </React.Fragment>

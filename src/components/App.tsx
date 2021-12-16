@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import NotFound from './NotFound'
 import Header from './Header'
 import Gamble from './gamble'
+import History from './history'
 
 import Logo from './logo/logo'
 import Account from './accountPanel/account'
@@ -36,6 +37,7 @@ function App() {
                     <Content>
                         <Switch>
                             <Route exact path="/">
+                                <History />
                                 <Gamble check={check} setCheck={setCheck} isGr={isGr} setIsGr={setIsGr} />
                             </Route>
                             <Route component={NotFound} />

@@ -23,7 +23,6 @@ const Button = styled.button`
   cursor: pointer;
   align-self: center;
   font-size: 1rem;
-  font-weight: 400;
   line-height: 1;
   margin: auto;
   padding: 2px auto;

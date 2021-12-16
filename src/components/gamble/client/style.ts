@@ -5,6 +5,6 @@ export const StyledContainer = styled.div`
   border-radius:6px;
   width: 24rem;
   height: 40rem;
-  margin: 10px;
+  margin: 0 10px 10px;
   grid-row: 1 / 3;
 `

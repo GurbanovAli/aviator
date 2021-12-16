@@ -34,9 +34,10 @@ type BetProps = {
     setIsStart: (item: number) => void;
     check: number;
     setCheck: (item: number) => void;
+    setWin: (item: boolean) => void;
 }
 
-const Bet: React.FC<BetProps> = ({ rate, setRate, rate2, setRate2, isStart, setIsStart, check, setCheck }: BetProps) => {
+const Bet: React.FC<BetProps> = ({ rate, setRate, rate2, setRate2, isStart, setIsStart, check, setCheck, setWin }: BetProps) => {
 
     const [getCash, setGetCash] = useState(false);
     const [getCash2, setGetCash2] = useState(false);
@@ -45,6 +46,10 @@ const Bet: React.FC<BetProps> = ({ rate, setRate, rate2, setRate2, isStart, setI
     const [bet2, setBet2] = useState<number>(5);
     const [toggle, setToggle] = useState(false);
     const [toggle2, setToggle2] = useState(false);
+
+    if(getCash || getCash2){
+      setWin(true);
+    }
 
     return (
         <StyledContainer>

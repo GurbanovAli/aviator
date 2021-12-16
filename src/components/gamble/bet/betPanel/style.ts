@@ -14,7 +14,7 @@ export const StyledPanel = styled.div`
 export const StyledForm = styled.form`
   width: 20rem;
   height: 6rem;
-  margin: 2rem auto auto;
+  margin: 1.4rem auto auto;
   padding: 10px;
   display:grid;
   grid-template-columns: 1fr 1fr;

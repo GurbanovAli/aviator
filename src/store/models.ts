@@ -25,3 +25,7 @@ export type TAppDispatchThunk<TPayload> = ThunkDispatch<
   unknown,
   IAction<TPayload>
 >
+
+export interface TAppDispatchState {
+  check: any;
+}

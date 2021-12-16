@@ -9,7 +9,7 @@ import PlaneJson from "./images/plane.json";
 import CountTicker from "./countTicker"
 
 
-const Airplane: React.FC = ({ rate, rate2, isStart, setIsStart, isFlying, setIsFlying }: any) => {
+const Airplane: React.FC = ({ rate, rate2, isStart, setIsStart, isFlying, setIsFlying, win, setWin }: any) => {
 
     const willMount = useRef(true);
     const graphics = useRef(null);
@@ -31,11 +31,8 @@ const Airplane: React.FC = ({ rate, rate2, isStart, setIsStart, isFlying, setIsF
     let i = 0;
     const [x, setX] = useState<number>(10);
     const [y, setY] = useState<number>(940);
-    // const [height, setHeight] = useState<number>(4)
     const [xs, setXs] = useState<number>(1)
     const [count, setCount] = useState<number>(1)
-
-    const [ex, setEx] = useState(1)
 
     const lost = x > 10 && isFlying && !isStart;
 
@@ -44,12 +41,12 @@ const Airplane: React.FC = ({ rate, rate2, isStart, setIsStart, isFlying, setIsF
         fontFamily: ' sans-serif',
         fontSize: 120,
         fontWeight: "500",
-        fill: '#ff4133',
-        stroke: '#ff1100',
+        fill: win ? "green": '#ff4133',
+        stroke: win ? "green": '#ff1100',
         strokeThickness: 2,
         letterSpacing: 2,
         dropShadow: true,
-        dropShadowColor: '#ff1100',
+        dropShadowColor: win ? "green": '#ff1100',
         dropShadowBlur: 6,
         dropShadowDistance: 6,
         wordWrap: true,
@@ -61,11 +58,15 @@ const Airplane: React.FC = ({ rate, rate2, isStart, setIsStart, isFlying, setIsF
 
         useTick(delta => {
             j += 0.005 * delta;
-            if (ex < 3) {
-                setEx(j + ex);
+            if (xs < 3) {
+                setXs(j + xs);
             } else {
                 setIsStart(3)
-                setEx(1)
+                setXs(1)
+
+                if(win){
+                  setWin(false);
+                }
             }
         });
     } else {
@@ -80,7 +81,6 @@ const Airplane: React.FC = ({ rate, rate2, isStart, setIsStart, isFlying, setIsF
 
                 setX((i + x) + speedX);
                 setY((y - i) - speedY);
-                // setHeight((i + height) + speedY)
                 setIsFlying(true);
 
             } else if (isFlying) {
@@ -102,6 +102,7 @@ const Airplane: React.FC = ({ rate, rate2, isStart, setIsStart, isFlying, setIsF
     let roundedCount = count.toFixed(2);
 
     if ((!rate && !rate2) && isStart === +roundedCount) {
+        setWin(false);
         setIsStart(0);
     };
 
@@ -111,7 +112,6 @@ const Airplane: React.FC = ({ rate, rate2, isStart, setIsStart, isFlying, setIsF
                 g.lineStyle(10, 0xff0000, 1).moveTo(x + 10, y + 125).lineTo(x, y + 125);
                 g.lineStyle(10, 0xff0000, 0.1).moveTo(x + 10, y + 125).lineTo(x, y + 1000);
             }
-            //  g.height = height + 30;
             g.width = x + 30;
         } else {
             g.clear()
@@ -131,15 +131,13 @@ const Airplane: React.FC = ({ rate, rate2, isStart, setIsStart, isFlying, setIsF
             />
             <Graphics draw={draw} ref={graphics.current} />
             {
-                x > 10 && <CountTicker isStart={isStart} lost={lost} count={count} setCount={setCount}/>
+                x > 10 && <CountTicker isStart={isStart} lost={win ? false : lost} count={count} setCount={setCount}/>
             }
             {
-                lost && <Text text={"лох, улетел"} anchor={0.5} x={950} y={400} style={isFlyTextStyle} />
+                lost && <Text text={win ? "вы успели" : "лох, улетел"} anchor={0.5} x={950} y={400} style={isFlyTextStyle} />
             }
         </>
     );
 };
-
-// <Line isStart={isStart} x={x} y={y} color={0xff0000} />
 
 export default Airplane

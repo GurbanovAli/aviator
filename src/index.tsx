@@ -5,9 +5,6 @@ import store from 'store'
 import App from './components/App'
 
 const render = () => {
-
-    console.clear();
-    
     ReactDOM.render((
         <Provider store={store}>
             <App />

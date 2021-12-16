@@ -2,6 +2,19 @@ import React from 'react'
 
 import styled from 'styled-components'
 
+import { connect, ConnectedProps, useSelector } from 'react-redux'
+
+import { IAppState } from 'store'
+
+const mapStateToProps = (state: IAppState) => ({
+    fetching: state.common.fetching,
+    check: state.common.check
+})
+
+const mapActionsToProps = (dispatch) => ({
+})
+const connector = connect(mapStateToProps, mapActionsToProps)
+
 const StyledTextBlock = styled.div`
   width: 7rem;
   background: #444;
@@ -23,9 +36,11 @@ const P = styled.p`
   `
 
 const Account: React.FC = ({ check }: number) => {
+  const counter = useSelector(state => state.common.check);
+
     return (
         <StyledTextBlock>
-            <P> {check.toFixed(2)}$ </P>
+            <P>{counter}$ </P>
         </StyledTextBlock>
     )
 }

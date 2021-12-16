@@ -21,10 +21,10 @@ type BetPanelProps = {
     setBet: (item: number) => void;
 }
 
-const BetPanel: React.FC<BetPanelProps> = ({ rate, setRate, rate2, getCash, setGetCash, isStart, setIsStart, check, setCheck, bet, setBet, state, setState, toggle, setToggle }: BetPanelProps) => {
+const BetPanel: React.FC<BetPanelProps> = ({ rate, setRate, rate2, getCash, setGetCash, isStart, setIsStart, check, setCheck, bet, setBet, state, setState, toggle, setToggle}: BetPanelProps) => {
     return (
         <StyledPanel>
-            <Switch color="blue" toggle={toggle} setToggle={setToggle} />
+            <Switch toggle={toggle} setToggle={setToggle} />
             <StyledForm onSubmit={() => console.log("SUBMIT")}>
                 <BetInput rate={rate} bet={bet} setBet={setBet} />
                 <BetButton

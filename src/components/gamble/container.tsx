@@ -31,6 +31,7 @@ const Gamble: React.FC<TComponentProps> = ({ check, setCheck, isGr, setIsGr }: a
     const [isStart, setIsStart] = useState(0);
     const [rate, setRate] = useState(false);
     const [rate2, setRate2] = useState(false);
+    const [win, setWin] = useState(false);
 
     const Modal = styled.div`
     	z-index: 100;
@@ -43,15 +44,25 @@ const Gamble: React.FC<TComponentProps> = ({ check, setCheck, isGr, setIsGr }: a
     return (
         <StyledContainer>
             <Client />
-            { isGr &&
+            {isGr &&
                 (
                     <Modal>
-                        <GrPanel setIsGr={setIsGr}/>
+                        <GrPanel setIsGr={setIsGr} />
                     </Modal>
                 )
             }
-            <Canvas rate={rate} rate2={rate2} isStart={isStart} setIsStart={setIsStart}/>
-            <Bet rate={rate} setRate={setRate} rate2={rate2} setRate2={setRate2} isStart={isStart} setIsStart={setIsStart} check={check} setCheck={setCheck} />
+            <Canvas rate={rate} rate2={rate2} isStart={isStart} setIsStart={setIsStart} win={win} setWin={setWin}/>
+            <Bet
+                rate={rate}
+                setRate={setRate}
+                rate2={rate2}
+                setRate2={setRate2}
+                isStart={isStart}
+                setIsStart={setIsStart}
+                check={check}
+                setCheck={setCheck}
+                setWin={setWin}
+            />
         </StyledContainer>
     )
 }
