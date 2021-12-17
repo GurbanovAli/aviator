@@ -15,13 +15,11 @@ type BetPanelProps = {
     setGetCash: (item: boolean) => void;
     isStart: number;
     setIsStart: (item: number) : void;
-    check: number;
-    setCheck: (item: number) => void;
     bet: number;
     setBet: (item: number) => void;
 }
 
-const BetPanel: React.FC<BetPanelProps> = ({ rate, setRate, rate2, getCash, setGetCash, isStart, setIsStart, check, setCheck, bet, setBet, state, setState, toggle, setToggle}: BetPanelProps) => {
+const BetPanel: React.FC<BetPanelProps> = ({ rate, setRate, rate2, getCash, setGetCash, isStart, setIsStart, bet, setBet, state, setState, toggle, setToggle}: BetPanelProps) => {
     return (
         <StyledPanel>
             <Switch toggle={toggle} setToggle={setToggle} />
@@ -35,8 +33,6 @@ const BetPanel: React.FC<BetPanelProps> = ({ rate, setRate, rate2, getCash, setG
                     setGetCash={setGetCash}
                     isStart={isStart}
                     setIsStart={setIsStart}
-                    check={check}
-                    setCheck={setCheck}
                     bet={bet}
                     state={state}
                     setState={setState}

@@ -26,7 +26,7 @@ export type TComponentProps = {
 } & TReduxProps
 
 
-const Gamble: React.FC<TComponentProps> = ({ check, setCheck, isGr, setIsGr }: any) => {
+const Gamble: React.FC<TComponentProps> = ({ isGr, setIsGr }: any) => {
 
     const [isStart, setIsStart] = useState(0);
     const [rate, setRate] = useState(false);
@@ -59,8 +59,6 @@ const Gamble: React.FC<TComponentProps> = ({ check, setCheck, isGr, setIsGr }: a
                 setRate2={setRate2}
                 isStart={isStart}
                 setIsStart={setIsStart}
-                check={check}
-                setCheck={setCheck}
                 setWin={setWin}
             />
         </StyledContainer>

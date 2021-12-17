@@ -32,12 +32,10 @@ type BetProps = {
     setRate2: (item: boolean) => void;
     isStart: number;
     setIsStart: (item: number) => void;
-    check: number;
-    setCheck: (item: number) => void;
     setWin: (item: boolean) => void;
 }
 
-const Bet: React.FC<BetProps> = ({ rate, setRate, rate2, setRate2, isStart, setIsStart, check, setCheck, setWin }: BetProps) => {
+const Bet: React.FC<BetProps> = ({ rate, setRate, rate2, setRate2, isStart, setIsStart, setWin }: BetProps) => {
 
     const [getCash, setGetCash] = useState(false);
     const [getCash2, setGetCash2] = useState(false);
@@ -61,8 +59,6 @@ const Bet: React.FC<BetProps> = ({ rate, setRate, rate2, setRate2, isStart, setI
                 setGetCash={setGetCash}
                 isStart={isStart}
                 setIsStart={setIsStart}
-                check={check}
-                setCheck={setCheck}
                 bet={bet}
                 setBet={setBet}
                 state={state}
@@ -78,8 +74,6 @@ const Bet: React.FC<BetProps> = ({ rate, setRate, rate2, setRate2, isStart, setI
                 setGetCash={setGetCash2}
                 isStart={isStart}
                 setIsStart={setIsStart}
-                check={check}
-                setCheck={setCheck}
                 bet={bet2}
                 setBet={setBet2}
                 state={state}

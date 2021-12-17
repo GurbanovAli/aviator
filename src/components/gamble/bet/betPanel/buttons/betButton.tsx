@@ -9,26 +9,22 @@ import { connect, ConnectedProps, useDispatch, useSelector } from 'react-redux'
 
 import { IAppState } from 'store'
 
-
 const mapStateToProps = (state: IAppState) => ({
     fetching: state.common.fetching,
     check: state.common.check
 })
 
-const exe = (count, bet) => {
-    return async dispatch => {
-        dispatch({
-            type: "SET_CHECK",
-            count: count,
-            bet: bet
-        });
-    };
-};
+const MODULE_NAME = 'COMMON'
+const SET_CHECK = `${MODULE_NAME}/SET_CHECK`
 
-const mapActionsToProps = (dispatch) => ({
-  exe
+const setCheck = (bet) => ({
+    type: SET_CHECK,
+    bet: bet
+  })
+
+const mapDispatchToProps = (dispatch, bet) => ({
+    setCheck: () => dispatch(setCheck( bet))
 })
-const connector = connect(mapStateToProps, mapActionsToProps)(BetButton)
 
 const Button = styled.button`
   display: inline-block;
@@ -69,33 +65,26 @@ type BetButtonProps = {
     setGetCash: (item: boolean) => void;
     isStart: number;
     setIsStart: (item: number) => void;
-    check?: number;
-    setCheck?: (item: number) => void;
     bet: number;
     state: any;
     setState: any;
     toggle: boolean;
 }
 
-
-const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, setGetCash, isStart, setIsStart, check, setCheck, bet, state, setState, toggle }: BetButtonProps) => {
+const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, setGetCash, isStart, setIsStart, bet, state, setState, toggle, setCheck }: BetButtonProps) => {
 
     const [count, setCount] = useState(1);
     const getIsStart = rate && isStart;
-    const dispatch = useDispatch();
 
     const clickOnBet = () => {
         if (!isStart && !toggle) {
             setRate(!rate ? true : false);
         } else if (getIsStart) {
 
-                dispatch(exe(count, bet));
-
-
+            setCheck(bet + count)
             setGetCash(rate);
             // setCheck(check + count + bet)
             setCount(1)
-            console.log(counter);
         }
     }
 
@@ -118,7 +107,7 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, se
         setState(false);
         if (rate) {
             setRate(false);
-            setCheck(check - bet)
+            // setCheck(check - bet)
             setCount(1)
         }
     } else if (!isStart && !rate2 && state) {
@@ -151,4 +140,4 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, se
     )
 };
 
-export default BetButton
+export default connect(mapStateToProps, mapDispatchToProps)(BetButton)

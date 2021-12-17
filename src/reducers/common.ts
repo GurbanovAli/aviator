@@ -28,9 +28,11 @@ function commonReducer(state: ICommonState = initState, { type, count, bet }: An
       }
     }
     case SET_CHECK: {
+      console.log(state.check, count, bet);
       return {
 
-        check: state.check + count + bet
+        ...state,
+        check: state.check + bet
       }
     }
     default:

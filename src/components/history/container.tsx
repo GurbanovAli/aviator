@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux'
 
-import styled from 'styled-components'
+import { StyledContainer, P } from './style'
 
 import data from "../../data.json"
 
@@ -11,7 +11,6 @@ const mapStateToProps = (state: IAppState) => ({
     fetching: state.common.fetching
 })
 const mapActionsToProps = (dispatch) => ({})
-import { StyledContainer, P } from './style'
 
 const connector = connect(mapStateToProps, mapActionsToProps)
 
@@ -20,7 +19,7 @@ const History: React.FC = () => {
     return (
         <StyledContainer>
             {
-              data.history.slice(0, 14).map(item => (<P>{item + "x"}</P>)
+                data.history.slice(0, 14).map((item, index) => (<P key={index}>{item + "x"}</P>)
             }
         </StyledContainer>
     )

@@ -20,7 +20,7 @@ const { Content } = Layout
 
 function App() {
 
-    const [check, setCheck] = useState<number>(400);
+    // const [check, setCheck] = useState<number>(400);
     const [isGr, setIsGr] = useState<boolean>(false);
 
     console.clear();
@@ -31,14 +31,14 @@ function App() {
                 <Header>
                     <Logo />
                     <GrButton isGr={isGr} setIsGr={setIsGr} />
-                    <Account check={check} />
+                    <Account />
                 </Header>
                 <Layout>
                     <Content>
                         <Switch>
                             <Route exact path="/">
                                 <History />
-                                <Gamble check={check} setCheck={setCheck} isGr={isGr} setIsGr={setIsGr} />
+                                <Gamble isGr={isGr} setIsGr={setIsGr} />
                             </Route>
                             <Route component={NotFound} />
                         </Switch>
