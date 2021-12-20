@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useSelector } from 'react-redux'
+
 import styled from 'styled-components'
 
 const Div = styled.div`
@@ -46,7 +48,12 @@ const Input = styled.input`
   transition: opacity 100ms ease-in;
   `
 
-const BetInput: React.FC = ({rate, bet, setBet}: any) => {
+const BetInput: React.FC = ({ bet, setBet, rates}: any) => {
+
+  const getRate = useSelector(state => state.rate.rate);
+  const getRate2 = useSelector(state => state.rate2.rate2);
+  const rate = rates ? getRate : getRate2;
+
     return (
         <Div>
             <Button type="button" onClick={() => !rate && setBet(bet > 0.5 ? bet - 0.5 : 0.5)}> - </Button >

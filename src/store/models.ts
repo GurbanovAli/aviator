@@ -11,6 +11,9 @@ export interface IAction<T> extends Action<string> {
 export interface IAppState {
   router: RouterState
   common: ICommonState
+  check: number
+  rate: any
+  rate2: any
 }
 
 export type TAppActionThunk<TPayload, TReturn = void, > = ThunkAction<
@@ -25,7 +28,3 @@ export type TAppDispatchThunk<TPayload> = ThunkDispatch<
   unknown,
   IAction<TPayload>
 >
-
-export interface TAppDispatchState {
-  check: any;
-}

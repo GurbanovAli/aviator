@@ -20,7 +20,6 @@ const { Content } = Layout
 
 function App() {
 
-    // const [check, setCheck] = useState<number>(400);
     const [isGr, setIsGr] = useState<boolean>(false);
 
     console.clear();

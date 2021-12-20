@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import styled from 'styled-components'
 import { StyledForm, StyledPanel } from './style'
@@ -9,8 +9,6 @@ import BetList from "./buttons/betList"
 import BetButton from "./buttons/betButton"
 
 type BetPanelProps = {
-    rate: boolean | any;
-    setRate: (item: boolean | any) => void;
     getCash: boolean;
     setGetCash: (item: boolean) => void;
     isStart: number;
@@ -19,16 +17,13 @@ type BetPanelProps = {
     setBet: (item: number) => void;
 }
 
-const BetPanel: React.FC<BetPanelProps> = ({ rate, setRate, rate2, getCash, setGetCash, isStart, setIsStart, bet, setBet, state, setState, toggle, setToggle}: BetPanelProps) => {
+const BetPanel: React.FC<BetPanelProps> = ({ getCash, setGetCash, isStart, setIsStart, bet, setBet, state, setState, toggle, setToggle, rates }: BetPanelProps) => {
     return (
         <StyledPanel>
             <Switch toggle={toggle} setToggle={setToggle} />
             <StyledForm onSubmit={() => console.log("SUBMIT")}>
-                <BetInput rate={rate} bet={bet} setBet={setBet} />
+                <BetInput bet={bet} setBet={setBet} rates={rates} />
                 <BetButton
-                    rate={rate}
-                    setRate={setRate}
-                    rate2={rate2}
                     getCash={getCash}
                     setGetCash={setGetCash}
                     isStart={isStart}
@@ -37,8 +32,9 @@ const BetPanel: React.FC<BetPanelProps> = ({ rate, setRate, rate2, getCash, setG
                     state={state}
                     setState={setState}
                     toggle={toggle}
+                    rates={rates}
                 />
-                <BetList rate={rate} setBet={setBet} />
+                <BetList setBet={setBet} rates={rates} />
             </StyledForm>
         </StyledPanel>
     )

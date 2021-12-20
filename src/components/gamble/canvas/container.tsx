@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
-import { connect, ConnectedProps } from 'react-redux'
 
 import { Stage } from '@inlet/react-pixi';
-
-import { IAppState } from 'store'
+import { connect, ConnectedProps, useSelector } from 'react-redux'
 
 import { StyledContainer } from './style';
 
 import BackgroundAnim from "./animComponets/background"
 import LoadAnim from "./animComponets/load"
 import Airplane from "./animComponets/airPlane"
-// import LoadText from "./animComponets/texts"
 
-const mapStateToProps = (state: IAppState) => ({
-    fetching: state.common.fetching
+import { IAppState } from 'store'
+
+const mapStateToProps = (state: boolean) => ({
+    rate: state.rate,
+    rate2: state.rate2
 })
-const mapActionsToProps = (dispatch) => ({
-})
-const connector = connect(mapStateToProps, mapActionsToProps)
+
+const connector = connect(mapStateToProps)
 
 
-const Canvas = ({ rate, rate2 isStart, setIsStart, win, setWin }: number | any) => {
+const Canvas: React.FC = ({ isStart, setIsStart, win, setWin}: number | any) => {
 
+    const rate = useSelector(state => state.rate.rate);
+    const rate2 = useSelector(state => state.rate2.rate2);
     const [isFlying, setIsFlying] = useState<boolean>(false);
     const getStart = isStart || isFlying;
 
@@ -31,16 +32,18 @@ const Canvas = ({ rate, rate2 isStart, setIsStart, win, setWin }: number | any) 
                 <BackgroundAnim
                     getStart={getStart}
                     load={<LoadAnim />}
-                    airplane={<Airplane
-                        rate={rate}
-                        rate2={rate2}
-                        isStart={isStart} 
-                        setIsStart={setIsStart}
-                        isFlying={isFlying}
-                        setIsFlying={setIsFlying}
-                        win={win}
-                        setWin={setWin}
-                      />}
+                    airplane={
+                        <Airplane
+                            rate={rate}
+                            rate2={rate2}
+                            isStart={isStart}
+                            setIsStart={setIsStart}
+                            isFlying={isFlying}
+                            setIsFlying={setIsFlying}
+                            win={win}
+                            setWin={setWin}
+                        />
+                    }
                 />
             </Stage>
         </StyledContainer>

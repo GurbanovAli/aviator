@@ -11,20 +11,39 @@ import { IAppState } from 'store'
 
 const mapStateToProps = (state: IAppState) => ({
     fetching: state.common.fetching,
-    check: state.common.check
+    check: state.check.check,
+    rate: state.rate.rate,
+    rate2: state.rate2.rate2
 })
 
-const MODULE_NAME = 'COMMON'
-const SET_CHECK = `${MODULE_NAME}/SET_CHECK`
+const ADD_CHECK = `ADD_CHECK`
+const DELETE_CHECK = `DELETE_CHECK`
+const RATE_ONE = `RATE_ONE`
+const RATE_TWO = `RATE_TWO`
 
-const setCheck = (bet) => ({
-    type: SET_CHECK,
-    bet: bet
-  })
+const addCheck = ({ count, bet }: number) => ({
+    type: ADD_CHECK,
+    bet: bet,
+    count: count
+})
+
+const deleteCheck = ({ count, bet }: number) => ({
+    type: DELETE_CHECK,
+    bet: bet,
+    count: count
+})
+
+const setRate = (bool) => ({ type: RATE_ONE, rate: bool })
+const setRate2 = (bool) => ({ type: RATE_TWO, rate2: bool })
+
 
 const mapDispatchToProps = (dispatch, bet) => ({
-    setCheck: () => dispatch(setCheck( bet))
+    addCheck: () => dispatch(addCheck(bet)),
+    deleteCheck: () => dispatch(deleteCheck(bet)),
+    setRate: (bool) => dispatch(setRate(bool)),
+    setRate2: (bool) => dispatch(setRate2(bool))
 })
+
 
 const Button = styled.button`
   display: inline-block;
@@ -59,8 +78,6 @@ const P = styled.p`
     `
 
 type BetButtonProps = {
-    rate: boolean | any;
-    setRate: (item: boolean | any) => void;
     getCash: boolean;
     setGetCash: (item: boolean) => void;
     isStart: number;
@@ -69,34 +86,38 @@ type BetButtonProps = {
     state: any;
     setState: any;
     toggle: boolean;
+    rates: boolean;
 }
 
-const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, setGetCash, isStart, setIsStart, bet, state, setState, toggle, setCheck }: BetButtonProps) => {
+const BetButton: React.FC<BetButtonProps> = ({ getCash, setGetCash, isStart, setIsStart, bet, state, setState, toggle, rates, addCheck, deleteCheck, setRate, setRate2 }: BetButtonProps) => {
+
+    const getRate = useSelector(state => state.rate.rate );
+    const getRate2 = useSelector(state => state.rate2.rate2);
+    const rate = rates ? getRate : getRate2;
+    const rate2 = !rates ? getRate : getRate2;
+    console.log(rate, rate2);
+
 
     const [count, setCount] = useState(1);
     const getIsStart = rate && isStart;
 
     const clickOnBet = () => {
         if (!isStart && !toggle) {
-            setRate(!rate ? true : false);
+            rates ? setRate(true) : setRate2(true);
         } else if (getIsStart) {
-
-            setCheck(bet + count)
+            addCheck()
             setGetCash(rate);
-            // setCheck(check + count + bet)
             setCount(1)
         }
     }
 
-    if (toggle && !isStart) {
-        setRate(true);
-    }
+    if (toggle && !isStart) rates ? setRate(true) : setRate2(true);
 
     let roundedCount = bet + +count.toFixed(2);
 
     if (getCash) {
         setGetCash(false);
-        setRate(false);
+        rates ? setRate(false) : setRate2(false));
         setState(false);
         if (!rate2) {
             setIsStart(0);
@@ -106,16 +127,16 @@ const BetButton: React.FC<BetButtonProps> = ({ rate, setRate, rate2, getCash, se
         setIsStart(0);
         setState(false);
         if (rate) {
-            setRate(false);
-            // setCheck(check - bet)
-            setCount(1)
+            rates ? setRate(false) : setRate2(false));
+            deleteCheck()
+            setCount(1);
         }
     } else if (!isStart && !rate2 && state) {
         setGetCash(false);
-        setRate(false);
+        rates ? setRate(false) : setRate2(false));
         setState(false)
     } else if (isStart) {
-        setState(true)
+        setState(true);
     }
 
     return (

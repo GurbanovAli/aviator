@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useSelector } from 'react-redux'
+
 import data from "../../../../../data.json"
 
 import styled from 'styled-components'
@@ -38,7 +40,12 @@ const Button = styled.button`
   }
   `
 
-const BetList: React.FC = ({ rate, setBet }: any) => {
+const BetList: React.FC = ({ setBet, rates }: any) => {
+
+  const getRate = useSelector(state => state.rate.rate);
+  const getRate2 = useSelector(state => state.rate2.rate2);
+  const rate = rates ? getRate : getRate2;
+
     return (
         <Div>
             {

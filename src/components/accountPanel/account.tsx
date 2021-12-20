@@ -2,18 +2,7 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import { connect, ConnectedProps, useSelector } from 'react-redux'
-
-import { IAppState } from 'store'
-
-const mapStateToProps = (state: IAppState) => ({
-    fetching: state.common.fetching,
-    check: state.common.check
-})
-
-const mapActionsToProps = (dispatch) => ({
-})
-const connector = connect(mapStateToProps, mapActionsToProps)
+import { useSelector } from 'react-redux'
 
 const StyledTextBlock = styled.div`
   width: 7rem;
@@ -25,7 +14,6 @@ const StyledTextBlock = styled.div`
   font-family: 'Montserrat', sans-serif;
   text-align: center;
 `
-
 const P = styled.p`
   font-weight: 700;
   font-size: 1.5rem;
@@ -35,8 +23,8 @@ const P = styled.p`
   margin: 0.2rem auto;
   `
 
-const Account: React.FC = ({ check }: number) => {
-  const counter = useSelector(state => state.common.check);
+const Account: React.FC = () => {
+    const counter = useSelector(state => state.check.check);
 
     return (
         <StyledTextBlock>

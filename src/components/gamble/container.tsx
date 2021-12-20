@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect, ConnectedProps } from 'react-redux'
+// import { connect, ConnectedProps } from 'react-redux'
 
 import styled from 'styled-components'
 
@@ -10,27 +10,27 @@ import Bet from "./bet"
 import Canvas from "./canvas"
 import GrPanel from './gamerules'
 
-import { IAppState } from 'store'
+// import { IAppState } from 'store'
+
+// const mapStateToProps = (state: IAppState) => ({
+//   fetching: state.common.fetching,
+//   check: state.check,
+//   rate: state.rate,
+//   rate2: state.rate2
+// })
+// const mapActionsToProps = (dispatch) => ({
+// })
+//
+// const connector = connect(mapStateToProps, mapActionsToProps)
+// export type TReduxProps = ConnectedProps<typeof connector>
+//
+// export type TComponentProps = {
+// } & TReduxProps
 
 
-const mapStateToProps = (state: IAppState) => ({
-    fetching: state.common.fetching
-})
-const mapActionsToProps = (dispatch) => ({
-})
-
-const connector = connect(mapStateToProps, mapActionsToProps)
-export type TReduxProps = ConnectedProps<typeof connector>
-
-export type TComponentProps = {
-} & TReduxProps
-
-
-const Gamble: React.FC<TComponentProps> = ({ isGr, setIsGr }: any) => {
+const Gamble: React.FC = ({ isGr, setIsGr }: any) => {
 
     const [isStart, setIsStart] = useState(0);
-    const [rate, setRate] = useState(false);
-    const [rate2, setRate2] = useState(false);
     const [win, setWin] = useState(false);
 
     const Modal = styled.div`
@@ -51,12 +51,8 @@ const Gamble: React.FC<TComponentProps> = ({ isGr, setIsGr }: any) => {
                     </Modal>
                 )
             }
-            <Canvas rate={rate} rate2={rate2} isStart={isStart} setIsStart={setIsStart} win={win} setWin={setWin}/>
+            <Canvas isStart={isStart} setIsStart={setIsStart} win={win} setWin={setWin} />
             <Bet
-                rate={rate}
-                setRate={setRate}
-                rate2={rate2}
-                setRate2={setRate2}
                 isStart={isStart}
                 setIsStart={setIsStart}
                 setWin={setWin}
@@ -65,4 +61,4 @@ const Gamble: React.FC<TComponentProps> = ({ isGr, setIsGr }: any) => {
     )
 }
 
-export default connector(Gamble)
+export default Gamble
