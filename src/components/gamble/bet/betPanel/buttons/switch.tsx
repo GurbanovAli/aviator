@@ -1,12 +1,27 @@
 import React from "react";
+
+import { connect } from 'react-redux'
+import { openToggle, closeToggle } from '../../../../../actions/common'
+
 import styled from "styled-components";
 
-export default ({ toggle, setToggle }: any) => {
+const mapStateToProps = (state: any) => ({
+    toggle: state.toggle,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    openToggle: () => dispatch(openToggle()),
+    closeToggle: () => dispatch(closeToggle())
+});
+
+const Switch: React.FC<any> = ({rates, ...props }: any) => {
+    const { toggle, openToggle, closeToggle } = props;
     const auto = true;
+
     return (
         <Div>
-            <Button {...{ toggle }} onClick={() => setToggle(false)}>{"bet"}</Button>
-            <Button {...{ toggle, auto }} onClick={() => setToggle(true)}>{"auto"}</Button>
+            <Button {...{ toggle }} onClick={() => closeToggle()}>{"bet"}</Button>
+            <Button {...{ toggle, auto }} onClick={() => openToggle()}>{"auto"}</Button>
         </Div>
     );
 };
@@ -41,3 +56,5 @@ const Button = styled.button`
     text-align: center;
     font-family: 'Montserrat', sans-serif;
 `;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Switch);

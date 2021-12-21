@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 
+import { connect } from 'react-redux'
+import { setTimer, cleanTimer, outWintext } from '../../../actions/common'
+import { IAppState } from 'store'
+
 import { Stage } from '@inlet/react-pixi';
-import { connect, ConnectedProps, useSelector } from 'react-redux'
 
 import { StyledContainer } from './style';
 
@@ -9,22 +12,25 @@ import BackgroundAnim from "./animComponets/background"
 import LoadAnim from "./animComponets/load"
 import Airplane from "./animComponets/airPlane"
 
-import { IAppState } from 'store'
+const mapStateToProps = (state: IAppState) => ({
+    rate: state.rate.rate,
+    rate2: state.rate2.rate2,
+    time: state.time,
+    win: state.wintext
+});
 
-const mapStateToProps = (state: boolean) => ({
-    rate: state.rate,
-    rate2: state.rate2
-})
+const mapDispatchToProps = (dispatch) => ({
+    setTimer: (time: number) => dispatch(setTimer(time)),
+    cleanTimer: () => dispatch(cleanTimer()),
+    outWintext: () => dispatch(outWintext())
+});
 
-const connector = connect(mapStateToProps)
+const Canvas: React.FC = ({ ...props }: any) => {
 
+    const { rate, rate2, time, win, setTimer, cleanTimer, outWintext } = props;
 
-const Canvas: React.FC = ({ isStart, setIsStart, win, setWin}: number | any) => {
-
-    const rate = useSelector(state => state.rate.rate);
-    const rate2 = useSelector(state => state.rate2.rate2);
     const [isFlying, setIsFlying] = useState<boolean>(false);
-    const getStart = isStart || isFlying;
+    const getStart = time || isFlying;
 
     return (
         <StyledContainer>
@@ -36,12 +42,13 @@ const Canvas: React.FC = ({ isStart, setIsStart, win, setWin}: number | any) => 
                         <Airplane
                             rate={rate}
                             rate2={rate2}
-                            isStart={isStart}
-                            setIsStart={setIsStart}
+                            time={time}
+                            setTimer={setTimer}
+                            cleanTimer={cleanTimer}
                             isFlying={isFlying}
                             setIsFlying={setIsFlying}
                             win={win}
-                            setWin={setWin}
+                            outWintext={outWintext}
                         />
                     }
                 />
@@ -50,4 +57,4 @@ const Canvas: React.FC = ({ isStart, setIsStart, win, setWin}: number | any) => 
     );
 }
 
-export default connector(Canvas)
+export default connect(mapStateToProps, mapDispatchToProps)(Canvas)

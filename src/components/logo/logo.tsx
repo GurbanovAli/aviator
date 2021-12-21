@@ -3,6 +3,14 @@ import { goTo } from 'route-history'
 
 import styled from 'styled-components'
 
+const Logo: React.FC = () => {
+    return (
+        <StyledTextBlock onClick={useCallback(() => goTo('/'), [])}>
+            <P> Aviator </P>
+        </StyledTextBlock>
+    )
+}
+
 const StyledTextBlock = styled.div`
   width: 10rem;
   margin: auto;
@@ -19,13 +27,5 @@ const P = styled.p`
   color: white;
   margin: 0.1rem auto;
   `
-
-const Logo: React.FC = () => {
-    return (
-        <StyledTextBlock onClick={useCallback(() => goTo('/'), [])}>
-            <P> Aviator </P>
-        </StyledTextBlock>
-    )
-}
 
 export default Logo

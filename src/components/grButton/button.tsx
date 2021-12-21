@@ -1,7 +1,26 @@
-import React, {useCallback} from 'react'
-import { goTo } from 'route-history'
+import React from 'react'
+
+import { connect } from 'react-redux'
+import { setGrPanel } from '../../actions/common'
+import { IAppState } from 'store'
 
 import styled from 'styled-components'
+
+const mapStateToProps = (state: IAppState) => ({
+  gamerules: state.gamerules
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    setGrPanel: () => dispatch(setGrPanel())
+});
+
+const GrButton: React.FC = ({ setGrPanel }: any) => {
+    return (
+        <StyledTextBlock onClick={() => setGrPanel()}>
+            <P> How to play ? </P>
+        </StyledTextBlock>
+    )
+}
 
 const StyledTextBlock = styled.div`
   width: 10rem;
@@ -25,13 +44,4 @@ const P = styled.p`
   margin: 0.3rem auto;
   `
 
-const GrButton: React.FC = ({isGr, setIsGr}: any) => {
-
-    return (
-        <StyledTextBlock onClick={ () => setIsGr(isGr ? false: true)}>
-            <P> How to play ? </P>
-        </StyledTextBlock>
-    )
-}
-
-export default GrButton
+export default connect(mapStateToProps, mapDispatchToProps)(GrButton)

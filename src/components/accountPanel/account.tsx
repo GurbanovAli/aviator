@@ -4,6 +4,16 @@ import styled from 'styled-components'
 
 import { useSelector } from 'react-redux'
 
+const Account: React.FC = () => {
+    const counter = useSelector(state => state.check.check);
+
+    return (
+        <StyledTextBlock>
+            <P>{counter}$ </P>
+        </StyledTextBlock>
+    )
+}
+
 const StyledTextBlock = styled.div`
   width: 7rem;
   background: #444;
@@ -22,15 +32,5 @@ const P = styled.p`
   color: white;
   margin: 0.2rem auto;
   `
-
-const Account: React.FC = () => {
-    const counter = useSelector(state => state.check.check);
-
-    return (
-        <StyledTextBlock>
-            <P>{counter}$ </P>
-        </StyledTextBlock>
-    )
-}
 
 export default Account

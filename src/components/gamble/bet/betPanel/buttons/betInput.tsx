@@ -4,6 +4,20 @@ import { useSelector } from 'react-redux'
 
 import styled from 'styled-components'
 
+export default ({ bet, setBet, rates}: any) => {
+  const getRate = useSelector((state: any) => state.rate.rate);
+  const getRate2 = useSelector((state: any) => state.rate2.rate2);
+  const rate = rates ? getRate : getRate2;
+
+    return (
+        <Div>
+            <Button type="button" onClick={() => !rate && setBet(bet > 0.5 ? bet - 0.5 : 0.5)}> - </Button >
+            <Input type="text" name="current_bet" value={bet} onChange={(e) => setBet(+e.target.value)} />
+            <Button type="button" onClick={() => !rate && setBet(bet <= 10 ? bet + 0.5 : 10)}> + </Button >
+        </Div>
+    )
+}
+
 const Div = styled.div`
   width: 8rem;
   height: 1.8rem;
@@ -47,20 +61,3 @@ const Input = styled.input`
   -webkit-transition: opacity 100ms ease-in;
   transition: opacity 100ms ease-in;
   `
-
-const BetInput: React.FC = ({ bet, setBet, rates}: any) => {
-
-  const getRate = useSelector(state => state.rate.rate);
-  const getRate2 = useSelector(state => state.rate2.rate2);
-  const rate = rates ? getRate : getRate2;
-
-    return (
-        <Div>
-            <Button type="button" onClick={() => !rate && setBet(bet > 0.5 ? bet - 0.5 : 0.5)}> - </Button >
-            <Input type="text" name="current_bet" value={bet} onChange={(e) => setBet(+e.target.value)} />
-            <Button type="button" onClick={() => !rate && setBet(bet <= 10 ? bet + 0.5 : 10)}> + </Button >
-        </Div>
-    )
-}
-
-export default BetInput

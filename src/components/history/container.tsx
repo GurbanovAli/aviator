@@ -10,10 +10,9 @@ import { IAppState } from 'store'
 const mapStateToProps = (state: IAppState) => ({
     fetching: state.common.fetching
 })
-const mapActionsToProps = (dispatch) => ({})
+// const mapActionsToProps = (dispatch) => ({})
 
-const connector = connect(mapStateToProps, mapActionsToProps)
-
+const connector = connect(mapStateToProps)
 
 const History: React.FC = () => {
     return (

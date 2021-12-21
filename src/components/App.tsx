@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ConnectedRouter } from 'connected-react-router'
 import routeHistory from 'route-history'
 import { Switch, Route } from 'react-router-dom'
@@ -19,17 +19,12 @@ import 'antd/dist/antd.css';
 const { Content } = Layout
 
 function App() {
-
-    const [isGr, setIsGr] = useState<boolean>(false);
-
-    console.clear();
-
     return (
         <ConnectedRouter history={routeHistory}>
             <Layout style={{ minHeight: '100%' }}>
                 <Header>
                     <Logo />
-                    <GrButton isGr={isGr} setIsGr={setIsGr} />
+                    <GrButton />
                     <Account />
                 </Header>
                 <Layout>
@@ -37,7 +32,7 @@ function App() {
                         <Switch>
                             <Route exact path="/">
                                 <History />
-                                <Gamble isGr={isGr} setIsGr={setIsGr} />
+                                <Gamble />
                             </Route>
                             <Route component={NotFound} />
                         </Switch>

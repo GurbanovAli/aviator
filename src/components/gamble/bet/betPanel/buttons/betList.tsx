@@ -6,6 +6,20 @@ import data from "../../../../../data.json"
 
 import styled from 'styled-components'
 
+export default ({ setBet, rates }: any) => {
+ const getRate = useSelector((state: any) => state.rate.rate);
+ const getRate2 = useSelector((state: any) => state.rate2.rate2);
+ const rate = rates ? getRate : getRate2;
+
+   return (
+       <Div>
+           {
+               data.bet.map((el, index) => <Button type="button" key={index} onClick={() => !rate && setBet(el)}>{el}$</Button>)
+           }
+       </Div>
+   )
+}
+
 const Div = styled.div`
   width: 8rem;
   height: 3.7rem;
@@ -39,20 +53,3 @@ const Button = styled.button`
     box-shadow: 0 0 40px 40px #696A66 inset;
   }
   `
-
-const BetList: React.FC = ({ setBet, rates }: any) => {
-
-  const getRate = useSelector(state => state.rate.rate);
-  const getRate2 = useSelector(state => state.rate2.rate2);
-  const rate = rates ? getRate : getRate2;
-
-    return (
-        <Div>
-            {
-                data.bet.map((el, index) => <Button type="button" key={index} onClick={() => !rate && setBet(el)}>{el}$</Button>)
-            }
-        </Div>
-    )
-}
-
-export default BetList

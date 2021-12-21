@@ -1,64 +1,43 @@
 import React, { useState } from 'react';
-// import { connect, ConnectedProps } from 'react-redux'
 
-import styled from 'styled-components'
+import { connect } from 'react-redux'
+import { closeGrPanel } from '../../actions/common'
+import { IAppState } from 'store'
 
-import { StyledContainer } from './style'
+import { StyledContainer, Modal } from './style'
 
 import Client from "./client"
 import Bet from "./bet"
 import Canvas from "./canvas"
 import GrPanel from './gamerules'
 
-// import { IAppState } from 'store'
+const mapStateToProps = (state: IAppState) => ({
+  gamerules: state.gamerules
+});
 
-// const mapStateToProps = (state: IAppState) => ({
-//   fetching: state.common.fetching,
-//   check: state.check,
-//   rate: state.rate,
-//   rate2: state.rate2
-// })
-// const mapActionsToProps = (dispatch) => ({
-// })
-//
-// const connector = connect(mapStateToProps, mapActionsToProps)
-// export type TReduxProps = ConnectedProps<typeof connector>
-//
-// export type TComponentProps = {
-// } & TReduxProps
+const mapDispatchToProps = (dispatch) => ({
+  closeGrPanel: () => dispatch(closeGrPanel())
+});
 
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
-const Gamble: React.FC = ({ isGr, setIsGr }: any) => {
-
-    const [isStart, setIsStart] = useState(0);
-    const [win, setWin] = useState(false);
-
-    const Modal = styled.div`
-    	z-index: 100;
-    	position: fixed;
-    	height: 100vh;
-    	width:100vw;
-    	background: rgba(0,0,0,0.5);
-    `;
+const Gamble: React.FC = ({ ...props }: any) => {
+    const { gamerules, closeGrPanel } = props;
 
     return (
         <StyledContainer>
             <Client />
-            {isGr &&
-                (
+            {
+                gamerules && (
                     <Modal>
-                        <GrPanel setIsGr={setIsGr} />
+                        <GrPanel closeGrPanel={closeGrPanel} />
                     </Modal>
                 )
             }
-            <Canvas isStart={isStart} setIsStart={setIsStart} win={win} setWin={setWin} />
-            <Bet
-                isStart={isStart}
-                setIsStart={setIsStart}
-                setWin={setWin}
-            />
+            <Canvas />
+            <Bet />
         </StyledContainer>
     )
 }
 
-export default Gamble
+export default connector(Gamble)

@@ -6,3 +6,11 @@ export const StyledContainer = styled.main`
   grid-template-columns: auto auto;
   font-family: math;
 `
+
+export const Modal = styled.div`
+  z-index: 100;
+  position: fixed;
+  height: 100vh;
+  width:100vw;
+  background: rgba(0,0,0,0.5);
+`;

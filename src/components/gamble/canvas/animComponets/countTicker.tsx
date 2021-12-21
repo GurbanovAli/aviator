@@ -3,7 +3,7 @@ import React from 'react';
 import * as PIXI from 'pixi.js';
 import { Text, useTick } from '@inlet/react-pixi';
 
-const CountTicker: React.FC = ({ isStart, lost, count, setCount }: any) => {
+const CountTicker: React.FC<any> = ({ time, lost, count, setCount }: any) => {
 
     const textStyle = new PIXI.TextStyle({
         align: 'center',
@@ -26,7 +26,7 @@ const CountTicker: React.FC = ({ isStart, lost, count, setCount }: any) => {
     let i = 0;
 
     useTick(delta => {
-        if (isStart) {
+        if (time) {
             i += 0.002 * delta;
             setCount(i + count)
         }

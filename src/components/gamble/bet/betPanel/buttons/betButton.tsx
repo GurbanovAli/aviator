@@ -1,49 +1,136 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 
-import styled from 'styled-components'
+import { connect, useSelector } from 'react-redux'
+import {
+    addCheck,
+    deleteCheck,
+    setRate,
+    setRate2,
+    cleanTimer,
+    setWintext,
+    setFormState,
+    cleanFormState
+} from '../../../../../actions/common';
+import { IAppState } from 'store'
 
 import { Stage } from '@inlet/react-pixi';
 import CountTicker from "../../../canvas/animComponets/countTicker"
 
-import { connect, ConnectedProps, useDispatch, useSelector } from 'react-redux'
-
-import { IAppState } from 'store'
+import styled from 'styled-components'
 
 const mapStateToProps = (state: IAppState) => ({
-    fetching: state.common.fetching,
-    check: state.check.check,
     rate: state.rate.rate,
-    rate2: state.rate2.rate2
-})
+    rate2: state.rate2.rate2,
+    toggle: state.toggle,
+    time: state.time,
+    stateForms: state.stateForms.stateForms
+});
 
-const ADD_CHECK = `ADD_CHECK`
-const DELETE_CHECK = `DELETE_CHECK`
-const RATE_ONE = `RATE_ONE`
-const RATE_TWO = `RATE_TWO`
+const mapDispatchToProps = (dispatch) => ({
+    addCheck: (count: number) => dispatch(addCheck(count)),
+    deleteCheck: (count: number) => dispatch(deleteCheck(count)),
+    setRate: (res: boolean) => dispatch(setRate(res)),
+    setRate2: (res: boolean) => dispatch(setRate2(res)),
+    cleanTimer: () => dispatch(cleanTimer()),
+    setWintext: () => dispatch(setWintext()),
+    setFormState: () => dispatch(setFormState()),
+    cleanFormState: () => dispatch(cleanFormState()),
+});
 
-const addCheck = ({ count, bet }: number) => ({
-    type: ADD_CHECK,
-    bet: bet,
-    count: count
-})
+type TBetButton = {
+    getCash: boolean;
+    setGetCash: (item: boolean) => void;
+    bet: number;
+    rates: boolean;
+    state: boolean;
+    setState: (item: boolean) => void;
+    toggle: boolean;
+    time: number;
+    stateForms: any;
+    addCheck: (item: number) => void;
+    deleteCheck: (item: number) => void;
+    setRate: (item: boolean) => void;
+    setRate2: (item: boolean) => void;
+    cleanTimer: () => void;
+    setWintext: () => void;
+    setFormState: () => void;
+    cleanFormState: () => void;
+}
 
-const deleteCheck = ({ count, bet }: number) => ({
-    type: DELETE_CHECK,
-    bet: bet,
-    count: count
-})
+const BetButton: React.FC<TBetButton> = ({ getCash, setGetCash, bet, rates, state, setState, ...props }: TBetButton) => {
 
-const setRate = (bool) => ({ type: RATE_ONE, rate: bool })
-const setRate2 = (bool) => ({ type: RATE_TWO, rate2: bool })
+    const { toggle, time, stateForms, addCheck, deleteCheck, setRate, setRate2, cleanTimer, setWintext, setFormState, cleanFormState } = props;
+    const getRate = useSelector((state: any) => state.rate.rate);
+    const getRate2 = useSelector((state: any) => state.rate2.rate2);
+    const rate = rates ? getRate : getRate2;
+    const rate2 = !rates ? getRate : getRate2;
+
+    const [count, setCount] = useState<number>(1);
+    const getIsStart = rate && time;
+
+    let roundedCount = bet + +count.toFixed(2);
+
+    const clickOnBet = () => {
+        if (!time && !toggle) {
+            rates ? setRate(!rate) : setRate2(!rate)
+        } else if (getIsStart) {
+            addCheck(roundedCount)
+            setGetCash(rate);
+            setCount(1)
+        }
+    }
+
+    if (toggle && !time) rates ? setRate(true) : setRate2(true);
+    if (getCash) setWintext();
 
 
-const mapDispatchToProps = (dispatch, bet) => ({
-    addCheck: () => dispatch(addCheck(bet)),
-    deleteCheck: () => dispatch(deleteCheck(bet)),
-    setRate: (bool) => dispatch(setRate(bool)),
-    setRate2: (bool) => dispatch(setRate2(bool))
-})
+    if (getCash) {
+        setGetCash(false);
+        setState(false);
+        rates ? setRate(false) : setRate2(false);
+        if (!rate2) {
+            cleanTimer();
+        }
 
+    } else if (time === +count.toFixed(2)) {
+        cleanTimer();
+        setState(false);
+        if (rate) {
+            rates ? setRate(false) : setRate2(false);
+            deleteCheck(roundedCount)
+            setCount(1);
+        }
+
+    } else if (!time && !rate2 && state) {
+        setGetCash(false);
+        setState(false);
+        rates ? setRate(false) : setRate2(false);
+
+    } else if (time) {
+        setState(true);
+    }
+
+    return (
+        <React.Fragment>
+            <Button
+                type="button"
+                onClick={() => clickOnBet()}
+                style={{ background: (rate ? (time ? "#F0E68C" : "#8B0000") : (toggle ? "#8B0000" : "#006400")) }}
+            >
+                {
+                    rate ? (time ?
+                        <>
+                            <Stage width={0} height={0}>
+                                <CountTicker time={time} lost={true} count={count} setCount={setCount} />
+                            </Stage>
+                            <P>{"cash out " + roundedCount.toFixed(2)}</P>
+                        </>
+                        : (toggle ? "autoplay" : "cancel")) : (toggle ? "autoplay" : "bet")
+                }
+            </Button>
+        </React.Fragment>
+    )
+};
 
 const Button = styled.button`
   display: inline-block;
@@ -76,89 +163,5 @@ const P = styled.p`
     padding: 0;
     text-align: center;
     `
-
-type BetButtonProps = {
-    getCash: boolean;
-    setGetCash: (item: boolean) => void;
-    isStart: number;
-    setIsStart: (item: number) => void;
-    bet: number;
-    state: any;
-    setState: any;
-    toggle: boolean;
-    rates: boolean;
-}
-
-const BetButton: React.FC<BetButtonProps> = ({ getCash, setGetCash, isStart, setIsStart, bet, state, setState, toggle, rates, addCheck, deleteCheck, setRate, setRate2 }: BetButtonProps) => {
-
-    const getRate = useSelector(state => state.rate.rate );
-    const getRate2 = useSelector(state => state.rate2.rate2);
-    const rate = rates ? getRate : getRate2;
-    const rate2 = !rates ? getRate : getRate2;
-    console.log(rate, rate2);
-
-
-    const [count, setCount] = useState(1);
-    const getIsStart = rate && isStart;
-
-    const clickOnBet = () => {
-        if (!isStart && !toggle) {
-            rates ? setRate(true) : setRate2(true);
-        } else if (getIsStart) {
-            addCheck()
-            setGetCash(rate);
-            setCount(1)
-        }
-    }
-
-    if (toggle && !isStart) rates ? setRate(true) : setRate2(true);
-
-    let roundedCount = bet + +count.toFixed(2);
-
-    if (getCash) {
-        setGetCash(false);
-        rates ? setRate(false) : setRate2(false));
-        setState(false);
-        if (!rate2) {
-            setIsStart(0);
-        }
-
-    } else if (isStart === +count.toFixed(2)) {
-        setIsStart(0);
-        setState(false);
-        if (rate) {
-            rates ? setRate(false) : setRate2(false));
-            deleteCheck()
-            setCount(1);
-        }
-    } else if (!isStart && !rate2 && state) {
-        setGetCash(false);
-        rates ? setRate(false) : setRate2(false));
-        setState(false)
-    } else if (isStart) {
-        setState(true);
-    }
-
-    return (
-        <React.Fragment>
-            <Button
-                type="button"
-                onClick={() => clickOnBet()}
-                style={{ background: (rate ? (isStart ? "#F0E68C" : "#8B0000") : (toggle ? "#8B0000" : "#006400")) }}
-            >
-                {
-                    rate ? (isStart ?
-                        <>
-                            <Stage width={0} height={0}>
-                                <CountTicker isStart={isStart} lost={true} count={count} setCount={setCount} />
-                            </Stage>
-                            <P>{"cash out " + roundedCount.toFixed(2)}</P>
-                        </>
-                        : (toggle ? "autoplay" : "cancel")) : (toggle ? "autoplay" : "bet")
-                }
-            </Button>
-        </React.Fragment>
-    )
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(BetButton)

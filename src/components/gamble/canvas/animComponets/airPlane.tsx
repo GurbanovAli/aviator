@@ -8,8 +8,7 @@ import PlaneJson from "./images/plane.json";
 
 import CountTicker from "./countTicker"
 
-
-const Airplane: React.FC = ({ rate, rate2, isStart, setIsStart, isFlying, setIsFlying, win, setWin }: any) => {
+const Airplane: React.FC<any> = ({ rate, rate2, time, setTimer, cleanTimer, isFlying, setIsFlying, win, outWintext }: any) => {
 
     const willMount = useRef(true);
     const graphics = useRef(null);
@@ -34,7 +33,7 @@ const Airplane: React.FC = ({ rate, rate2, isStart, setIsStart, isFlying, setIsF
     const [xs, setXs] = useState<number>(1)
     const [count, setCount] = useState<number>(1)
 
-    const lost = x > 10 && isFlying && !isStart;
+    const lost = x > 10 && isFlying && !time;
 
     const isFlyTextStyle = new PIXI.TextStyle({
         align: 'center',
@@ -53,7 +52,7 @@ const Airplane: React.FC = ({ rate, rate2, isStart, setIsStart, isFlying, setIsF
         wordWrapWidth: 700,
     })
 
-    if (!isStart && !isFlying) {
+    if (!time && !isFlying) {
         let j = 0;
 
         useTick(delta => {
@@ -61,17 +60,17 @@ const Airplane: React.FC = ({ rate, rate2, isStart, setIsStart, isFlying, setIsF
             if (xs < 3) {
                 setXs(j + xs);
             } else {
-                setIsStart(3)
+                setTimer(3)
                 setXs(1)
 
                 if(win){
-                  setWin(false);
+                  outWintext();
                 }
             }
         });
     } else {
         useTick(delta => {
-            if (isStart) {
+            if (time) {
                 i += 0.002 * delta;
                 const isXs = x > 1350 && (xs === 250 ? setXs(0) : setXs(xs + 1));
                 const getSpeedX = xs > 125 ? -2 : 2;
@@ -101,13 +100,13 @@ const Airplane: React.FC = ({ rate, rate2, isStart, setIsStart, isFlying, setIsF
 
     let roundedCount = count.toFixed(2);
 
-    if ((!rate && !rate2) && isStart === +roundedCount) {
-        setWin(false);
-        setIsStart(0);
+    if ((!rate && !rate2) && time === +roundedCount) {
+        outWintext();
+        cleanTimer();
     };
 
     const draw = useCallback(g => {
-        if (isStart) {
+        if (time) {
             if (x < 1300) {
                 g.lineStyle(10, 0xff0000, 1).moveTo(x + 10, y + 125).lineTo(x, y + 125);
                 g.lineStyle(10, 0xff0000, 0.1).moveTo(x + 10, y + 125).lineTo(x, y + 1000);
@@ -126,12 +125,12 @@ const Airplane: React.FC = ({ rate, rate2, isStart, setIsStart, isFlying, setIsF
                 height={200}
                 position={[x, y]}
                 textures={textures}
-                isPlaying={isStart || isFlying}
+                isPlaying={time || isFlying}
                 animationSpeed={0.6}
             />
             <Graphics draw={draw} ref={graphics.current} />
             {
-                x > 10 && <CountTicker isStart={isStart} lost={win ? false : lost} count={count} setCount={setCount}/>
+                x > 10 && <CountTicker time={time} lost={win ? false : lost} count={count} setCount={setCount} />
             }
             {
                 lost && <Text text={win ? "вы успели" : "лох, улетел"} anchor={0.5} x={950} y={400} style={isFlyTextStyle} />
