@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { connect, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import {
     addCheck,
     deleteCheck,
@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch) => ({
     cleanTimer: () => dispatch(cleanTimer()),
     setWintext: () => dispatch(setWintext()),
     setFormState: () => dispatch(setFormState()),
-    cleanFormState: () => dispatch(cleanFormState()),
+    cleanFormState: () => dispatch(cleanFormState())
 });
 
 type TBetButton = {
@@ -59,23 +59,21 @@ type TBetButton = {
 
 const BetButton: React.FC<TBetButton> = ({ getCash, setGetCash, bet, rates, state, setState, ...props }: TBetButton) => {
 
-    const { toggle, time, stateForms, addCheck, deleteCheck, setRate, setRate2, cleanTimer, setWintext, setFormState, cleanFormState } = props;
-    const getRate = useSelector((state: any) => state.rate.rate);
-    const getRate2 = useSelector((state: any) => state.rate2.rate2);
-    const rate = rates ? getRate : getRate2;
-    const rate2 = !rates ? getRate : getRate2;
+    const { rate, rate2, toggle, time, stateForms, addCheck, deleteCheck, setRate, setRate2, cleanTimer, setWintext, setFormState, cleanFormState } = props;
 
     const [count, setCount] = useState<number>(1);
-    const getIsStart = rate && time;
 
-    let roundedCount = bet + +count.toFixed(2);
+    const isRate = rates ? rate : rate2;
+    const isNeighborRate = !rates ? rate : rate2;
+    const getIsStart = isRate && time;
+    const roundedCount = bet + +count.toFixed(2);
 
     const clickOnBet = () => {
         if (!time && !toggle) {
-            rates ? setRate(!rate) : setRate2(!rate)
+            rates ? setRate(!isRate) : setRate2(!isRate)
         } else if (getIsStart) {
             addCheck(roundedCount)
-            setGetCash(rate);
+            setGetCash(isRate);
             setCount(1)
         }
     }
@@ -88,20 +86,20 @@ const BetButton: React.FC<TBetButton> = ({ getCash, setGetCash, bet, rates, stat
         setGetCash(false);
         setState(false);
         rates ? setRate(false) : setRate2(false);
-        if (!rate2) {
+        if (!isNeighborRate) {
             cleanTimer();
         }
 
     } else if (time === +count.toFixed(2)) {
         cleanTimer();
         setState(false);
-        if (rate) {
+        if (isRate) {
             rates ? setRate(false) : setRate2(false);
             deleteCheck(roundedCount)
             setCount(1);
         }
 
-    } else if (!time && !rate2 && state) {
+    } else if (!time && !isNeighborRate && state) {
         setGetCash(false);
         setState(false);
         rates ? setRate(false) : setRate2(false);
@@ -115,10 +113,10 @@ const BetButton: React.FC<TBetButton> = ({ getCash, setGetCash, bet, rates, stat
             <Button
                 type="button"
                 onClick={() => clickOnBet()}
-                style={{ background: (rate ? (time ? "#F0E68C" : "#8B0000") : (toggle ? "#8B0000" : "#006400")) }}
+                style={{ background: (isRate ? (time ? "#F0E68C" : "#8B0000") : (toggle ? "#8B0000" : "#006400")) }}
             >
                 {
-                    rate ? (time ?
+                    isRate ? (time ?
                         <>
                             <Stage width={0} height={0}>
                                 <CountTicker time={time} lost={true} count={count} setCount={setCount} />

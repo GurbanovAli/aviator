@@ -4,6 +4,7 @@ const MODULE_NAME = 'COMMON'
 
 export const START_FETCHING = `${MODULE_NAME}/START_FETCHING`
 export const STOP_FETCHING = `${MODULE_NAME}/STOP_FETCHING`
+export const ADD_HISTORY = 'ADD_HISTORY'
 export const ADD_CHECK = 'ADD_CHECK'
 export const DELETE_CHECK = 'DELETE_CHECK'
 export const RATE_ONE = 'RATE_ONE'
@@ -18,6 +19,7 @@ export const IS_WINTEXT = 'IS_WINTEXT'
 export const OUT_WINTEXT = 'OUT_WINTEXT'
 export const FORM_TRUE = 'FORM_TRUE'
 export const FORM_FALSE = 'FORM_FALSE'
+export const SET_FLYING = 'SET_FLYING'
 
 
 export const startFetching = (): any => async (dispatch: TAppDispatchThunk<never>): Promise<void> => {
@@ -31,6 +33,11 @@ export const stopFetching = (): any => async (dispatch: TAppDispatchThunk<never>
     type: STOP_FETCHING,
   })
 };
+
+export const addHistory = (arr: number[]) => ({
+  type: ADD_HISTORY,
+  arr: arr
+});
 
 export const addCheck = (count: number) => ({
   type: ADD_CHECK,
@@ -91,4 +98,9 @@ export const setFormState = () => ({
 
 export const cleanFormState = () => ({
   type: FORM_FALSE
+});
+
+export const setFlying = (value: boolean) => ({
+  type: SET_FLYING,
+  value: value
 });

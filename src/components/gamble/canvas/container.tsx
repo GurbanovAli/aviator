@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { connect } from 'react-redux'
-import { setTimer, cleanTimer, outWintext } from '../../../actions/common'
+import { addHistory, setTimer, cleanTimer, outWintext, setFlying } from '../../../actions/common'
 import { IAppState } from 'store'
 
 import { Stage } from '@inlet/react-pixi';
@@ -13,23 +13,25 @@ import LoadAnim from "./animComponets/load"
 import Airplane from "./animComponets/airPlane"
 
 const mapStateToProps = (state: IAppState) => ({
+    history: state.history,
     rate: state.rate.rate,
     rate2: state.rate2.rate2,
     time: state.time,
-    win: state.wintext
+    win: state.wintext,
+    isFlying: state.isFlying
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    addHistory: (arr: number[]) => dispatch(addHistory(arr)),
     setTimer: (time: number) => dispatch(setTimer(time)),
     cleanTimer: () => dispatch(cleanTimer()),
-    outWintext: () => dispatch(outWintext())
+    outWintext: () => dispatch(outWintext()),
+    setFlying: (value: boolean) => dispatch(setFlying(value))
 });
 
 const Canvas: React.FC = ({ ...props }: any) => {
 
-    const { rate, rate2, time, win, setTimer, cleanTimer, outWintext } = props;
-
-    const [isFlying, setIsFlying] = useState<boolean>(false);
+    const { history, rate, rate2, time, win, isFlying, setTimer, addHistory, cleanTimer, outWintext, setFlying } = props;
     const getStart = time || isFlying;
 
     return (
@@ -40,13 +42,15 @@ const Canvas: React.FC = ({ ...props }: any) => {
                     load={<LoadAnim />}
                     airplane={
                         <Airplane
+                            history={history}
                             rate={rate}
                             rate2={rate2}
                             time={time}
+                            addHistory={addHistory}
                             setTimer={setTimer}
                             cleanTimer={cleanTimer}
                             isFlying={isFlying}
-                            setIsFlying={setIsFlying}
+                            setFlying={setFlying}
                             win={win}
                             outWintext={outWintext}
                         />

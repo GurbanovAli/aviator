@@ -2,7 +2,7 @@ import { Action } from 'redux'
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { RouterState } from 'connected-react-router'
 
-import { ICommonState, ICheck, IStateForms } from 'reducers/common'
+import { ICommonState, IHistory, ICheck, IStateForms } from 'reducers/common'
 
 export interface IAction<T> extends Action<string> {
   payload?: T
@@ -11,6 +11,7 @@ export interface IAction<T> extends Action<string> {
 export interface IAppState {
   router: RouterState;
   common: ICommonState;
+  history: IHistory;
   check: ICheck;
   rate: any;
   rate2: any;
@@ -19,6 +20,7 @@ export interface IAppState {
   gamerules: boolean;
   wintext: boolean;
   stateForms: IStateForms;
+  isFlying: boolean;
 }
 
 export type TAppActionThunk<TPayload, TReturn = void, > = ThunkAction<

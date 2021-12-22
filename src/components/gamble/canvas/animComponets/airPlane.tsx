@@ -8,7 +8,7 @@ import PlaneJson from "./images/plane.json";
 
 import CountTicker from "./countTicker"
 
-const Airplane: React.FC<any> = ({ rate, rate2, time, setTimer, cleanTimer, isFlying, setIsFlying, win, outWintext }: any) => {
+const Airplane: React.FC<any> = ({ history, rate, rate2, time, addHistory, setTimer, cleanTimer, isFlying, setFlying, win, outWintext }: any) => {
 
     const willMount = useRef(true);
     const graphics = useRef(null);
@@ -34,18 +34,19 @@ const Airplane: React.FC<any> = ({ rate, rate2, time, setTimer, cleanTimer, isFl
     const [count, setCount] = useState<number>(1)
 
     const lost = x > 10 && isFlying && !time;
+    const roundedCount = count.toFixed(2);
 
     const isFlyTextStyle = new PIXI.TextStyle({
         align: 'center',
         fontFamily: ' sans-serif',
         fontSize: 120,
         fontWeight: "500",
-        fill: win ? "green": '#ff4133',
-        stroke: win ? "green": '#ff1100',
+        fill: win ? "green" : '#ff4133',
+        stroke: win ? "green" : '#ff1100',
         strokeThickness: 2,
         letterSpacing: 2,
         dropShadow: true,
-        dropShadowColor: win ? "green": '#ff1100',
+        dropShadowColor: win ? "green" : '#ff1100',
         dropShadowBlur: 6,
         dropShadowDistance: 6,
         wordWrap: true,
@@ -57,17 +58,18 @@ const Airplane: React.FC<any> = ({ rate, rate2, time, setTimer, cleanTimer, isFl
 
         useTick(delta => {
             j += 0.005 * delta;
-            if (xs < 3) {
+            if (xs < 3.025) {
                 setXs(j + xs);
             } else {
                 setTimer(3)
                 setXs(1)
 
-                if(win){
-                  outWintext();
+                if (win) {
+                    outWintext();
                 }
             }
         });
+
     } else {
         useTick(delta => {
             if (time) {
@@ -80,7 +82,8 @@ const Airplane: React.FC<any> = ({ rate, rate2, time, setTimer, cleanTimer, isFl
 
                 setX((i + x) + speedX);
                 setY((y - i) - speedY);
-                setIsFlying(true);
+
+                if (x < 15 && y > 930) setFlying(true);
 
             } else if (isFlying) {
 
@@ -88,17 +91,21 @@ const Airplane: React.FC<any> = ({ rate, rate2, time, setTimer, cleanTimer, isFl
                 setY((y - i) - 7);
 
                 if (x > 950 && y < 0) {
+                    const getHistory = history.history;
+
+                    getHistory.pop();
+                    getHistory.unshift(+count.toFixed(2));
+                    addHistory(getHistory);
+
                     setX(10)
                     setY(940);
                     setXs(1);
                     setCount(1);
-                    setIsFlying(false);
+                    setFlying(false);
                 }
             }
         });
     };
-
-    let roundedCount = count.toFixed(2);
 
     if ((!rate && !rate2) && time === +roundedCount) {
         outWintext();

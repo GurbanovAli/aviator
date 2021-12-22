@@ -8,10 +8,10 @@ import styled from 'styled-components'
 import NotFound from './NotFound'
 import Header from './Header'
 import Gamble from './gamble'
-import History from './history'
-
+import History from './historyPanel'
 import Logo from './logo/logo'
 import Account from './accountPanel/account'
+import Lang from './langPanel/lang'
 import GrButton from './grButton/button'
 
 import 'antd/dist/antd.css';
@@ -26,6 +26,7 @@ function App() {
                     <Logo />
                     <GrButton />
                     <Account />
+                    <Lang />
                 </Header>
                 <Layout>
                     <Content>

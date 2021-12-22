@@ -2,6 +2,7 @@ import { AnyAction } from 'redux'
 import {
   START_FETCHING,
   STOP_FETCHING,
+  ADD_HISTORY,
   ADD_CHECK,
   DELETE_CHECK,
   RATE_ONE,
@@ -15,10 +16,14 @@ import {
   IS_WINTEXT,
   OUT_WINTEXT,
   FORM_TRUE,
-  FORM_FALSE
+  FORM_FALSE,
+  SET_FLYING
 } from 'actions/common'
 
+import data from "../data.json"
+
 const initState = { fetching: false };
+const initHistoryState = { history: data.history };
 const initCheckState = { check: 400 };
 const initFirstRateState = { rate: false };
 const initSecondRateState = { rate2: false };
@@ -26,6 +31,10 @@ const initStateForms = { stateForms: false };
 
 export interface ICommonState {
   fetching: boolean;
+};
+
+export interface IHistory {
+  history: number[];
 };
 
 export interface ICheck {
@@ -36,17 +45,28 @@ export interface IStateForms {
   stateForms: boolean;
 };
 
-export const commonReducer = (state: ICommonState = initState, { type }: any) => {
+export const commonReducer = (state: ICommonState = initState, { type, arr }: any) => {
   switch (type) {
     case START_FETCHING: {
-      return { fetching: true }
+      return {
+        fetching: true
+       }
     }
     case STOP_FETCHING: {
-      return { fetching: false }
+      return {
+        fetching: false
+      }
     }
     default:
       return state
   }
+};
+
+export const historyReducer =  (state: number[] = initHistoryState, { type, arr }: number[] | any) => {
+  if (type === ADD_HISTORY) {
+    return { history: arr }
+  }
+  return state
 };
 
 export const firstRateReducer = (state: any = initFirstRateState, { type, value }: boolean | any) => {
@@ -122,3 +142,9 @@ export const formReducer = (state: IStateForms = initStateForms, { type }: boole
 
   return state
 }
+
+export const isFlyingReducer = (state: boolean = false, { type, value }: boolean | any) => {
+  if (type === SET_FLYING) return state = value;
+
+  return state
+};

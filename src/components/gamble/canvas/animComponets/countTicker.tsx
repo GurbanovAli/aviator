@@ -32,7 +32,7 @@ const CountTicker: React.FC<any> = ({ time, lost, count, setCount }: any) => {
         }
     });
 
-    let roundedCount = count.toFixed(2);
+    const roundedCount = count.toFixed(2);
 
     return (
         <>
