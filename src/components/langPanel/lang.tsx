@@ -1,35 +1,50 @@
 import React from 'react'
 
+import { connect } from 'react-redux'
+import { setLang } from '../../actions/common'
+import { IAppState } from 'store'
+
 import styled from 'styled-components'
 
-import { useSelector } from 'react-redux'
+const mapStateToProps = (state: IAppState) => ({
+    data: state.data,
+    lang: state.lang
+});
 
-const Lang: React.FC = () => {
+const mapDispatchToProps = (dispatch) => ({
+    setLang: (lang: any) => dispatch(setLang(lang))
+});
+
+const Lang: React.FC = ({ ...props }: any) => {
+    const { data, lang, setLang } = props;
+
     return (
-        <StyledTextBlock>
-            <P>En</P>
-        </StyledTextBlock>
+            <Select onChange={(e)=> setLang(data[e.target.value])}>
+                <option value="en">en</option>
+                <option value="ru">ru</option>
+            </Select>
     )
 }
 
-const StyledTextBlock = styled.div`
-  width: 5rem;
+const Select = styled.select`
+  width: 4rem;
+  height: 30px;
   background: #444;
-  border: 1.5px solid #696A66;
-  border-radius: 0.4rem;
-  margin: auto;
-  margin-left: 0.2rem;
-  font-family: 'Montserrat', sans-serif;
-  text-align: center;
-`
-const P = styled.p`
-  font-weight: 700;
-  font-size: 1.2rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  line-height: 1;
   color: white;
-  margin: 0.35rem auto;
-  `
+  padding-left: 5px;
+  font-size: 15px;
+  border: 1.5px solid #696A66;
+  border-radius: 0.2rem;
+  margin-left: 10px;
 
-export default Lang
+  option {
+    color: white;
+    background: #444;
+    display: flex;
+    white-space: pre;
+    min-height: 20px;
+    padding: 0px 0px 1px 3px;
+  }
+`;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Lang)

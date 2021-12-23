@@ -4,6 +4,8 @@ import routeHistory from 'route-history'
 
 import {
   commonReducer,
+  getDataReducer,
+  langReducer,
   historyReducer,
   checkReducer,
   firstRateReducer,
@@ -21,6 +23,8 @@ import { IAppState } from './models'
 const rootReducer = combineReducers<IAppState>({
   router: connectRouter(routeHistory),
   common: commonReducer,
+  data: getDataReducer,
+  lang: langReducer,
   history: historyReducer,
   check: checkReducer,
   rate: firstRateReducer,
@@ -28,7 +32,7 @@ const rootReducer = combineReducers<IAppState>({
   toggle: toggleReducer,
   time: timerReducer,
   gamerules: gamerulesReducer,
-  wintext : winTextReducer,
+  wintext: winTextReducer,
   stateForms: formReducer,
   isFlying: isFlyingReducer
 });

@@ -4,6 +4,7 @@ const MODULE_NAME = 'COMMON'
 
 export const START_FETCHING = `${MODULE_NAME}/START_FETCHING`
 export const STOP_FETCHING = `${MODULE_NAME}/STOP_FETCHING`
+export const SET_LANG = 'SET_LANG'
 export const ADD_HISTORY = 'ADD_HISTORY'
 export const ADD_CHECK = 'ADD_CHECK'
 export const DELETE_CHECK = 'DELETE_CHECK'
@@ -33,6 +34,11 @@ export const stopFetching = (): any => async (dispatch: TAppDispatchThunk<never>
     type: STOP_FETCHING,
   })
 };
+
+export const setLang = (lang: any) => ({
+  type: SET_LANG,
+  lang: lang
+});
 
 export const addHistory = (arr: number[]) => ({
   type: ADD_HISTORY,

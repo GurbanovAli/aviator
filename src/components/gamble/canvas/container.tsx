@@ -13,6 +13,7 @@ import LoadAnim from "./animComponets/load"
 import Airplane from "./animComponets/airPlane"
 
 const mapStateToProps = (state: IAppState) => ({
+    lang: state.lang,
     history: state.history,
     rate: state.rate.rate,
     rate2: state.rate2.rate2,
@@ -31,7 +32,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const Canvas: React.FC = ({ ...props }: any) => {
 
-    const { history, rate, rate2, time, win, isFlying, setTimer, addHistory, cleanTimer, outWintext, setFlying } = props;
+    const { lang, history, rate, rate2, time, win, isFlying, setTimer, addHistory, cleanTimer, outWintext, setFlying } = props;
     const getStart = time || isFlying;
 
     return (
@@ -39,7 +40,7 @@ const Canvas: React.FC = ({ ...props }: any) => {
             <Stage width={800} height={400} options={{ autoDensity: true, backgroundColor: 0x4D6BC8 }}>
                 <BackgroundAnim
                     getStart={getStart}
-                    load={<LoadAnim />}
+                    load={<LoadAnim lang={lang}/>}
                     airplane={
                         <Airplane
                             history={history}

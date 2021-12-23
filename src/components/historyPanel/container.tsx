@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import { connect } from 'react-redux'
-import { addHistory } from '../../actions/common'
 import { IAppState } from 'store'
 
 import { StyledContainer, P, Button } from './style'
@@ -9,15 +8,11 @@ import { StyledContainer, P, Button } from './style'
 const mapStateToProps = (state: IAppState) => ({
     history: state.history
 });
-const mapDispatchToProps = (dispatch) => ({
-    addHistory: (arr: number[]) => dispatch(addHistory(arr))
-})
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps);
 
-const History: React.FC = ({ ...props }: any) => {
+const History: React.FC = ({ history }: any) => {
 
-    const { history, addHistory } = props;
     const [toggle, setToggle] = useState<boolean>(false);
     const amount = toggle ? 29 : 15;
 

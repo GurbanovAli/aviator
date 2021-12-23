@@ -19,6 +19,7 @@ import CountTicker from "../../../canvas/animComponets/countTicker"
 import styled from 'styled-components'
 
 const mapStateToProps = (state: IAppState) => ({
+    lang: state.lang,
     rate: state.rate.rate,
     rate2: state.rate2.rate2,
     toggle: state.toggle,
@@ -44,6 +45,9 @@ type TBetButton = {
     rates: boolean;
     state: boolean;
     setState: (item: boolean) => void;
+    lang: any;
+    rate: boolean;
+    rate2: boolean;
     toggle: boolean;
     time: number;
     stateForms: any;
@@ -59,7 +63,7 @@ type TBetButton = {
 
 const BetButton: React.FC<TBetButton> = ({ getCash, setGetCash, bet, rates, state, setState, ...props }: TBetButton) => {
 
-    const { rate, rate2, toggle, time, stateForms, addCheck, deleteCheck, setRate, setRate2, cleanTimer, setWintext, setFormState, cleanFormState } = props;
+    const { lang, rate, rate2, toggle, time, stateForms, addCheck, deleteCheck, setRate, setRate2, cleanTimer, setWintext, setFormState, cleanFormState } = props;
 
     const [count, setCount] = useState<number>(1);
 
@@ -123,7 +127,7 @@ const BetButton: React.FC<TBetButton> = ({ getCash, setGetCash, bet, rates, stat
                             </Stage>
                             <P>{"cash out " + roundedCount.toFixed(2)}</P>
                         </>
-                        : (toggle ? "autoplay" : "cancel")) : (toggle ? "autoplay" : "bet")
+                        : (toggle ? "autoplay" : "cancel")) : (toggle ? "autoplay" : lang.betButton)
                 }
             </Button>
         </React.Fragment>

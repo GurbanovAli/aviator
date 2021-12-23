@@ -2,6 +2,7 @@ import { AnyAction } from 'redux'
 import {
   START_FETCHING,
   STOP_FETCHING,
+  SET_LANG,
   ADD_HISTORY,
   ADD_CHECK,
   DELETE_CHECK,
@@ -21,7 +22,7 @@ import {
 } from 'actions/common'
 
 import data from "../data.json"
-
+const ex = data.en
 const initState = { fetching: false };
 const initHistoryState = { history: data.history };
 const initCheckState = { check: 400 };
@@ -60,6 +61,17 @@ export const commonReducer = (state: ICommonState = initState, { type, arr }: an
     default:
       return state
   }
+};
+
+export const getDataReducer =  (state: any = data, { type }: any) => {
+  return state
+};
+
+export const langReducer =  (state: any = data.en, { type, lang }: any) => {
+  if (type === SET_LANG) {
+    return lang
+  }
+  return state
 };
 
 export const historyReducer =  (state: number[] = initHistoryState, { type, arr }: number[] | any) => {

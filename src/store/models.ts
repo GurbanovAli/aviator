@@ -11,6 +11,8 @@ export interface IAction<T> extends Action<string> {
 export interface IAppState {
   router: RouterState;
   common: ICommonState;
+  data:any;
+  lang: any;
   history: IHistory;
   check: ICheck;
   rate: any;

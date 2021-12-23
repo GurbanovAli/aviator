@@ -7,17 +7,20 @@ import { IAppState } from 'store'
 import styled from 'styled-components'
 
 const mapStateToProps = (state: IAppState) => ({
-  gamerules: state.gamerules
+    lang: state.lang,
+    gamerules: state.gamerules
 });
 
 const mapDispatchToProps = (dispatch) => ({
     setGrPanel: () => dispatch(setGrPanel())
 });
 
-const GrButton: React.FC = ({ setGrPanel }: any) => {
+const GrButton: React.FC = ({ lang, setGrPanel }: any) => {
+  const text = lang.settings.gamerules;
+
     return (
         <StyledTextBlock onClick={() => setGrPanel()}>
-            <P> How to play ? </P>
+            <P> {text + " ?"}</P>
         </StyledTextBlock>
     )
 }

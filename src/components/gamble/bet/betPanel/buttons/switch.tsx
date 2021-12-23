@@ -6,7 +6,8 @@ import { openToggle, closeToggle } from '../../../../../actions/common'
 import styled from "styled-components";
 
 const mapStateToProps = (state: any) => ({
-    toggle: state.toggle,
+    lang: state.lang,
+    toggle: state.toggle
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -14,14 +15,14 @@ const mapDispatchToProps = (dispatch) => ({
     closeToggle: () => dispatch(closeToggle())
 });
 
-const Switch: React.FC<any> = ({rates, ...props }: any) => {
-    const { toggle, openToggle, closeToggle } = props;
+const Switch: React.FC<any> = ({ rates, ...props }: any) => {
+    const { lang, toggle, openToggle, closeToggle } = props;
     const auto = true;
 
     return (
         <Div>
-            <Button {...{ toggle }} onClick={() => closeToggle()}>{"bet"}</Button>
-            <Button {...{ toggle, auto }} onClick={() => openToggle()}>{"auto"}</Button>
+            <Button {...{ toggle }} onClick={() => closeToggle()}>{lang.autoplay[0]}</Button>
+            <Button {...{ toggle, auto }} onClick={() => openToggle()}>{lang.autoplay[1]}</Button>
         </Div>
     );
 };

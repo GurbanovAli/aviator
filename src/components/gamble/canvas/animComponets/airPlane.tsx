@@ -8,7 +8,7 @@ import PlaneJson from "./images/plane.json";
 
 import CountTicker from "./countTicker"
 
-const Airplane: React.FC<any> = ({ history, rate, rate2, time, addHistory, setTimer, cleanTimer, isFlying, setFlying, win, outWintext }: any) => {
+const Airplane: React.FC<any> = ({ lang, history, rate, rate2, time, addHistory, setTimer, cleanTimer, isFlying, setFlying, win, outWintext }: any) => {
 
     const willMount = useRef(true);
     const graphics = useRef(null);
@@ -78,7 +78,9 @@ const Airplane: React.FC<any> = ({ history, rate, rate2, time, addHistory, setTi
                 const getSpeedX = xs > 125 ? -2 : 2;
                 const getSpeedY = xs > 125 ? 1.5 : -1.5;
                 const speedX = x < 650 ? 4 : x < 1350 ? 3 : getSpeedX;
-                const speedY = (y > 840 && 0.6) || (y > 835 && 0.8) || (y > 830 && 1) || (y > 825 && 1.2) || (y > 200 && 2) || getSpeedY;
+                console.log(y);
+
+                const speedY = (y > 840 && 0.6) || (y > 835 && 0.9) || (y > 830 && 1.4) || (y > 825 && 1.6) || (y > 820 && 2) || (y > 815 && 2.5) || (y > 805 && 2.8) || (y > 790 && 3.5) || (y > 200 && 4) || getSpeedY;
 
                 setX((i + x) + speedX);
                 setY((y - i) - speedY);
@@ -140,7 +142,7 @@ const Airplane: React.FC<any> = ({ history, rate, rate2, time, addHistory, setTi
                 x > 10 && <CountTicker time={time} lost={win ? false : lost} count={count} setCount={setCount} />
             }
             {
-                lost && <Text text={win ? "вы успели" : "лох, улетел"} anchor={0.5} x={950} y={400} style={isFlyTextStyle} />
+                lost && <Text text={win ? "вы успели" : "улетел"} anchor={0.5} x={950} y={400} style={isFlyTextStyle} />
             }
         </>
     );
