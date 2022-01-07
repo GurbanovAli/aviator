@@ -5,28 +5,65 @@
   "history": [
     1.23, 5.34, 34.01, 2.01, 7.91, 1.01, 1.23, 2.34, 2.61, 1.23, 5, 34, 34.01, 2.01, 7.91, 1.01, 1.23, 2.34, 2.61, 1.23, 5, 34, 34.01, 2.01, 7.91, 1.01, 1.23, 2.34, 2.61
   ],
+  "historyOfBet": [{
+      "bet": 5,
+      "currency": "$",
+      "data": "01.09.2021",
+      "time": "",
+      "win": true,
+      "count": 3
+    },
+    {
+      "bet": 2,
+      "currency": "$",
+      "data": "01.09.2021",
+      "time": "",
+      "win": false,
+      "count": 1.3
+    },
+    {
+      "bet": 10,
+      "currency": "$",
+      "data": "01.09.2021",
+      "time": "",
+      "win": true,
+      "count": 0.3
+    }
+  ],
   "en": {
     "settings": {
       "gamerules": "How to play"
     },
-    "history": "all",
+    "history": {
+      "values": ["bet", "time", "value", "sum", "in", "win"]
+    },
     "loading": "expectation to the new round",
     "betButton": "bet",
     "autoplay": [
       "bet",
       "auto"
-    ]
+    ],
+    "gamerules": {
+      "one": "The Aviator game allows you to feel like a risky pilot, and your earnings depend on the height to which he manages to lift his plane. The height in the indicated case is the coefficient (multiplication) that will be to your winning bet. The main thing here is not to overdo it and be able to stop the takeoff at the right moment. If the height has stopped before you cashed out the bet, then the funds will be burned out.",
+      "two": "What is important to know The win multiplier starts at 1x and grows more and more as the Airplane gains altitude. Your winnings are equal to the product of the multiplier during which you made the Cashout and the amount of your bet. Before the start of each round, an honest random number generator generates a coefficient at which the Airplane flies away. You can check the fairness of each round using the functionality available in the game."
+    }
   },
   "ru": {
     "settings": {
       "gamerules": "как играть"
     },
-    "history": "все",
+    "history": {
+      "values": ["ставка", "время", "итог", "сумма", "в", "выигрыш"]
+    },
     "loading": "ожидание нового раунда",
     "betButton": "ставка",
     "autoplay": [
       "ставка",
       "авто"
-    ]
+    ],
+    "gamerules": {
+      "one": "Игра Авиатор позволяет почувствовать себя в роли рискованного пилота, а ваш заработок зависит от высоты, на которую ему удастся поднять свой самолет. Высота в данном случае равна коэффициенту(умножению) который будет применяться к вашей победной ставке. Здесь главное не переусердствовать и уметь остановить взлет в правильный момент.Грубо говоря, вовремя нажать на кнопку выкупа ставки прежде, чем самолет прекратит набор высоты(прекратится рост множителя). Если набор высоты прекратился раньше, чем вы обналичили ставку, то средства сгорают.Но в случае, когда жадность не берет верх над разумом, а умножения ставки в 2 - 3 раза вам достаточно, успех максимально гарантирован!",
+      "two": "Что важно знать  Множитель выигрыша начинается с 1х и растет все больше и больше, пока Самолет набирает высоту. Ваш выигрыш равен произведению множителя, во время которого вы сделали Кешаут, и суммы вашей ставки. Перед началом каждого раунда честный генератор случайных чисел генерирует коэффициент, при котором улетает Самолет.Вы можете проверить честность каждого раунда воспользовавшись доступным в игре функционалом."
+    }
   }
 }

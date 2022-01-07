@@ -3,6 +3,7 @@ import {
   START_FETCHING,
   STOP_FETCHING,
   SET_LANG,
+  ADD_HISTORY_OF_BET,
   ADD_HISTORY,
   ADD_CHECK,
   DELETE_CHECK,
@@ -10,6 +11,8 @@ import {
   RATE_TWO,
   OPEN_TOGGLE,
   CLOSED_TOGGLE,
+  OPEN_TOGGLE_TWO,
+  CLOSED_TOGGLE_TWO,
   SET_TIMER,
   CLEAN_TIMER,
   IS_GAMERULES_PANEL,
@@ -19,12 +22,13 @@ import {
   FORM_TRUE,
   FORM_FALSE,
   SET_FLYING
-} from 'actions/common'
+} from 'actions'
 
 import data from "../data.json"
-const ex = data.en
+
 const initState = { fetching: false };
 const initHistoryState = { history: data.history };
+const initHistoryOfBetState = { historyOfBet: data.historyOfBet };
 const initCheckState = { check: 400 };
 const initFirstRateState = { rate: false };
 const initSecondRateState = { rate2: false };
@@ -36,6 +40,10 @@ export interface ICommonState {
 
 export interface IHistory {
   history: number[];
+};
+
+export interface IHistoryOfBet {
+  historyOfBet: any[];
 };
 
 export interface ICheck {
@@ -70,6 +78,13 @@ export const getDataReducer =  (state: any = data, { type }: any) => {
 export const langReducer =  (state: any = data.en, { type, lang }: any) => {
   if (type === SET_LANG) {
     return lang
+  }
+  return state
+};
+
+export const historyOfBetReducer =  (state: any[] = initHistoryOfBetState, { type, arr }: any[] | any) => {
+  if (type === ADD_HISTORY_OF_BET) {
+    return { historyOfBet: arr }
   }
   return state
 };
@@ -120,6 +135,19 @@ export const toggleReducer = (state: boolean = false, { type }: boolean | any) =
       return state = true;
     }
     case CLOSED_TOGGLE: {
+      return state = false;
+    }
+    default:
+      return state
+  }
+};
+
+export const toggleTwoReducer = (state: boolean = false, { type }: boolean | any) => {
+  switch (type) {
+    case OPEN_TOGGLE_TWO: {
+      return state = true;
+    }
+    case CLOSED_TOGGLE_TWO: {
       return state = false;
     }
     default:

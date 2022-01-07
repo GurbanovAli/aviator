@@ -3,8 +3,8 @@ import React, { useState, useRef } from 'react';
 import * as PIXI from 'pixi.js';
 import { AnimatedSprite } from '@inlet/react-pixi';
 
-import Bg from "./images/bd1.png"
-import BgJson from "./images/bd1.json";
+import Bg from "animations/bd.png"
+import BgJson from "animations/bd.json";
 
 
 const BackgroundAnim: React.FC = ({ getStart, load, airplane }: boolean | any) => {

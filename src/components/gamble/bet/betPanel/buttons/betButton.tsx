@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { connect } from 'react-redux'
 import {
+    addHistoryOfBet,
     addCheck,
     deleteCheck,
     setRate,
@@ -10,24 +11,30 @@ import {
     setWintext,
     setFormState,
     cleanFormState
-} from '../../../../../actions/common';
-import { IAppState } from 'store'
+} from 'actions';
+import { IAppState, IAppDispatch } from 'store'
 
 import { Stage } from '@inlet/react-pixi';
-import CountTicker from "../../../canvas/animComponets/countTicker"
 
-import styled from 'styled-components'
+import Counter from '../../../counter'
+
+import { setBetValue } from './items'
+import { Button4, P } from './style'
 
 const mapStateToProps = (state: IAppState) => ({
     lang: state.lang,
+    historyOfBet: state.historyOfBet,
     rate: state.rate.rate,
     rate2: state.rate2.rate2,
     toggle: state.toggle,
+    toggle2: state.toggle2,
     time: state.time,
-    stateForms: state.stateForms.stateForms
+    stateForms: state.stateForms.stateForms,
+    isFlying: state.isFlying
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: IAppDispatch) => ({
+    addHistoryOfBet: (arr: any[]) => dispatch(addHistoryOfBet(arr)),
     addCheck: (count: number) => dispatch(addCheck(count)),
     deleteCheck: (count: number) => dispatch(deleteCheck(count)),
     setRate: (res: boolean) => dispatch(setRate(res)),
@@ -45,51 +52,67 @@ type TBetButton = {
     rates: boolean;
     state: boolean;
     setState: (item: boolean) => void;
-    lang: any;
-    rate: boolean;
-    rate2: boolean;
-    toggle: boolean;
-    time: number;
-    stateForms: any;
-    addCheck: (item: number) => void;
-    deleteCheck: (item: number) => void;
-    setRate: (item: boolean) => void;
-    setRate2: (item: boolean) => void;
-    cleanTimer: () => void;
-    setWintext: () => void;
-    setFormState: () => void;
-    cleanFormState: () => void;
 }
 
-const BetButton: React.FC<TBetButton> = ({ getCash, setGetCash, bet, rates, state, setState, ...props }: TBetButton) => {
+const BetButton: React.FC<TBetButton | IAppState | IAppDispatch> = ({
+    getCash,
+    setGetCash,
+    bet,
+    rates,
+    state,
+    setState,
+    ...props }: TBetButton | IAppState | IAppDispatch) => {
 
-    const { lang, rate, rate2, toggle, time, stateForms, addCheck, deleteCheck, setRate, setRate2, cleanTimer, setWintext, setFormState, cleanFormState } = props;
+    const {
+        lang,
+        historyOfBet,
+        rate,
+        rate2,
+        toggle,
+        toggle2,
+        time,
+        stateForms,
+        isFlying,
+        addHistoryOfBet,
+        addCheck,
+        deleteCheck,
+        setRate,
+        setRate2,
+        cleanTimer,
+        setWintext,
+        setFormState,
+        cleanFormState
+    } = props;
 
     const [count, setCount] = useState<number>(1);
 
     const isRate = rates ? rate : rate2;
+    const getToggle = rates ? toggle : toggle2;
     const isNeighborRate = !rates ? rate : rate2;
-    const getIsStart = isRate && time;
     const roundedCount = bet + +count.toFixed(2);
 
     const clickOnBet = () => {
-        if (!time && !toggle) {
+        if (!time && !getToggle) {
             rates ? setRate(!isRate) : setRate2(!isRate)
-        } else if (getIsStart) {
+        } else if (isRate && time;) {
+            setBetValue(bet, count, historyOfBet);
             addCheck(roundedCount)
             setGetCash(isRate);
-            setCount(1)
+            setCount(1);
         }
     }
 
-    if (toggle && !time) rates ? setRate(true) : setRate2(true);
-    if (getCash) setWintext();
+    if (getToggle && !time) {
+      rates ? setRate(true) : setRate2(true)
+    };
 
 
     if (getCash) {
+        setWintext();
         setGetCash(false);
         setState(false);
         rates ? setRate(false) : setRate2(false);
+
         if (!isNeighborRate) {
             cleanTimer();
         }
@@ -97,7 +120,10 @@ const BetButton: React.FC<TBetButton> = ({ getCash, setGetCash, bet, rates, stat
     } else if (time === +count.toFixed(2)) {
         cleanTimer();
         setState(false);
+
         if (isRate) {
+            setBetValue(bet, count, historyOfBet);
+
             rates ? setRate(false) : setRate2(false);
             deleteCheck(roundedCount)
             setCount(1);
@@ -114,56 +140,26 @@ const BetButton: React.FC<TBetButton> = ({ getCash, setGetCash, bet, rates, stat
 
     return (
         <React.Fragment>
-            <Button
+            <Button4
                 type="button"
                 onClick={() => clickOnBet()}
-                style={{ background: (isRate ? (time ? "#F0E68C" : "#8B0000") : (toggle ? "#8B0000" : "#006400")) }}
+                style={{ background: (isRate ? (time ? "#F0E68C" : "#8B0000") : (getToggle ? "#8B0000" : "#006400")) }}
             >
                 {
                     isRate ? (time ?
                         <>
                             <Stage width={0} height={0}>
-                                <CountTicker time={time} lost={true} count={count} setCount={setCount} />
+                                <Counter time={time} lost={true} count={count} setCount={setCount} />
                             </Stage>
-                            <P>{"cash out " + roundedCount.toFixed(2)}</P>
+                            <P>{"cash out " + roundedCount}</P>
                         </>
-                        : (toggle ? "autoplay" : "cancel")) : (toggle ? "autoplay" : lang.betButton)
+                        : (getToggle ? "autoplay" : "cancel")) : (getToggle ? "autoplay" : lang.betButton)
                 }
-            </Button>
+            </Button4>
         </React.Fragment>
     )
 };
 
-const Button = styled.button`
-  display: inline-block;
-  border-radius: 5px;
-  padding: 0.5rem 0;
-  margin: 0.5rem 0.5rem -0.5rem;
-  width: 10rem;
-  height: 6rem;
-  color: white;
-  border: none;
-  font-size: 26px;
-  font-weight: 600;
-  font-family: monospace;
-  text-transform: uppercase;
-  cursor: pointer;
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row: 1 / 3;
-    :active{
-      background: gray;
-    }
-    :hover {
-      opacity: 0.8;
-    }
-  `
 
-const P = styled.p`
-    width: 10rem;
-    margin: -3rem 0 0;
-    padding: 0;
-    text-align: center;
-    `
 
 export default connect(mapStateToProps, mapDispatchToProps)(BetButton)

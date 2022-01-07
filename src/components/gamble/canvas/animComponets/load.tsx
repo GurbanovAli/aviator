@@ -3,10 +3,10 @@ import React, { useState, useRef } from 'react';
 import * as PIXI from 'pixi.js';
 import { AnimatedSprite, Text } from '@inlet/react-pixi';
 
-import Load from "./images/load2.png"
-import LoadJson from "./images/load2.json";
-// import Loading from "./images/loading.png"
-// import LoadingJson from "./images/loading.json";
+import Load from "animations/load.png"
+import LoadJson from "animations/load.json";
+// import Loading from "animations/loading.png"
+// import LoadingJson from "animations/loading.json";
 
 const LoadAnim: React.FC = ({ lang } : any) => {
     const willMount = useRef(true);

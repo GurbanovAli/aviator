@@ -7,8 +7,13 @@ import BetInput from "./buttons/betInput"
 import BetList from "./buttons/betList"
 import BetButton from "./buttons/betButton"
 
-const BetPanel: React.FC<any> = ({rates, state, setState}: any) => {
+type TBetPanel = {
+    rates: boolean;
+    state: boolean;
+    setState: (item: boolean) => void;
+}
 
+const BetPanel: React.FC<TBetPanel> = ({ rates, state, setState }: TBetPanel) => {
     const [bet, setBet] = useState<number>(5);
     const [getCash, setGetCash] = useState<boolean>(false);
 

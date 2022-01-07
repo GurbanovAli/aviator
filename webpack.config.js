@@ -54,7 +54,9 @@ const config = {
       'services': path.resolve(__dirname, 'src/services'),
       'models': path.resolve(__dirname, 'src/models'),
       'modules': path.resolve(__dirname, 'src/modules'),
-      'pages': path.resolve(__dirname, 'src/pages')
+      'pages': path.resolve(__dirname, 'src/pages'),
+      "icons": path.resolve(__dirname, 'src/icons'),
+      "animations": path.resolve(__dirname, 'src/animations'),
     }
   },
   devtool: 'source-map',

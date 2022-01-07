@@ -1,42 +1,47 @@
 import React, { useState } from 'react';
 
 import { connect } from 'react-redux'
-import { closeGrPanel } from '../../actions/common'
-import { IAppState } from 'store'
+import { closeGrPanel } from 'actions'
+import { IAppState, IAppDispatch } from 'store'
 
 import { StyledContainer, Modal } from './style'
 
-import Client from "./client"
+import HBets from "../history/bet_history"
+import HCounts from "../history/count_history"
 import Bet from "./bet"
 import Canvas from "./canvas"
-import GrPanel from './gamerules'
+import GrPanel from '../gamerules'
 
 const mapStateToProps = (state: IAppState) => ({
-  gamerules: state.gamerules
+    lang: state.lang,
+    gamerules: state.gamerules
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  closeGrPanel: () => dispatch(closeGrPanel())
+    closeGrPanel: () => dispatch(closeGrPanel())
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-const Gamble: React.FC = ({ ...props }: any) => {
-    const { gamerules, closeGrPanel } = props;
+const Gamble: React.FC = ({ ...props }: IAppState | any) => {
+    const { lang, gamerules, closeGrPanel } = props;
 
     return (
-        <StyledContainer>
-            <Client />
+        <>
             {
                 gamerules && (
                     <Modal>
-                        <GrPanel closeGrPanel={closeGrPanel} />
+                        <GrPanel lang={lang} closeGrPanel={closeGrPanel} />
                     </Modal>
                 )
             }
-            <Canvas />
-            <Bet />
-        </StyledContainer>
+            <StyledContainer>
+                <HBets />
+                <HCounts />
+                <Canvas />
+                <Bet />
+            </StyledContainer>
+        </>
     )
 }
 

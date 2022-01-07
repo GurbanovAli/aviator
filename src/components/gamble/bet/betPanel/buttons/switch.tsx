@@ -1,61 +1,35 @@
 import React from "react";
 
 import { connect } from 'react-redux'
-import { openToggle, closeToggle } from '../../../../../actions/common'
+import { openToggle, closeToggle, openToggleTwo, closeToggleTwo } from 'actions'
+import { IAppState, IAppDispatch } from 'store'
 
-import styled from "styled-components";
+import { Div, Button } from './style'
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: IAppState) => ({
     lang: state.lang,
-    toggle: state.toggle
+    toggle: state.toggle,
+    toggle2: state.toggle2
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: IAppDispatch) => ({
     openToggle: () => dispatch(openToggle()),
-    closeToggle: () => dispatch(closeToggle())
+    closeToggle: () => dispatch(closeToggle()),
+    openToggleTwo: () => dispatch(openToggleTwo()),
+    closeToggleTwo: () => dispatch(closeToggleTwo())
 });
 
-const Switch: React.FC<any> = ({ rates, ...props }: any) => {
-    const { lang, toggle, openToggle, closeToggle } = props;
+const Switch: React.FC<boolean | IAppState | IAppDispatch> = ({ rates, ...props }: boolean | IAppState | IAppDispatch) => {
+    const { lang, toggle, toggle2, openToggle, closeToggle, openToggleTwo, closeToggleTwo } = props;
     const auto = true;
+    const getToggle = rates ? toggle : toggle2;
 
     return (
         <Div>
-            <Button {...{ toggle }} onClick={() => closeToggle()}>{lang.autoplay[0]}</Button>
-            <Button {...{ toggle, auto }} onClick={() => openToggle()}>{lang.autoplay[1]}</Button>
-        </Div>
+            <Button {...{ getToggle }} onClick={() => { rates ? closeToggle() : closeToggleTwo() }}>{lang.autoplay[0]}</Button>
+            <Button {...{ getToggle, auto }} onClick={() => { rates ? openToggle() : openToggleTwo() }}>{lang.autoplay[1]}</Button>
+        </Div >
     );
 };
-
-const Div = styled.div`
-  width: 8.4rem;
-  height: 1.8rem;
-  margin-top: 0.4rem;
-  display: flex;
-  padding: auto;
-  background: #333;
-  border: 2px solid #696A66;
-  border-radius: 0.3em;
-`;
-
-const Button = styled.button`
-    width: 4.2rem;
-    height: 1.6rem;
-    box-sizing: border-box;
-    background-color: ${({ toggle, auto }) => (auto ? (toggle ? "#696A66" : "transparent") : (!toggle ? "#696A66" : "transparent"))};
-    border: none;
-    border-radius: 0.3em;
-    color: ${({ toggle, auto }) => (auto ? (toggle ? "#fff" : "#8B8C89") : (!toggle ? "#fff" : "#8B8C89"))};
-    cursor: pointer;
-    align-self: center;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1;
-    margin: auto;
-    padding: 2px auto;
-    text-decoration: none;
-    text-align: center;
-    font-family: 'Montserrat', sans-serif;
-`;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Switch);
