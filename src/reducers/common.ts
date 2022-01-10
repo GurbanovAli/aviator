@@ -21,7 +21,8 @@ import {
   OUT_WINTEXT,
   FORM_TRUE,
   FORM_FALSE,
-  SET_FLYING
+  SET_FLYING,
+  SET_ROUNDED_COUNT
 } from 'actions'
 
 import data from "../data.json"
@@ -185,6 +186,12 @@ export const formReducer = (state: IStateForms = initStateForms, { type }: boole
 
 export const isFlyingReducer = (state: boolean = false, { type, value }: boolean | any) => {
   if (type === SET_FLYING) return state = value;
+
+  return state
+};
+
+export const setCountReducer = (state: number = false, { type, count }: string | any) => {
+  if (type === SET_ROUNDED_COUNT) return state = count;
 
   return state
 };

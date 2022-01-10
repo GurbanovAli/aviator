@@ -19,7 +19,8 @@ const mapStateToProps = (state: IAppState) => ({
     rate2: state.rate2.rate2,
     time: state.time,
     win: state.wintext,
-    isFlying: state.isFlying
+    isFlying: state.isFlying,
+    counter: state.counter
 });
 
 const mapDispatchToProps = (dispatch: IAppDispatch) => ({
@@ -40,6 +41,7 @@ const Canvas: React.FC<IAppState | IAppDispatch> = ({ ...props }: IAppState | IA
         time,
         win,
         isFlying,
+        counter,
         setTimer,
         addHistory,
         cleanTimer,
@@ -65,6 +67,7 @@ const Canvas: React.FC<IAppState | IAppDispatch> = ({ ...props }: IAppState | IA
                             time={time}
                             win={win}
                             isFlying={isFlying}
+                            counter={counter}
                             addHistory={addHistory}
                             setTimer={setTimer}
                             cleanTimer={cleanTimer}

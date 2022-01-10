@@ -24,6 +24,7 @@ export const OUT_WINTEXT = 'OUT_WINTEXT'
 export const FORM_TRUE = 'FORM_TRUE'
 export const FORM_FALSE = 'FORM_FALSE'
 export const SET_FLYING = 'SET_FLYING'
+export const SET_ROUNDED_COUNT = 'SET_ROUNDED_COUNT'
 
 
 export const startFetching = (): any => async (dispatch: TAppDispatchThunk<never>): Promise<void> => {
@@ -125,4 +126,9 @@ export const cleanFormState = () => ({
 export const setFlying = (value: boolean) => ({
   type: SET_FLYING,
   value: value
+});
+
+export const setRoundedCount = (count: number) => ({
+  type: SET_ROUNDED_COUNT,
+  count: count
 });

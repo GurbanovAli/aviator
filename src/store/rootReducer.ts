@@ -17,7 +17,8 @@ import {
   gamerulesReducer,
   winTextReducer,
   formReducer,
-  isFlyingReducer
+  isFlyingReducer,
+  setCountReducer
 } from 'reducers/common'
 
 import { IAppState } from './models'
@@ -38,7 +39,8 @@ const rootReducer = combineReducers<IAppState>({
   gamerules: gamerulesReducer,
   wintext: winTextReducer,
   stateForms: formReducer,
-  isFlying: isFlyingReducer
+  isFlying: isFlyingReducer,
+  counter: setCountReducer;
 });
 
 export default rootReducer

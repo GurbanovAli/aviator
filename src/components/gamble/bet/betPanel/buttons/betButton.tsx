@@ -10,7 +10,8 @@ import {
     cleanTimer,
     setWintext,
     setFormState,
-    cleanFormState
+    cleanFormState,
+    setRoundedCount
 } from 'actions';
 import { IAppState, IAppDispatch } from 'store'
 
@@ -30,7 +31,8 @@ const mapStateToProps = (state: IAppState) => ({
     toggle2: state.toggle2,
     time: state.time,
     stateForms: state.stateForms.stateForms,
-    isFlying: state.isFlying
+    isFlying: state.isFlying,
+    counter: state.counter
 });
 
 const mapDispatchToProps = (dispatch: IAppDispatch) => ({
@@ -42,7 +44,8 @@ const mapDispatchToProps = (dispatch: IAppDispatch) => ({
     cleanTimer: () => dispatch(cleanTimer()),
     setWintext: () => dispatch(setWintext()),
     setFormState: () => dispatch(setFormState()),
-    cleanFormState: () => dispatch(cleanFormState())
+    cleanFormState: () => dispatch(cleanFormState()),
+    setRoundedCount: (count: number) => dispatch(setRoundedCount(count))
 });
 
 type TBetButton = {
@@ -73,6 +76,7 @@ const BetButton: React.FC<TBetButton | IAppState | IAppDispatch> = ({
         time,
         stateForms,
         isFlying,
+        counter,
         addHistoryOfBet,
         addCheck,
         deleteCheck,
@@ -81,7 +85,8 @@ const BetButton: React.FC<TBetButton | IAppState | IAppDispatch> = ({
         cleanTimer,
         setWintext,
         setFormState,
-        cleanFormState
+        cleanFormState,
+        setRoundedCount
     } = props;
 
     const [count, setCount] = useState<number>(1);
@@ -89,14 +94,18 @@ const BetButton: React.FC<TBetButton | IAppState | IAppDispatch> = ({
     const isRate = rates ? rate : rate2;
     const getToggle = rates ? toggle : toggle2;
     const isNeighborRate = !rates ? rate : rate2;
-    const roundedCount = bet + +count.toFixed(2);
+
+    if(time){
+      const get = +count.toFixed(2);
+      setRoundedCount(get)
+    }
 
     const clickOnBet = () => {
         if (!time && !getToggle) {
             rates ? setRate(!isRate) : setRate2(!isRate)
-        } else if (isRate && time;) {
-            setBetValue(bet, count, historyOfBet);
-            addCheck(roundedCount)
+        } else if (isRate && time) {
+            setBetValue(bet, roundedCount, historyOfBet);
+            addCheck(bet + counter)
             setGetCash(isRate);
             setCount(1);
         }
@@ -117,7 +126,7 @@ const BetButton: React.FC<TBetButton | IAppState | IAppDispatch> = ({
             cleanTimer();
         }
 
-    } else if (time === +count.toFixed(2)) {
+    } else if (time === counter) {
         cleanTimer();
         setState(false);
 
@@ -125,7 +134,7 @@ const BetButton: React.FC<TBetButton | IAppState | IAppDispatch> = ({
             setBetValue(bet, count, historyOfBet);
 
             rates ? setRate(false) : setRate2(false);
-            deleteCheck(roundedCount)
+            deleteCheck(bet + counter)
             setCount(1);
         }
 
@@ -151,7 +160,7 @@ const BetButton: React.FC<TBetButton | IAppState | IAppDispatch> = ({
                             <Stage width={0} height={0}>
                                 <Counter time={time} lost={true} count={count} setCount={setCount} />
                             </Stage>
-                            <P>{"cash out " + roundedCount}</P>
+                            <P>{"cash out " + counter}</P>
                         </>
                         : (getToggle ? "autoplay" : "cancel")) : (getToggle ? "autoplay" : lang.betButton)
                 }

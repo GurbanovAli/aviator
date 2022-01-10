@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { setGrPanel } from 'actions'
 import { IAppState, IAppDispatch } from 'store'
 
-import { StyledButton, P3 } from './style'
+import { StyledButton, P2 } from './style'
 
 const mapStateToProps = (state: IAppState) => ({
     lang: state.lang,
@@ -20,7 +20,7 @@ const GrButton: React.FC<IAppState | IAppDispatch> = ({ lang, setGrPanel }: IApp
 
     return (
         <StyledButton onClick={() => setGrPanel()}>
-            <P3> {text + " ?"}</P3>
+            <P2> {text + " ?"}</P2>
         </StyledButton>
     )
 }

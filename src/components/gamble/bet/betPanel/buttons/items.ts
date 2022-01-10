@@ -7,7 +7,7 @@ export const setBetValue = (bet, count, history) => {
     "data": utc,
     "time": "",
     "win": true,
-    "count": +count.toFixed(2)
+    "count": count
   };
 
   const isHistory = history.historyOfBet;

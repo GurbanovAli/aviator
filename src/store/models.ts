@@ -25,6 +25,7 @@ export interface IAppState {
   wintext: boolean;
   stateForms: IStateForms;
   isFlying: boolean;
+  count:  number;
 }
 
 export interface IAppDispatch {
@@ -49,6 +50,7 @@ export interface IAppDispatch {
   setFormState: () => void;
   cleanFormState: () => void;
   setFlying: (item: boolean) => void;
+  setCountReducer: (item: number) => void;
 }
 
 export type TAppActionThunk<TPayload, TReturn = void,> = ThunkAction<

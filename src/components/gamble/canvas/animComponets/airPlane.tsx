@@ -17,6 +17,7 @@ const Airplane: React.FC<IAppState | IAppDispatch> = ({
     time,
     win,
     isFlying,
+    counter,
     addHistory,
     setTimer,
     cleanTimer,
@@ -40,7 +41,7 @@ const Airplane: React.FC<IAppState | IAppDispatch> = ({
         willMount.current = false;
     }
 
-    let i = 0;
+    let k = 0;
     const [x, setX] = useState<number>(10);
     const [y, setY] = useState<number>(940);
     const [xs, setXs] = useState<number>(1);
@@ -48,7 +49,7 @@ const Airplane: React.FC<IAppState | IAppDispatch> = ({
     const [count, setCount] = useState<number>(1);
 
     const lost = x > 10 && isFlying && !time;
-    const roundedCount = count.toFixed(2);
+    const roundedCount = +count.toFixed(2);
 
     const isFlyTextStyle = new PIXI.TextStyle({
         align: 'center',
@@ -88,28 +89,28 @@ const Airplane: React.FC<IAppState | IAppDispatch> = ({
     } else {
         useTick(delta => {
             if (time) {
-                i += 0.002 * delta;
+                k += 0.002 * delta;
 
                 const startXs = x > 1300 && (xs === 250 ? setXs(0) : setXs(xs + 1));
 
                 const speedX = x < 650 ? 4 : (x < 1300 ? 3 : (xs > 125 ? -2 : 2));
                 const getSpeedY = xs === 1 ? setSpeedY(speedY + 0.008) : setSpeedY(xs > 125 ? 1.5 : -1.5);
 
-                setX((i + x) + speedX);
-                setY((y - i) - speedY);
+                setX((k + x) + speedX);
+                setY((y - k) - speedY);
 
                 if (x < 15 && y > 930) { setFlying(true) };
 
             } else if (isFlying) {
 
-                setX((i + x) + 13);
-                setY((y - i) - 7);
+                setX((k + x) + 13);
+                setY((y - k) - 7);
 
                 if (x > 950 && y < 0) {
                     const getHistory = history.history;
 
                     getHistory.pop();
-                    getHistory.unshift(+count.toFixed(2));
+                    getHistory.unshift(roundedCount);
                     addHistory(getHistory);
 
                     setX(10);
@@ -123,7 +124,8 @@ const Airplane: React.FC<IAppState | IAppDispatch> = ({
         });
     };
 
-    if ((!rate && !rate2) && time === +roundedCount) {
+
+    if ((!rate && !rate2) && time === roundedCount) {
         outWintext();
         cleanTimer();
     };
@@ -155,7 +157,7 @@ const Airplane: React.FC<IAppState | IAppDispatch> = ({
             />
             <Graphics draw={draw} ref={graphics.current} />
             {
-                x > 10 && <Counter time={time} lost={win ? false : lost} count={count} setCount={setCount} />
+                x > 10 && <Counter time={time} lost={win ? false : lost} count={count} setCount={setCount} canvas={true}/>
             }
             {
                 lost && <Text text={win ? "вы успели" : "улетел"} anchor={0.5} x={950} y={400} style={isFlyTextStyle} />

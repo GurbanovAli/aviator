@@ -59,7 +59,7 @@ export const P3 = styled.p`
   font-weight: 500;
   line-height: 1;
   color: white;
-  margin: 0.2rem auto;
+  margin: 0.1rem auto;
 `;
 
 export const Select = styled.select`

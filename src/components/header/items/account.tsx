@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { StyledAccount, P2 } from './style'
+import { StyledAccount, P3 } from './style'
 
 import { useSelector } from 'react-redux'
 
@@ -9,7 +9,7 @@ const Account: React.FC = () => {
 
     return (
         <StyledAccount>
-            <P2>{counter}$ </P2>
+            <P3>{counter}$ </P3>
         </StyledAccount>
     )
 }
