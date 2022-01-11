@@ -22,7 +22,7 @@ import {
   FORM_TRUE,
   FORM_FALSE,
   SET_FLYING,
-  SET_ROUNDED_COUNT
+  SET_BET
 } from 'actions'
 
 import data from "../data.json"
@@ -190,8 +190,8 @@ export const isFlyingReducer = (state: boolean = false, { type, value }: boolean
   return state
 };
 
-export const setCountReducer = (state: number = false, { type, count }: string | any) => {
-  if (type === SET_ROUNDED_COUNT) return state = count;
+export const setCountReducer = (state: number = 0, { type, value }: number | any) => {
+  if (type === SET_BET) return state = value;
 
   return state
 };

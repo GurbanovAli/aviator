@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 import * as PIXI from 'pixi.js';
 import { AnimatedSprite, PixiComponent, BitmapText, Text, Graphics, useTick } from '@inlet/react-pixi';
@@ -10,6 +10,7 @@ import Counter from "../../counter"
 import Plane from "animations/plane.png"
 import PlaneJson from "animations/plane.json";
 
+
 const Airplane: React.FC<IAppState | IAppDispatch> = ({
     history,
     rate,
@@ -17,7 +18,7 @@ const Airplane: React.FC<IAppState | IAppDispatch> = ({
     time,
     win,
     isFlying,
-    counter,
+    bet,
     addHistory,
     setTimer,
     cleanTimer,
@@ -77,7 +78,43 @@ const Airplane: React.FC<IAppState | IAppDispatch> = ({
             if (xs < 3.025) {
                 setXs(j + xs);
             } else {
-                setTimer(3)
+
+                const math = (bet, time) => {
+                    const newTime = 1;
+                    const min;
+                    const max;
+                    const betValue = bet != 0 && bet;
+
+                    if (betValue) {
+                        if (bet < 3) {
+                            min = 1;
+                            max = 10;
+                        } else if (bet > 3 && bet < 6) {
+                            min = 1;
+                            max = 4;
+                        } else if (bet > 6 && bet < 9) {
+                            min = 1;
+                            max = 3;
+                        } else {
+                            min = 1;
+                            max = 2;
+                        }
+                    } else {
+                        min = 1;
+                        max = 10;
+                    }
+
+                    const res = Math.random() * (max - min + 1) + min;
+                    newTime = +res.toFixed(2);
+                    console.log(newTime);
+
+                    return time = 2;
+                };
+
+                setTimer(() => {
+                    math(bet, time)
+                });
+
                 setXs(1)
 
                 if (win) {
@@ -119,13 +156,13 @@ const Airplane: React.FC<IAppState | IAppDispatch> = ({
                     setSpeedY(0.5);
                     setCount(1);
                     setFlying(false);
+
                 }
             }
         });
     };
 
-
-    if ((!rate && !rate2) && time === roundedCount) {
+    if ((!rate && !rate2) && time === +count.toFixed(2)) {
         outWintext();
         cleanTimer();
     };
@@ -157,7 +194,7 @@ const Airplane: React.FC<IAppState | IAppDispatch> = ({
             />
             <Graphics draw={draw} ref={graphics.current} />
             {
-                x > 10 && <Counter time={time} lost={win ? false : lost} count={count} setCount={setCount} canvas={true}/>
+                x > 10 && <Counter time={time} lost={win ? false : lost} count={count} setCount={setCount} canvas={true} />
             }
             {
                 lost && <Text text={win ? "вы успели" : "улетел"} anchor={0.5} x={950} y={400} style={isFlyTextStyle} />

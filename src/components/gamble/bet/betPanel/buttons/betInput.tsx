@@ -26,7 +26,7 @@ export default ({ bet, setBet, rates }: TBetInput) => {
             <Input
                 type="text"
                 name="current_bet"
-                value={bet}
+                value={bet != 0 ? bet : 1}
                 onChange={(e) => setBet(+e.target.value)}
             />
             <Button2

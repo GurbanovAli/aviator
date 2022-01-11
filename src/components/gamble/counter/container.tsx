@@ -10,7 +10,7 @@ type TCounter = {
     setCount: (item: number) => void;
 }
 
-const Counter: React.FC<TCounter> = ({ time, lost, count, setCount, canvas }: TCounter) => {
+const Counter: React.FC<TCounter> = ({ time, lost, count, setCount }: TCounter) => {
     const textStyle = new PIXI.TextStyle({
         align: 'center',
         fontFamily: ' Helvetica, sans-serif',
@@ -31,15 +31,14 @@ const Counter: React.FC<TCounter> = ({ time, lost, count, setCount, canvas }: TC
 
     let i = 0;
 
-    if (time) {
-        useTick(delta => {
+    useTick(delta => {
+        if (time) {
             i += 0.002 * delta;
             setCount(i + count)
-        });
-    }
+        }
+    });
 
     const roundedCount = +count.toFixed(2);
-
 
     return (
         <>

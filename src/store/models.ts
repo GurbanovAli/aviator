@@ -25,7 +25,7 @@ export interface IAppState {
   wintext: boolean;
   stateForms: IStateForms;
   isFlying: boolean;
-  count:  number;
+  bet:  number;
 }
 
 export interface IAppDispatch {

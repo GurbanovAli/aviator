@@ -14,7 +14,7 @@ type TBetPanel = {
 }
 
 const BetPanel: React.FC<TBetPanel> = ({ rates, state, setState }: TBetPanel) => {
-    const [bet, setBet] = useState<number>(5);
+    const [bet, setBet] = useState<number>(0);
     const [getCash, setGetCash] = useState<boolean>(false);
 
     return (
