@@ -80,41 +80,39 @@ const Airplane: React.FC<IAppState | IAppDispatch> = ({
             } else {
 
                 const math = (bet, time) => {
-                    const newTime = 1;
-                    const min;
-                    const max;
-                    const betValue = bet != 0 && bet;
+                    let min;
+                    let max;
+                    let betValue = bet != 0 && bet;
 
                     if (betValue) {
-                        if (bet < 3) {
-                            min = 1;
-                            max = 10;
-                        } else if (bet > 3 && bet < 6) {
-                            min = 1;
-                            max = 4;
-                        } else if (bet > 6 && bet < 9) {
-                            min = 1;
-                            max = 3;
-                        } else {
-                            min = 1;
-                            max = 2;
+                        switch (true) {
+                            case bet < 3:
+                                min = 1;
+                                max = 10;
+                                break;
+                            case bet > 3 && bet < 6:
+                                min = 1;
+                                max = 4;
+                                break;
+                            case bet > 6 && bet < 9:
+                                min = 1;
+                                max = 3;
+                                break;
+                            default:
+                                min = 1;
+                                max = 2;
+                                break;
                         }
                     } else {
                         min = 1;
                         max = 10;
                     }
-
                     const res = Math.random() * (max - min + 1) + min;
-                    newTime = +res.toFixed(2);
-                    console.log(newTime);
 
-                    return time = 2;
+                    return time = +res.toFixed(2);
                 };
 
-                setTimer(() => {
-                    math(bet, time)
-                });
-
+                setTimer(math(bet, time));
                 setXs(1)
 
                 if (win) {

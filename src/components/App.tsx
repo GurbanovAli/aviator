@@ -20,7 +20,7 @@ export default function App() {
         <ConnectedRouter history={routeHistory}>
             <Layout>
                 <Header />
-                <Layout style={{ maxWidth:'1600px', height:'820px', background: '#E0E0E0' }}>
+                <Layout style={{ maxWidth:'1600px', maxHeight:'820px', background: '#E0E0E0' }}>
                     <Content>
                         <Switch>
                             <Route exact path="/">

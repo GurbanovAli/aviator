@@ -5,27 +5,27 @@ import { AnimatedSprite, Text } from '@inlet/react-pixi';
 
 import Load from "animations/load.png"
 import LoadJson from "animations/load.json";
-// import Loading from "animations/loading.png"
-// import LoadingJson from "animations/loading.json";
+import Loading from "animations/loading.png"
+import LoadingJson from "animations/loading.json";
 
 const LoadAnim: React.FC = ({ lang } : any) => {
     const willMount = useRef(true);
     const [textures, setTextures] = useState<any[]>([]);
-    // const [ldTextures, setLdTextures] = useState<any[]>([]);
+    const [ldTextures, setLdTextures] = useState<any[]>([]);
 
     const text = lang.loading;
 
     const loadSpritesheet = () => {
         const baseTexture = PIXI.BaseTexture.from(Load);
-        // const baseLdTexture = PIXI.BaseTexture.from(Loading);
+        const baseLdTexture = PIXI.BaseTexture.from(Loading);
         const spritesheet = new PIXI.Spritesheet(baseTexture, LoadJson);
-        // const spritesheetLd = new PIXI.Spritesheet(baseLdTexture, LoadingJson);
+        const spritesheetLd = new PIXI.Spritesheet(baseLdTexture, LoadingJson);
         spritesheet.parse(() => {
             setTextures(Object.keys(spritesheet.textures).map((t, i) => spritesheet.textures[t]));
         })
-        // spritesheetLd.parse(() => {
-        //     setLdTextures(Object.keys(spritesheetLd.textures).map((t, i) => spritesheetLd.textures[t]));
-        // })
+        spritesheetLd.parse(() => {
+            setLdTextures(Object.keys(spritesheetLd.textures).map((t, i) => spritesheetLd.textures[t]));
+        })
     }
 
     if (willMount.current) {
@@ -65,15 +65,15 @@ const LoadAnim: React.FC = ({ lang } : any) => {
             <Text text={text} anchor={0.5} x={960} y={700} style={textStyle} />
 
             {
-                // <AnimatedSprite
-                //     anchor={0}
-                //     position={[600, 800]}
-                //     width={700}
-                //     height={20}
-                //     textures={ldTextures}
-                //     isPlaying={true}
-                //     animationSpeed={0.5}
-                // />
+                <AnimatedSprite
+                    anchor={0}
+                    position={[600, 800]}
+                    width={700}
+                    height={20}
+                    textures={ldTextures}
+                    isPlaying={true}
+                    animationSpeed={0.5}
+                />
             }
         </>
     )
