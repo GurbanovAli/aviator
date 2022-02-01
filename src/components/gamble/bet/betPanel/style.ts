@@ -1,14 +1,38 @@
 import styled from "styled-components";
+import { device } from 'device'
 
 export const StyledPanel = styled.div`
-  width: 25rem;
-  height: 12rem;
+  width: 400px;
+  height: 190px;
   align-content: center;
   text-align: -webkit-center;
   justify-content: space-between;
   padding: 10px;
   background: #090f1f;
   border-radius: 6px;
+
+  @media ${device.laptop} {
+    width: 322px;
+    height: 180px;
+    padding: 5px;
+  }
+
+  @media ${device.tablet} {
+    width: 200px;
+  }
+
+  @media ${device.mobileL} {
+    /* width: 10px;
+    visibility: hidden; */
+  }
+
+  @media ${device.mobileS} {
+    /* width: 10px; */
+  }
+
+  @media ${device.mobileM} {
+    /* width: 10px; */
+  }
 `;
 
 export const StyledForm = styled.form`

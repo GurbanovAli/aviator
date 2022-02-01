@@ -36,7 +36,7 @@ const config = {
   },
   output: {
     path: OUTPUT_PATH,
-    filename: 'js/[name].bundle.js',
+    filename: '[name].bundle.js',
     publicPath: '/'
   },
   resolve: {
@@ -57,6 +57,7 @@ const config = {
       'pages': path.resolve(__dirname, 'src/pages'),
       "icons": path.resolve(__dirname, 'src/icons'),
       "animations": path.resolve(__dirname, 'src/animations'),
+      "device": path.resolve(__dirname, 'src/device')
     }
   },
   devtool: 'source-map',

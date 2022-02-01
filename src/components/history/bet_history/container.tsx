@@ -13,7 +13,7 @@ const mapStateToProps = (state: IAppState) => ({
 
 const connector = connect(mapStateToProps);
 
-const Item: React.FC = ({ lang, historyOfBet }: IAppState) => (
+const Item: React.FC<IAppState> = ({ lang, historyOfBet }: IAppState) => (
     <>
         <Div2>
             <p> {lang.history.values[0]} </p>
@@ -22,8 +22,8 @@ const Item: React.FC = ({ lang, historyOfBet }: IAppState) => (
             <p> {lang.history.values[3]} </p>
         </Div2>
         {
-            historyOfBet.historyOfBet.map((item) => (
-                <Div>
+            historyOfBet.historyOfBet.map((item, index) => (
+                <Div key={index}>
                     <P1> {item.bet}{item.currency} </P1>
                     <P2> {lang.history.values[4] + " " + item.data} </P2>
                     <P3> {item.win ? lang.history.values[5] : " - "} </P3>
@@ -34,7 +34,7 @@ const Item: React.FC = ({ lang, historyOfBet }: IAppState) => (
     </>
 );
 
-const History: React.FC = ({ lang, historyOfBet }: IAppState) => (
+const History: React.FC<IAppState> = ({ lang, historyOfBet }: IAppState) => (
     <StyledContainer>
         <Item lang={lang} historyOfBet={historyOfBet} />
     </StyledContainer>

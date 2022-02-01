@@ -3,6 +3,8 @@ import React from 'react';
 import * as PIXI from 'pixi.js';
 import { Text, useTick } from '@inlet/react-pixi';
 
+import { device, size } from 'device'
+
 type TCounter = {
     time: number;
     lost: boolean;
@@ -11,10 +13,26 @@ type TCounter = {
 }
 
 const Counter: React.FC<TCounter> = ({ time, lost, count, setCount }: TCounter) => {
+
+    const { innerWidth: width, innerHeight: height } = window;
+    const isSize = Object.values(size);
+    const setSize = isSize.find(item => item >= window.innerWidth);
+
+    const setСoordinates = (size, boolean) => {
+        switch (size) {
+            case '1024':
+                return boolean ? 780: 500;
+            case '700':
+                return 420;
+            default:
+                return boolean ? 940 : 600;
+        }
+    }
+
     const textStyle = new PIXI.TextStyle({
         align: 'center',
         fontFamily: ' Helvetica, sans-serif',
-        fontSize: 240,
+        fontSize: window.innerWidth === 1024 ? 200 : 240,
         fontWeight: "500",
         fill: lost ? ['#ff675c', '#ff4133'] : ['#ffffff', '#bad5ff'],
         stroke: '#63a0ff',
@@ -42,7 +60,7 @@ const Counter: React.FC<TCounter> = ({ time, lost, count, setCount }: TCounter) 
 
     return (
         <>
-            <Text text={roundedCount + "x"} anchor={0.5} x={940} y={600} style={textStyle} />
+            <Text text={roundedCount + "x"} anchor={0.5} x={setСoordinates(setSize, true)} y={setСoordinates(setSize)} style={textStyle} />
         </>
     )
 }

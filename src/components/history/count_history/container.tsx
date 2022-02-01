@@ -17,13 +17,11 @@ const connector = connect(mapStateToProps);
 const History: React.FC<IAppState> = ({ history }: IAppState) => {
 
     const [toggle, setToggle] = useState<boolean>(false);
-    const start = toggle ? 15 : 0
-    const end = toggle ? 29 : 14;
 
     return (
         <StyledContainer toggle={toggle}>
             {
-                history.history.slice(start, end).map((item, index) => (<P key={index}>{item + "x"}</P>)
+                history.history.slice((toggle ? 15 : 0), (toggle ? 29 : 14)).map((item, index) => (<P key={index}>{item + "x"}</P>)
             }
 
             <Button onClick={() => setToggle(!toggle)}><img src={ toggle ? back : next} /></Button>

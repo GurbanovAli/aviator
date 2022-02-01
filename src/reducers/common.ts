@@ -40,11 +40,11 @@ export interface ICommonState {
 };
 
 export interface IHistory {
-  history: number[];
+  history: any;
 };
 
 export interface IHistoryOfBet {
-  historyOfBet: any[];
+  historyOfBet: any;
 };
 
 export interface ICheck {
@@ -83,14 +83,14 @@ export const langReducer =  (state: any = data.en, { type, lang }: any) => {
   return state
 };
 
-export const historyOfBetReducer =  (state: any[] = initHistoryOfBetState, { type, arr }: any[] | any) => {
+export const historyOfBetReducer =  (state: any = initHistoryOfBetState, { type, arr }: any | any) => {
   if (type === ADD_HISTORY_OF_BET) {
     return { historyOfBet: arr }
   }
   return state
 };
 
-export const historyReducer =  (state: number[] = initHistoryState, { type, arr }: number[] | any) => {
+export const historyReducer =  (state: any = initHistoryState, { type, arr }: any) => {
   if (type === ADD_HISTORY) {
     return { history: arr }
   }

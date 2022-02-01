@@ -40,7 +40,7 @@ const rootReducer = combineReducers<IAppState>({
   wintext: winTextReducer,
   stateForms: formReducer,
   isFlying: isFlyingReducer,
-  bet: setCountReducer;
+  bet: setCountReducer
 });
 
 export default rootReducer

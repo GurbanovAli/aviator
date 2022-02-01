@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch: IAppDispatch) => ({
     setGrPanel: () => dispatch(setGrPanel())
 });
 
-const GrButton: React.FC<IAppState | IAppDispatch> = ({ lang, setGrPanel }: IAppState | IAppDispatch) => {
+const GrButton: React.FC<IAppState & IAppDispatch> = ({ lang, setGrPanel }: IAppState & IAppDispatch) => {
     const text = lang.settings.gamerules;
 
     return (

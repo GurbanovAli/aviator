@@ -23,5 +23,5 @@ const StyledHeader = styled.header`
   padding: 10px;
   align-items:center;
   color:#fff;
-  padding: 0 2rem;
+  padding: 0 2.5em;
 `

@@ -45,6 +45,7 @@ export interface IAppDispatch {
   closeToggleTwo: () => void;
   setTimer: (item: number) => void;
   cleanTimer: () => void;
+  setGrPanel: () => any;
   outWintext: () => void;
   setWintext: () => void;
   setFormState: () => void;

@@ -3,6 +3,8 @@ import React, { useState, useRef } from 'react';
 import * as PIXI from 'pixi.js';
 import { AnimatedSprite, Text } from '@inlet/react-pixi';
 
+import { device, size } from 'device'
+
 import Load from "animations/load.png"
 import LoadJson from "animations/load.json";
 import Loading from "animations/loading.png"
@@ -33,6 +35,21 @@ const LoadAnim: React.FC = ({ lang } : any) => {
         willMount.current = false;
     }
 
+    const { innerWidth: width, innerHeight: height } = window;
+    const isSize = Object.values(size);
+    const setSize = isSize.find(item => item >= window.innerWidth);
+
+    const setСoordinates = (size, boolean) => {
+        switch (size) {
+            case '1024':
+                return boolean ? [600, 140]: [500, 800];
+            case '700':
+                return 420;
+            default:
+                return boolean ? [700, 160] : [600, 800];
+        }
+    }
+
     const textStyle = new PIXI.TextStyle({
         align: 'center',
         fontFamily: ' sans-serif',
@@ -55,7 +72,7 @@ const LoadAnim: React.FC = ({ lang } : any) => {
         <>
             <AnimatedSprite
                 anchor={0}
-                position={[700, 160]}
+                position={setСoordinates(setSize, true)}
                 width={490}
                 height={490}
                 textures={textures}
@@ -67,7 +84,7 @@ const LoadAnim: React.FC = ({ lang } : any) => {
             {
                 <AnimatedSprite
                     anchor={0}
-                    position={[600, 800]}
+                    position={setСoordinates(setSize)}
                     width={700}
                     height={20}
                     textures={ldTextures}

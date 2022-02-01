@@ -7,6 +7,7 @@ import { IAppState, IAppDispatch } from 'store'
 import { Stage } from '@inlet/react-pixi';
 
 import { StyledContainer } from './style';
+import { device, size } from "device"
 
 import BackgroundAnim from "./animComponets/background"
 import LoadAnim from "./animComponets/load"
@@ -50,12 +51,24 @@ const Canvas: React.FC<IAppState | IAppDispatch> = ({ ...props }: IAppState | IA
 
     const getStart = time || isFlying;
 
-    // const { innerWidth: width, innerHeight: height } = window;
-    // const stageWidth = innerWidth > 1280 ? 800 : 600;
+    const { innerWidth: width, innerHeight: height } = window;
+    const isSize = Object.values(size);
+    const setSize = isSize.find(item => item >= window.innerWidth);
+
+    const setWidth = (size, boolean) => {
+        switch (size) {
+            case '1024':
+                return boolean ? 664: 340;
+            case '700':
+                return 420;
+            default:
+                return boolean ? 800: 400;
+        }
+    }
 
     return (
         <StyledContainer>
-            <Stage width={800} height={400} options={{ autoDensity: true, backgroundColor: 0x4D6BC8 }}>
+            <Stage width={setWidth(setSize, true)} height={setWidth(setSize)} options={{ autoDensity: true, backgroundColor: 0x4D6BC8 }}>
                 <BackgroundAnim
                     getStart={getStart}
                     load={<LoadAnim lang={lang} />}

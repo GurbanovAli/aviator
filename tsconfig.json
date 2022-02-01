@@ -38,6 +38,7 @@
       "components/*": ["src/components/*"],
       "icons": ["src/icons"],
       "animations": ["src/animations"],
+      "device": ["src/device"]
     }
   },
   "include": [
